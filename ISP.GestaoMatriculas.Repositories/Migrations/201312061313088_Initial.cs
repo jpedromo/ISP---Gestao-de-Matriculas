@@ -24,30 +24,30 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                 "dbo.Apolices",
                 c => new
                     {
-                        apoliceId = c.Int(nullable: false, identity: true),
-                        entidadeId = c.Int(),
-                        tomadorId = c.Int(nullable: false),
-                        veiculoId = c.Int(nullable: false),
-                        concelhoCirculacaoId = c.Int(nullable: false),
-                        numeroApolice = c.String(),
-                        numeroCertificadoProvisorio = c.String(),
-                        dataInicio = c.DateTime(nullable: false),
-                        dataFim = c.DateTime(nullable: false),
-                        dataFimPlaneada = c.DateTime(nullable: false),
-                        dataReporte = c.DateTime(nullable: false),
-                        eventoHistoricoId = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        EntidadeId = c.Int(nullable: false),
+                        TomadorId = c.Int(nullable: false),
+                        VeiculoId = c.Int(nullable: false),
+                        ConcelhoCirculacaoId = c.Int(nullable: false),
+                        NumeroApolice = c.String(),
+                        NumeroCertificadoProvisorio = c.String(),
+                        DataInicio = c.DateTime(nullable: false),
+                        DataFim = c.DateTime(nullable: false),
+                        DataFimPlaneada = c.DateTime(nullable: false),
+                        DataReporte = c.DateTime(nullable: false),
+                        EventoHistoricoId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.apoliceId)
-                .ForeignKey("dbo.Concelhos", t => t.concelhoCirculacaoId, cascadeDelete: true)
-                .ForeignKey("dbo.Entidades", t => t.entidadeId)
-                .ForeignKey("dbo.EventosHistorico", t => t.eventoHistoricoId, cascadeDelete: true)
-                .ForeignKey("dbo.Segurados", t => t.tomadorId, cascadeDelete: true)
-                .ForeignKey("dbo.Veiculos", t => t.veiculoId, cascadeDelete: true)
-                .Index(t => t.concelhoCirculacaoId)
-                .Index(t => t.entidadeId)
-                .Index(t => t.eventoHistoricoId)
-                .Index(t => t.tomadorId)
-                .Index(t => t.veiculoId);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Concelhos", t => t.ConcelhoCirculacaoId, cascadeDelete: true)
+                .ForeignKey("dbo.Entidades", t => t.EntidadeId, cascadeDelete: true)
+                .ForeignKey("dbo.EventosHistorico", t => t.EventoHistoricoId, cascadeDelete: true)
+                .ForeignKey("dbo.Segurados", t => t.TomadorId, cascadeDelete: true)
+                .ForeignKey("dbo.Veiculos", t => t.VeiculoId, cascadeDelete: true)
+                .Index(t => t.ConcelhoCirculacaoId)
+                .Index(t => t.EntidadeId)
+                .Index(t => t.EventoHistoricoId)
+                .Index(t => t.TomadorId)
+                .Index(t => t.VeiculoId);
             
             CreateTable(
                 "dbo.AvisosApolice",
@@ -59,27 +59,25 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                         descricao = c.String(),
                         campo = c.String(),
                     })
-                .PrimaryKey(t => t.AvisoApoliceId)
-                .ForeignKey("dbo.Apolices", t => t.apoliceId, cascadeDelete: true)
-                .Index(t => t.apoliceId);
+                .PrimaryKey(t => t.AvisoApoliceId);
             
             CreateTable(
                 "dbo.Concelhos",
                 c => new
                     {
-                        concelhoId = c.Int(nullable: false, identity: true),
-                        codigoConcelho = c.String(),
-                        nomeConcelho = c.String(),
+                        Id = c.Int(nullable: false, identity: true),
+                        Codigo = c.String(),
+                        Nome = c.String(),
                     })
-                .PrimaryKey(t => t.concelhoId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Entidades",
                 c => new
                     {
-                        entidadeId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         roleId = c.Int(nullable: false),
-                        nome = c.String(),
+                        Nome = c.String(),
                         codigoSeguradora = c.String(),
                         nomeResponsavel = c.String(),
                         emailResponsavel = c.String(),
@@ -87,87 +85,9 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                         scope = c.Int(nullable: false),
                         ativo = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.entidadeId)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.webpages_Roles", t => t.roleId, cascadeDelete: true)
                 .Index(t => t.roleId);
-            
-            CreateTable(
-                "dbo.ApolicesHistorico",
-                c => new
-                    {
-                        apoliceId = c.Int(nullable: false, identity: true),
-                        entidadeId = c.Int(),
-                        tomadorId = c.Int(nullable: false),
-                        veiculoId = c.Int(nullable: false),
-                        concelhoCirculacaoId = c.Int(nullable: false),
-                        numeroApolice = c.String(),
-                        numeroCertificadoProvisorio = c.String(),
-                        dataInicio = c.DateTime(nullable: false),
-                        dataFim = c.DateTime(nullable: false),
-                        dataFimPlaneada = c.DateTime(nullable: false),
-                        dataReporte = c.DateTime(nullable: false),
-                        eventoHistoricoId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.apoliceId)
-                .ForeignKey("dbo.Concelhos", t => t.concelhoCirculacaoId, cascadeDelete: true)
-                .ForeignKey("dbo.EventosHistorico", t => t.eventoHistoricoId, cascadeDelete: true)
-                .ForeignKey("dbo.Segurados", t => t.tomadorId, cascadeDelete: true)
-                .ForeignKey("dbo.Veiculos", t => t.veiculoId, cascadeDelete: true)
-                .ForeignKey("dbo.Entidades", t => t.entidadeId)
-                .Index(t => t.concelhoCirculacaoId)
-                .Index(t => t.eventoHistoricoId)
-                .Index(t => t.tomadorId)
-                .Index(t => t.veiculoId)
-                .Index(t => t.entidadeId);
-            
-            CreateTable(
-                "dbo.EventosHistorico",
-                c => new
-                    {
-                        eventoHistoricoId = c.Int(nullable: false, identity: true),
-                        idOcorrencia = c.String(),
-                        codigoOperacao = c.String(),
-                        seguradoraId = c.String(),
-                    })
-                .PrimaryKey(t => t.eventoHistoricoId);
-            
-            CreateTable(
-                "dbo.Segurados",
-                c => new
-                    {
-                        pessoaId = c.Int(nullable: false, identity: true),
-                        nome = c.String(),
-                        numeroIdentificacao = c.String(),
-                        nif = c.String(),
-                        morada = c.String(),
-                        codigoPostal = c.String(),
-                    })
-                .PrimaryKey(t => t.pessoaId);
-            
-            CreateTable(
-                "dbo.Veiculos",
-                c => new
-                    {
-                        veiculoId = c.Int(nullable: false, identity: true),
-                        categoriaId = c.Int(nullable: false),
-                        anoConstrucao = c.String(),
-                        numeroMatricula = c.String(),
-                        marcaVeiculo = c.String(),
-                        modeloVeiculo = c.String(),
-                    })
-                .PrimaryKey(t => t.veiculoId)
-                .ForeignKey("dbo.Categorias", t => t.categoriaId, cascadeDelete: true)
-                .Index(t => t.categoriaId);
-            
-            CreateTable(
-                "dbo.Categorias",
-                c => new
-                    {
-                        categoriaId = c.Int(nullable: false, identity: true),
-                        codigoCategoriaVeiculo = c.String(),
-                        nome = c.String(),
-                    })
-                .PrimaryKey(t => t.categoriaId);
             
             CreateTable(
                 "dbo.EventosStagging",
@@ -176,7 +96,7 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                         eventoStaggingId = c.Int(nullable: false, identity: true),
                         idOcorrencia = c.String(),
                         CodigoOperacao = c.String(),
-                        entidadId = c.Int(nullable: false),
+                        entidadId = c.Int(),
                         nrApolice = c.String(),
                         nrCertificadoProvisorio = c.String(),
                         dataInicioCobertura = c.String(),
@@ -195,10 +115,10 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                         ficheiroID = c.Int(),
                     })
                 .PrimaryKey(t => t.eventoStaggingId)
+                .ForeignKey("dbo.Entidades", t => t.entidadId)
                 .ForeignKey("dbo.Ficheiros", t => t.ficheiroID)
-                .ForeignKey("dbo.Entidades", t => t.entidadId, cascadeDelete: true)
-                .Index(t => t.ficheiroID)
-                .Index(t => t.entidadId);
+                .Index(t => t.entidadId)
+                .Index(t => t.ficheiroID);
             
             CreateTable(
                 "dbo.ErrosEventoStagging",
@@ -315,6 +235,55 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.EventosHistorico",
+                c => new
+                    {
+                        eventoHistoricoId = c.Int(nullable: false, identity: true),
+                        idOcorrencia = c.String(),
+                        codigoOperacao = c.String(),
+                        seguradoraId = c.String(),
+                    })
+                .PrimaryKey(t => t.eventoHistoricoId);
+            
+            CreateTable(
+                "dbo.Segurados",
+                c => new
+                    {
+                        pessoaId = c.Int(nullable: false, identity: true),
+                        nome = c.String(),
+                        numeroIdentificacao = c.String(),
+                        nif = c.String(),
+                        morada = c.String(),
+                        codigoPostal = c.String(),
+                    })
+                .PrimaryKey(t => t.pessoaId);
+            
+            CreateTable(
+                "dbo.Veiculos",
+                c => new
+                    {
+                        veiculoId = c.Int(nullable: false, identity: true),
+                        categoriaId = c.Int(nullable: false),
+                        anoConstrucao = c.String(),
+                        numeroMatricula = c.String(),
+                        marcaVeiculo = c.String(),
+                        modeloVeiculo = c.String(),
+                    })
+                .PrimaryKey(t => t.veiculoId)
+                .ForeignKey("dbo.Categorias", t => t.categoriaId, cascadeDelete: true)
+                .Index(t => t.categoriaId);
+            
+            CreateTable(
+                "dbo.Categorias",
+                c => new
+                    {
+                        categoriaId = c.Int(nullable: false, identity: true),
+                        codigoCategoriaVeiculo = c.String(),
+                        nome = c.String(),
+                    })
+                .PrimaryKey(t => t.categoriaId);
+            
+            CreateTable(
                 "dbo.UserProfile",
                 c => new
                     {
@@ -343,60 +312,98 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
+            CreateTable(
+                "dbo.ApolicesHistorico",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Entidade_Id = c.Int(),
+                        EntidadeId = c.Int(nullable: false),
+                        TomadorId = c.Int(nullable: false),
+                        VeiculoId = c.Int(nullable: false),
+                        ConcelhoCirculacaoId = c.Int(nullable: false),
+                        NumeroApolice = c.String(),
+                        NumeroCertificadoProvisorio = c.String(),
+                        DataInicio = c.DateTime(nullable: false),
+                        DataFim = c.DateTime(nullable: false),
+                        DataFimPlaneada = c.DateTime(nullable: false),
+                        DataReporte = c.DateTime(nullable: false),
+                        EventoHistoricoId = c.Int(nullable: false),
+                        ApoliceId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Entidades", t => t.Entidade_Id)
+                .ForeignKey("dbo.Entidades", t => t.EntidadeId, cascadeDelete: true)
+                .ForeignKey("dbo.Segurados", t => t.TomadorId, cascadeDelete: true)
+                .ForeignKey("dbo.Veiculos", t => t.VeiculoId, cascadeDelete: true)
+                .ForeignKey("dbo.Concelhos", t => t.ConcelhoCirculacaoId, cascadeDelete: true)
+                .ForeignKey("dbo.EventosHistorico", t => t.EventoHistoricoId, cascadeDelete: true)
+                .Index(t => t.Entidade_Id)
+                .Index(t => t.EntidadeId)
+                .Index(t => t.TomadorId)
+                .Index(t => t.VeiculoId)
+                .Index(t => t.ConcelhoCirculacaoId)
+                .Index(t => t.EventoHistoricoId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.ApolicesHistorico", "EventoHistoricoId", "dbo.EventosHistorico");
+            DropForeignKey("dbo.ApolicesHistorico", "ConcelhoCirculacaoId", "dbo.Concelhos");
+            DropForeignKey("dbo.ApolicesHistorico", "VeiculoId", "dbo.Veiculos");
+            DropForeignKey("dbo.ApolicesHistorico", "TomadorId", "dbo.Segurados");
+            DropForeignKey("dbo.ApolicesHistorico", "EntidadeId", "dbo.Entidades");
+            DropForeignKey("dbo.ApolicesHistorico", "Entidade_Id", "dbo.Entidades");
             DropForeignKey("dbo.UserProfile", "entidadeId", "dbo.Entidades");
-            DropForeignKey("dbo.Apolices", "veiculoId", "dbo.Veiculos");
-            DropForeignKey("dbo.Apolices", "tomadorId", "dbo.Segurados");
-            DropForeignKey("dbo.Apolices", "eventoHistoricoId", "dbo.EventosHistorico");
+            DropForeignKey("dbo.Apolices", "VeiculoId", "dbo.Veiculos");
+            DropForeignKey("dbo.Veiculos", "categoriaId", "dbo.Categorias");
+            DropForeignKey("dbo.Apolices", "TomadorId", "dbo.Segurados");
+            DropForeignKey("dbo.Apolices", "EventoHistoricoId", "dbo.EventosHistorico");
             DropForeignKey("dbo.Entidades", "roleId", "dbo.webpages_Roles");
             DropForeignKey("dbo.webpages_UsersInRoles", "RoleId", "dbo.webpages_Roles");
             DropForeignKey("dbo.webpages_UsersInRoles", "UserId", "dbo.webpages_Membership");
             DropForeignKey("dbo.webpages_OAuthMembership", "UserId", "dbo.webpages_Membership");
             DropForeignKey("dbo.Notificacoes", "entidadeId", "dbo.Entidades");
             DropForeignKey("dbo.Indicadores", "entidadeId", "dbo.Entidades");
-            DropForeignKey("dbo.EventosStagging", "entidadId", "dbo.Entidades");
             DropForeignKey("dbo.EventosStagging", "ficheiroID", "dbo.Ficheiros");
             DropForeignKey("dbo.ErrosFicheiro", "ficheiroId", "dbo.Ficheiros");
             DropForeignKey("dbo.Ficheiros", "entidadeId", "dbo.Entidades");
             DropForeignKey("dbo.ErrosEventoStagging", "eventoStaggingId", "dbo.EventosStagging");
-            DropForeignKey("dbo.ApolicesHistorico", "entidadeId", "dbo.Entidades");
-            DropForeignKey("dbo.ApolicesHistorico", "veiculoId", "dbo.Veiculos");
-            DropForeignKey("dbo.Veiculos", "categoriaId", "dbo.Categorias");
-            DropForeignKey("dbo.ApolicesHistorico", "tomadorId", "dbo.Segurados");
-            DropForeignKey("dbo.ApolicesHistorico", "eventoHistoricoId", "dbo.EventosHistorico");
-            DropForeignKey("dbo.ApolicesHistorico", "concelhoCirculacaoId", "dbo.Concelhos");
-            DropForeignKey("dbo.Apolices", "entidadeId", "dbo.Entidades");
-            DropForeignKey("dbo.Apolices", "concelhoCirculacaoId", "dbo.Concelhos");
-            DropForeignKey("dbo.AvisosApolice", "apoliceId", "dbo.Apolices");
+            DropForeignKey("dbo.EventosStagging", "entidadId", "dbo.Entidades");
+            DropForeignKey("dbo.Apolices", "EntidadeId", "dbo.Entidades");
+            DropForeignKey("dbo.Apolices", "ConcelhoCirculacaoId", "dbo.Concelhos");
+            DropIndex("dbo.ApolicesHistorico", new[] { "EventoHistoricoId" });
+            DropIndex("dbo.ApolicesHistorico", new[] { "ConcelhoCirculacaoId" });
+            DropIndex("dbo.ApolicesHistorico", new[] { "VeiculoId" });
+            DropIndex("dbo.ApolicesHistorico", new[] { "TomadorId" });
+            DropIndex("dbo.ApolicesHistorico", new[] { "EntidadeId" });
+            DropIndex("dbo.ApolicesHistorico", new[] { "Entidade_Id" });
             DropIndex("dbo.UserProfile", new[] { "entidadeId" });
-            DropIndex("dbo.Apolices", new[] { "veiculoId" });
-            DropIndex("dbo.Apolices", new[] { "tomadorId" });
-            DropIndex("dbo.Apolices", new[] { "eventoHistoricoId" });
+            DropIndex("dbo.Apolices", new[] { "VeiculoId" });
+            DropIndex("dbo.Veiculos", new[] { "categoriaId" });
+            DropIndex("dbo.Apolices", new[] { "TomadorId" });
+            DropIndex("dbo.Apolices", new[] { "EventoHistoricoId" });
             DropIndex("dbo.Entidades", new[] { "roleId" });
             DropIndex("dbo.webpages_UsersInRoles", new[] { "RoleId" });
             DropIndex("dbo.webpages_UsersInRoles", new[] { "UserId" });
             DropIndex("dbo.webpages_OAuthMembership", new[] { "UserId" });
             DropIndex("dbo.Notificacoes", new[] { "entidadeId" });
             DropIndex("dbo.Indicadores", new[] { "entidadeId" });
-            DropIndex("dbo.EventosStagging", new[] { "entidadId" });
             DropIndex("dbo.EventosStagging", new[] { "ficheiroID" });
             DropIndex("dbo.ErrosFicheiro", new[] { "ficheiroId" });
             DropIndex("dbo.Ficheiros", new[] { "entidadeId" });
             DropIndex("dbo.ErrosEventoStagging", new[] { "eventoStaggingId" });
-            DropIndex("dbo.ApolicesHistorico", new[] { "entidadeId" });
-            DropIndex("dbo.ApolicesHistorico", new[] { "veiculoId" });
-            DropIndex("dbo.Veiculos", new[] { "categoriaId" });
-            DropIndex("dbo.ApolicesHistorico", new[] { "tomadorId" });
-            DropIndex("dbo.ApolicesHistorico", new[] { "eventoHistoricoId" });
-            DropIndex("dbo.ApolicesHistorico", new[] { "concelhoCirculacaoId" });
-            DropIndex("dbo.Apolices", new[] { "entidadeId" });
-            DropIndex("dbo.Apolices", new[] { "concelhoCirculacaoId" });
-            DropIndex("dbo.AvisosApolice", new[] { "apoliceId" });
+            DropIndex("dbo.EventosStagging", new[] { "entidadId" });
+            DropIndex("dbo.Apolices", new[] { "EntidadeId" });
+            DropIndex("dbo.Apolices", new[] { "ConcelhoCirculacaoId" });
+            DropTable("dbo.ApolicesHistorico");
             DropTable("dbo.webpages_UsersInRoles");
             DropTable("dbo.UserProfile");
+            DropTable("dbo.Categorias");
+            DropTable("dbo.Veiculos");
+            DropTable("dbo.Segurados");
+            DropTable("dbo.EventosHistorico");
             DropTable("dbo.webpages_OAuthMembership");
             DropTable("dbo.webpages_Membership");
             DropTable("dbo.webpages_Roles");
@@ -406,11 +413,6 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
             DropTable("dbo.Ficheiros");
             DropTable("dbo.ErrosEventoStagging");
             DropTable("dbo.EventosStagging");
-            DropTable("dbo.Categorias");
-            DropTable("dbo.Veiculos");
-            DropTable("dbo.Segurados");
-            DropTable("dbo.EventosHistorico");
-            DropTable("dbo.ApolicesHistorico");
             DropTable("dbo.Entidades");
             DropTable("dbo.Concelhos");
             DropTable("dbo.AvisosApolice");

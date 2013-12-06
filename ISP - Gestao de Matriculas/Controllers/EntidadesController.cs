@@ -42,7 +42,7 @@ namespace ISP.GestaoMatriculas.Controllers
 
         public ActionResult Details(int id)
         {
-            Entidade entidade = entidadesRepository.All.Include("role").Single(e => e.entidadeId == id);
+            Entidade entidade = entidadesRepository.All.Include("role").Single(e => e.Id == id);
 
             return View(entidade);
         }
@@ -140,7 +140,7 @@ namespace ISP.GestaoMatriculas.Controllers
         {
             UserProfile user = usersRepository.All.Include("entidade").Single(u => u.UserId == WebSecurity.CurrentUserId);
 
-            EntityProfileViewModel model = new EntityProfileViewModel{ entityId = user.entidade.entidadeId,
+            EntityProfileViewModel model = new EntityProfileViewModel{ entityId = user.entidade.Id,
                 nomeResponsavel = user.entidade.nomeResponsavel, emailResponsavel = user.entidade.emailResponsavel,
                  telefoneResponsavel = user.entidade.telefoneResponsavel};
 
@@ -149,7 +149,7 @@ namespace ISP.GestaoMatriculas.Controllers
                 : "";
 
             ViewBag.ReturnUrl = Url.Action("Manage");
-            ViewBag.NomeEntidade = user.entidade.nome;
+            ViewBag.NomeEntidade = user.entidade.Nome;
             return View(model);
         }
 
@@ -166,7 +166,7 @@ namespace ISP.GestaoMatriculas.Controllers
             {
                 user = usersRepository.All.Include("entidade").Single(u => u.UserId == WebSecurity.CurrentUserId);
 
-                if (user.entidade.entidadeId != editedEntity.entityId)
+                if (user.entidade.Id != editedEntity.entityId)
                 {
                     throw new InvalidOperationException("Authenticated user does have permission to edit this Entity");
                 }
@@ -188,7 +188,7 @@ namespace ISP.GestaoMatriculas.Controllers
                 usersRepository.Save();
 
                 ViewBag.ReturnUrl = Url.Action("Manage");
-                ViewBag.NomeEntidade = entidade.nome;
+                ViewBag.NomeEntidade = entidade.Nome;
                 return RedirectToAction("Manage", new { Message = ManageMessageId.ChangeSuccess });
             }           
             // If we got this far, something failed, redisplay form
@@ -203,7 +203,7 @@ namespace ISP.GestaoMatriculas.Controllers
             Entidade entidade = null;
             try
             {
-                entidade = entidadesRepository.All.Include("role").Single(e => e.entidadeId == id);
+                entidade = entidadesRepository.All.Include("role").Single(e => e.Id == id);
             }
             catch (InvalidOperationException) { return this.HttpNotFound(); }
             catch (ArgumentNullException) { return this.HttpNotFound(); }
@@ -220,7 +220,7 @@ namespace ISP.GestaoMatriculas.Controllers
             Entidade entidade = null;
             try
             {
-                entidade = entidadesRepository.All.Include("role").Single(e => e.entidadeId == id);
+                entidade = entidadesRepository.All.Include("role").Single(e => e.Id == id);
             }
             catch (InvalidOperationException) { return this.HttpNotFound(); }
             catch (ArgumentNullException) { return this.HttpNotFound(); }
@@ -228,7 +228,7 @@ namespace ISP.GestaoMatriculas.Controllers
             List<UserProfile> undoList = new List<UserProfile>();
 
             bool deactivationSuccess = true;
-            foreach(UserProfile user in usersRepository.All.Where<UserProfile>(u => u.entidadeId == entidade.entidadeId).ToList()){
+            foreach(UserProfile user in usersRepository.All.Where<UserProfile>(u => u.entidadeId == entidade.Id).ToList()){
                 if (UserUtils.deactivate(user))
                 {
                     undoList.Add(user);
@@ -271,7 +271,7 @@ namespace ISP.GestaoMatriculas.Controllers
             Entidade entidade = null;
             try
             {
-                entidade = entidadesRepository.All.Include("role").Single(e => e.entidadeId == id);
+                entidade = entidadesRepository.All.Include("role").Single(e => e.Id == id);
             }
             catch (InvalidOperationException) { return this.HttpNotFound(); }
             catch (ArgumentNullException) { return this.HttpNotFound(); }

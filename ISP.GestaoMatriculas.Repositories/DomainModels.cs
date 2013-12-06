@@ -6,6 +6,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using ISP.GestaoMatriculas.Model;
 using ISP.GestaoMatriculas.Model.Indicadores;
+using System.Data.Entity.Core.Objects;
+using System.Data.Common;
 
 namespace ISP.GestaoMatriculas.Model
 {
@@ -36,11 +38,64 @@ namespace ISP.GestaoMatriculas.Model
         public DbSet<EventoHistorico> EventosHistorico { get; set; }
         public DbSet<ErroEventoStagging> ErrosEventoStagging { get; set; }
 
+        public override int SaveChanges()
+        {
+            ChangeTracker.DetectChanges(); // Important!
+
+            ObjectContext ctx = ((IObjectContextAdapter)this).ObjectContext;
+
+            List<ObjectStateEntry> objectStateEntryList =
+                ctx.ObjectStateManager.GetObjectStateEntries(EntityState.Added
+                                                           | EntityState.Modified
+                                                           | EntityState.Deleted)
+                .ToList();
+
+            foreach (ObjectStateEntry entry in objectStateEntryList)
+            {
+                if (!entry.IsRelationship)
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            // write log...
+                            break;
+                        case EntityState.Deleted:
+                            // write log...
+                            break;
+                        case EntityState.Modified:
+                            {
+                                foreach (string propertyName in
+                                             entry.GetModifiedProperties())
+                                {
+                                    DbDataRecord original = entry.OriginalValues;
+                                    string oldValue = original.GetValue(
+                                        original.GetOrdinal(propertyName))
+                                        .ToString();
+
+                                    CurrentValueRecord current = entry.CurrentValues;
+                                    string newValue = current.GetValue(
+                                        current.GetOrdinal(propertyName))
+                                        .ToString();
+
+                                    if (oldValue != newValue) // probably not necessary
+                                    {
+                                        //Log.WriteAudit(
+                                        //    "Entry: {0} Original :{1} New: {2}",
+                                        //    entry.Entity.GetType().Name,
+                                        //    oldValue, newValue);
+                                    }
+                                }
+                                break;
+                            }
+                    }
+                }
+            }
+            return base.SaveChanges();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Apolice>().ToTable("Apolices");
-            modelBuilder.Entity<ApoliceHistorico>().ToTable("ApolicesHistorico");
             modelBuilder.Entity<AvisoApolice>().ToTable("AvisosApolice");
 
             modelBuilder.Entity<Veiculo>().ToTable("Veiculos");
@@ -60,18 +115,25 @@ namespace ISP.GestaoMatriculas.Model
 
             modelBuilder.Entity<Indicador>().ToTable("Indicadores");
 
-            //TODO: mudar para required em vez de optional. Refazer controlador de Apolices para conter a mudança.
-            modelBuilder.Entity<Entidade>().HasMany<Apolice>(e => e.apolices).WithOptional(a => a.entidade);
-            modelBuilder.Entity<Entidade>().HasMany<ApoliceHistorico>(e => e.apolicesHistorico).WithOptional(a => a.entidade);
-            
-            modelBuilder.Entity<Entidade>().HasMany<Notificacao>(e => e.notificacoes).WithOptional(n => n.entidade);
-            modelBuilder.Entity<Entidade>().HasMany<Indicador>(e => e.indicadores).WithOptional(i => i.entidade);
-            modelBuilder.Entity<Entidade>().HasMany<EventoStagging>(e => e.eventosStagging).WithRequired(i => i.entidade);
+            modelBuilder.Entity<ApoliceHistorico>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("ApolicesHistorico");
+            });
+ 
 
-            modelBuilder.Entity<Ficheiro>().HasMany<ErroFicheiro>(e => e.errosFicheiro).WithRequired(a => a.ficheiro);
-            modelBuilder.Entity<Ficheiro>().HasMany<EventoStagging>(e => e.eventosStagging).WithOptional(a => a.ficheiro);
-            modelBuilder.Entity<Apolice>().HasMany<AvisoApolice>(e => e.avisosApolice).WithRequired(a => a.apolice);
-            modelBuilder.Entity<EventoStagging>().HasMany<ErroEventoStagging>(e => e.errosEventoStagging).WithRequired(a => a.eventoStagging);
+            //TODO: mudar para required em vez de optional. Refazer controlador de Apolices para conter a mudança.
+            //modelBuilder.Entity<Entidade>().HasMany<Apolice>(e => e.apolices).WithOptional(a => a.entidade);
+            //modelBuilder.Entity<Entidade>().HasMany<ApoliceHistorico>(e => e.apolicesHistorico).WithOptional(a => a.entidade);
+            
+            //modelBuilder.Entity<Entidade>().HasMany<Notificacao>(e => e.notificacoes).WithOptional(n => n.entidade);
+            //modelBuilder.Entity<Entidade>().HasMany<Indicador>(e => e.indicadores).WithOptional(i => i.entidade);
+            //modelBuilder.Entity<Entidade>().HasMany<EventoStagging>(e => e.eventosStagging).WithRequired(i => i.entidade);
+
+            //modelBuilder.Entity<Ficheiro>().HasMany<ErroFicheiro>(e => e.errosFicheiro).WithRequired(a => a.ficheiro);
+            //modelBuilder.Entity<Ficheiro>().HasMany<EventoStagging>(e => e.eventosStagging).WithOptional(a => a.ficheiro);
+            //modelBuilder.Entity<Apolice>().HasMany<AvisoApolice>(e => e.avisosApolice).WithRequired(a => a.apolice);
+            //modelBuilder.Entity<EventoStagging>().HasMany<ErroEventoStagging>(e => e.errosEventoStagging).WithRequired(a => a.eventoStagging);
 
             base.OnModelCreating(modelBuilder);
 

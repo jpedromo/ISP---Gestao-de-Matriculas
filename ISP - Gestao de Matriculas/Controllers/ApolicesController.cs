@@ -54,7 +54,7 @@ namespace ISP.GestaoMatriculas.Controllers
             {
                 entId = (int)entidade;
 
-                if (entidadesRepository.Find(entId).nome == "ISP")
+                if (entidadesRepository.Find(entId).Nome == "ISP")
                 {
                     entId = -1;
                 }
@@ -68,8 +68,8 @@ namespace ISP.GestaoMatriculas.Controllers
                 query = apolicesRepository.All.Include("veiculo").Include("tomador").Include("concelho").Include("entidade");
                 if (entId > 0)
                 {
-                    this.ViewBag.entidade = new SelectList(entidadesRepository.All, "entidadeId", "nome", entidadesRepository.Find(entId).entidadeId);
-                    query = query.Where(a => a.entidadeId == entId);
+                    this.ViewBag.entidade = new SelectList(entidadesRepository.All, "entidadeId", "nome", entidadesRepository.Find(entId).Id);
+                    query = query.Where(a => a.EntidadeId == entId);
                 }
                 else
                 {
@@ -79,16 +79,16 @@ namespace ISP.GestaoMatriculas.Controllers
             else
             {
                 //Seguradoras (Acesso Local)
-                query = apolicesRepository.All.Include("veiculo").Include("tomador").Include("concelho").Include("entidade").Where(a => a.entidadeId == ent.entidadeId);
+                query = apolicesRepository.All.Include("veiculo").Include("tomador").Include("concelho").Include("entidade").Where(a => a.EntidadeId == ent.Id);
             }
 
             if (!(apolice == null || apolice == ""))
             {
-                query = query.Where(a => a.numeroApolice.Contains(apolice));
+                query = query.Where(a => a.NumeroApolice.Contains(apolice));
             }
             if (!(matricula == null || matricula == ""))
             {
-                query = query.Where(a => a.veiculo.numeroMatricula.Contains(matricula));
+                query = query.Where(a => a.Veiculo.numeroMatricula.Contains(matricula));
             }
             //TODO: Filtro sobre Avisos
 
@@ -125,8 +125,8 @@ namespace ISP.GestaoMatriculas.Controllers
 
             try
             {
-                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("veiculo.categoria").Include("concelho").Single(a => a.apoliceId == id);
-                historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.entidadeId == apolice.entidadeId) && (h.dataInicio == apolice.dataInicio) && (h.veiculo.numeroMatricula == apolice.veiculo.numeroMatricula))).ToList();
+                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("veiculo.categoria").Include("concelho").Single(a => a.Id == id);
+                historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.EntidadeId == apolice.EntidadeId) && (h.DataInicio == apolice.DataInicio) && (h.Veiculo.numeroMatricula == apolice.Veiculo.numeroMatricula))).ToList();
             }
             catch (System.ArgumentNullException)
             {
@@ -155,7 +155,7 @@ namespace ISP.GestaoMatriculas.Controllers
             DateTime dataInicio = DateTime.Today;
             DateTime dataFim = DateTime.Today.AddMinutes(new TimeSpan(23, 59, 0).TotalMinutes);
 
-            ApoliceCreationViewModel apoliceTemplate = new ApoliceCreationViewModel { apolice = new Apolice { dataInicio = dataInicio, dataFim = dataFim } };
+            ApoliceCreationViewModel apoliceTemplate = new ApoliceCreationViewModel { apolice = new Apolice { DataInicio = dataInicio, DataFim = dataFim } };
 
             return View(apoliceTemplate);
         }
@@ -170,15 +170,15 @@ namespace ISP.GestaoMatriculas.Controllers
             //TODO: Optimizar para haver apenas a inserção de uma apólice. Tudo o resto deverá ser automático.
             if (ModelState.IsValid)
             {
-                apoliceCreation.apolice.concelhoCirculacaoId = apoliceCreation.concelhoId;
+                apoliceCreation.apolice.ConcelhoCirculacaoId = apoliceCreation.concelhoId;
                 apoliceCreation.veiculo.categoriaId = apoliceCreation.categoriaId;
 
-                apoliceCreation.apolice.tomador = apoliceCreation.tomador;
-                apoliceCreation.apolice.veiculo = apoliceCreation.veiculo;
+                apoliceCreation.apolice.Tomador = apoliceCreation.tomador;
+                apoliceCreation.apolice.Veiculo = apoliceCreation.veiculo;
 
                 UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
                 Entidade entidadeAssociada = user.entidade;
-                apoliceCreation.apolice.entidade = entidadeAssociada;
+                apoliceCreation.apolice.Entidade = entidadeAssociada;
 
                 veiculosRepository.InsertOrUpdate(apoliceCreation.veiculo);
                 pessoasRepository.InsertOrUpdate(apoliceCreation.tomador);
@@ -205,8 +205,8 @@ namespace ISP.GestaoMatriculas.Controllers
 
             try
             {
-                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").Single(a => a.apoliceId == id);
-                historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.entidadeId == apolice.entidadeId) && (h.dataInicio == apolice.dataInicio) && (h.veiculo.numeroMatricula == apolice.veiculo.numeroMatricula))).ToList();
+                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").Single(a => a.Id == id);
+                historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.EntidadeId == apolice.EntidadeId) && (h.DataInicio == apolice.DataInicio) && (h.Veiculo.numeroMatricula == apolice.Veiculo.numeroMatricula))).ToList();
             }
             catch (System.ArgumentNullException)
             {
@@ -217,10 +217,10 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.HttpNotFound();
             }
 
-            ApoliceEditViewModel apoliceView = new ApoliceEditViewModel { apolice = apolice, tomador = apolice.tomador, veiculo = apolice.veiculo, historicoApolices = historico};
+            ApoliceEditViewModel apoliceView = new ApoliceEditViewModel { apolice = apolice, tomador = apolice.Tomador, veiculo = apolice.Veiculo, historicoApolices = historico};
 
-            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.veiculo.categoriaId);
-            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.concelhoCirculacaoId);
+            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.Veiculo.categoriaId);
+            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.ConcelhoCirculacaoId);
 
             return View(apoliceView);
         }
@@ -237,11 +237,11 @@ namespace ISP.GestaoMatriculas.Controllers
             if (ModelState.IsValid)
             {
                 //Adiciona Registo
-                apoliceView.apolice.concelhoCirculacaoId = apoliceView.concelhoId;
+                apoliceView.apolice.ConcelhoCirculacaoId = apoliceView.concelhoId;
                 apoliceView.veiculo.categoriaId = apoliceView.categoriaId;
 
-                apoliceView.apolice.tomador = apoliceView.tomador;
-                apoliceView.apolice.veiculo = apoliceView.veiculo;
+                apoliceView.apolice.Tomador = apoliceView.tomador;
+                apoliceView.apolice.Veiculo = apoliceView.veiculo;
 
                 veiculosRepository.InsertOrUpdate(apoliceView.veiculo);
                 pessoasRepository.InsertOrUpdate(apoliceView.tomador);
@@ -270,8 +270,8 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.veiculo.categoriaId);
-            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.concelhoCirculacaoId);
+            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.Veiculo.categoriaId);
+            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.ConcelhoCirculacaoId);
 
             return View(apoliceView);
         }
@@ -284,7 +284,7 @@ namespace ISP.GestaoMatriculas.Controllers
             Apolice apolice = null;
             try
             {
-                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").Single(a => a.apoliceId == id);
+                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").Single(a => a.Id == id);
 
             }
             catch (System.ArgumentNullException)
@@ -309,12 +309,12 @@ namespace ISP.GestaoMatriculas.Controllers
         {
 
             Apolice apolice = apolicesRepository.Find(id);
-            Veiculo veiculo = veiculosRepository.Find(apolice.veiculoId);
-            Pessoa tomador = pessoasRepository.Find(apolice.tomadorId);
+            Veiculo veiculo = veiculosRepository.Find(apolice.VeiculoId);
+            Pessoa tomador = pessoasRepository.Find(apolice.TomadorId);
 
             veiculosRepository.Delete(veiculo.veiculoId);
             pessoasRepository.Delete(tomador.pessoaId);
-            apolicesRepository.Delete(apolice.apoliceId);
+            apolicesRepository.Delete(apolice.Id);
 
             apolicesRepository.Save();
 
@@ -326,9 +326,11 @@ namespace ISP.GestaoMatriculas.Controllers
         {
             ApoliceHistorico apolice = null;
 
+
+            //TODO: Review this: Exceptions are expensive!!!
             try
             {
-                apolice = apolicesHistoricoRepository.All.Include("tomador").Include("veiculo").Include("veiculo.categoria").Include("concelho").Single(a => a.apoliceId == id);
+                apolice = apolicesHistoricoRepository.All.Include("tomador").Include("veiculo").Include("veiculo.categoria").Include("concelho").Single(a => a.Id == id);
             }
             catch (System.ArgumentNullException)
             {

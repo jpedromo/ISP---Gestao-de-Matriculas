@@ -13,7 +13,7 @@ namespace ISP.GestaoMatriculas.Repositories.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201312052118215_Initial"; }
+            get { return "201312061313088_Initial"; }
         }
         
         string IMigrationMetadata.Source

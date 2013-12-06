@@ -32,7 +32,7 @@ namespace ISP.GestaoMatriculas.Controllers
                 UserProfile user = usersRepository.All.Include("entidade").Single(u => u.UserId == WebSecurity.CurrentUserId);
 
                 Entidade entidadeAssociada = user.entidade;
-                ViewBag.entidade = entidadeAssociada.nome;
+                ViewBag.entidade = entidadeAssociada.Nome;
 
                 ViewBag.numIndicadores = entidadeAssociada.indicadores.Count;
 

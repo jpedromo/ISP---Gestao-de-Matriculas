@@ -71,7 +71,7 @@ namespace ISP.GestaoMatriculas.Models.DbPopulate
                 newFicheiro.dataUpload = dataSubmissao;
                 newFicheiro.dataAlteracao = dataSubmissao;
                 //newFicheiro.entidade = entidadeAssociada;
-                newFicheiro.entidadeId = entidadeAssociada.entidadeId;
+                newFicheiro.entidadeId = entidadeAssociada.Id;
                 newFicheiro.estado = Ficheiro.EstadoFicheiro.submetido;
                 newFicheiro.erro = false;
                 newFicheiro.userName = user.UserName;

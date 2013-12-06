@@ -4,86 +4,24 @@
         <name>ISP.WebAPI</name>
     </assembly>
     <members>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey">
+        <member name="M:ISP.WebAPI.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
-            This is used to identify the place where the sample should be applied.
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
             </summary>
         </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+        <member name="T:ISP.WebAPI.Areas.HelpPage.Controllers.HelpController">
             <summary>
-            Creates a new <see cref="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            The controller that will handle requests for the help page.
             </summary>
-            <param name="mediaType">The media type.</param>
-            <param name="type">The CLR type.</param>
-        </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.#ctor(ISP.WebAPI.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Creates a new <see cref="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
-            </summary>
-            <param name="sampleDirection">The <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
-            <param name="controllerName">Name of the controller.</param>
-            <param name="actionName">Name of the action.</param>
-            <param name="parameterNames">The parameter names.</param>
-        </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,ISP.WebAPI.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Creates a new <see cref="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
-            </summary>
-            <param name="mediaType">The media type.</param>
-            <param name="sampleDirection">The <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
-            <param name="controllerName">Name of the controller.</param>
-            <param name="actionName">Name of the action.</param>
-            <param name="parameterNames">The parameter names.</param>
-        </member>
-        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.ControllerName">
-            <summary>
-            Gets the name of the controller.
-            </summary>
-            <value>
-            The name of the controller.
-            </value>
-        </member>
-        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.ActionName">
-            <summary>
-            Gets the name of the action.
-            </summary>
-            <value>
-            The name of the action.
-            </value>
-        </member>
-        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.MediaType">
-            <summary>
-            Gets the media type.
-            </summary>
-            <value>
-            The media type.
-            </value>
-        </member>
-        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
-            <summary>
-            Gets the parameter names.
-            </summary>
-        </member>
-        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
-            <summary>
-            Gets the <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
-            </summary>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.SampleDirection">
-            <summary>
-            Indicates whether the sample is used for request or response
-            </summary>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.XmlDocumentationProvider">
-            <summary>
-            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
-            </summary>
-        </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ISP.WebAPI.Areas.HelpPage.XmlDocumentationProvider"/> class.
-            </summary>
-            <param name="documentPath">The physical path to XML document.</param>
         </member>
         <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
             <summary>
@@ -216,46 +154,6 @@
             An <see cref="T:ISP.WebAPI.Areas.HelpPage.Models.HelpPageApiModel"/>
             </returns>
         </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.ObjectGenerator">
-            <summary>
-            This class will create an object of a given type and populate it with sample data.
-            </summary>
-        </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
-            <summary>
-            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
-            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
-            Complex types: POCO types.
-            Nullables: <see cref="T:System.Nullable`1"/>.
-            Arrays: arrays of simple types or complex types.
-            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
-            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
-            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
-            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
-            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
-            </summary>
-            <param name="type">The type.</param>
-            <returns>An object of the given type.</returns>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.Controllers.HelpController">
-            <summary>
-            The controller that will handle requests for the help page.
-            </summary>
-        </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
-            <summary>
-            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
-            </summary>
-            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
-            <returns>The ID as a string.</returns>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.HelpPageConfig">
-            <summary>
-            Use this class to customize the Help Page.
-            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
-            or you can provide the samples for the requests/responses.
-            </summary>
-        </member>
         <member name="T:ISP.WebAPI.Areas.HelpPage.Models.HelpPageApiModel">
             <summary>
             The model that represents an API displayed on the help page.
@@ -284,22 +182,6 @@
         <member name="P:ISP.WebAPI.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
             <summary>
             Gets the error messages associated with this model.
-            </summary>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.ImageSample">
-            <summary>
-            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
-            </summary>
-        </member>
-        <member name="M:ISP.WebAPI.Areas.HelpPage.ImageSample.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ISP.WebAPI.Areas.HelpPage.ImageSample"/> class.
-            </summary>
-            <param name="src">The URL of an image.</param>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.InvalidSample">
-            <summary>
-            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
             </summary>
         </member>
         <member name="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleGenerator">
@@ -391,6 +273,129 @@
             Gets the objects that are serialized as samples by the supported formatters.
             </summary>
         </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.#ctor(ISP.WebAPI.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,ISP.WebAPI.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:ISP.WebAPI.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:ISP.WebAPI.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ISP.WebAPI.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:ISP.WebAPI.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:ISP.WebAPI.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:ISP.WebAPI.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ISP.WebAPI.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
         <member name="M:ISP.WebAPI.Controllers.UploadController.Get">
             <summary>
             Obtém Ficheiros
@@ -406,11 +411,6 @@
             Realiza o Upload de operações sobre períodos segurados
             </summary>
             <param name="operation">operação sobre período segurado</param>
-        </member>
-        <member name="T:ISP.WebAPI.Areas.HelpPage.TextSample">
-            <summary>
-            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
-            </summary>
         </member>
     </members>
 </doc>

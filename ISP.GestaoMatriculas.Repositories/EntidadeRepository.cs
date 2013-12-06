@@ -40,7 +40,7 @@ namespace ISP.GestaoMatriculas.Repositories
         }
 
         public void InsertOrUpdate(Entidade entidade){
-            if (entidade.entidadeId == default(int))
+            if (entidade.Id == default(int))
             {
                 context.Entidades.Add(entidade);
             }

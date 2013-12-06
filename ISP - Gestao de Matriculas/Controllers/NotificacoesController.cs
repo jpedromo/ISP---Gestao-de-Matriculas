@@ -41,7 +41,7 @@ namespace ISP.GestaoMatriculas.Controllers
             }
             else
             {
-                NotificacoesToView = notificacoesRepository.All.Where(n => n.entidadeId == entidade.entidadeId).ToList();
+                NotificacoesToView = notificacoesRepository.All.Where(n => n.entidadeId == entidade.Id).ToList();
             }
 
             return View(NotificacoesToView);

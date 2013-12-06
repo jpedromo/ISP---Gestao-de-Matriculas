@@ -32,7 +32,7 @@ namespace ISP.GestaoMatriculas
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
-            DbExample1.PopulateDB(new DomainModels());
+            //DbExample1.PopulateDB(new DomainModels());
         }
 
         private void RegisterIoCContainer()

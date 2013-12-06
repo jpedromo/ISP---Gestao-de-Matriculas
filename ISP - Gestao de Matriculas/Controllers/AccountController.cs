@@ -103,7 +103,7 @@ namespace ISP.GestaoMatriculas.Controllers
             List<Entidade> listaEntidades = listaEntidadesToClone.GetRange(0, listaEntidadesToClone.Count);
 
             foreach(Entidade e in listaEntidades){
-                e.nome = "" + e.entidadeId + " - " + e.nome;
+                e.Nome = "" + e.Id + " - " + e.Nome;
             }
 
             this.ViewBag.entidadeId = new SelectList(listaEntidades, "entidadeId", "nome");
@@ -163,7 +163,7 @@ namespace ISP.GestaoMatriculas.Controllers
 
             foreach (Entidade e in listaEntidades)
             {
-                e.nome = "" + e.entidadeId + " - " + e.nome;
+                e.Nome = "" + e.Id + " - " + e.Nome;
             }
             this.ViewBag.entidadeId = new SelectList(listaEntidades, "entidadeId", "nome");
             this.ViewBag.ativo = true;
@@ -286,7 +286,7 @@ namespace ISP.GestaoMatriculas.Controllers
             
             ViewBag.ReturnUrl = Url.Action("Manage");
             ViewBag.UserName = user.UserName;
-            ViewBag.AssociatedEntity = user.entidade.nome;
+            ViewBag.AssociatedEntity = user.entidade.Nome;
             return View(model);
         }
 
@@ -339,14 +339,14 @@ namespace ISP.GestaoMatriculas.Controllers
                     usersRepository.Save();
 
                     ViewBag.ReturnUrl = Url.Action("Manage");
-                    ViewBag.AssociatedEntity = user.entidade.nome;
+                    ViewBag.AssociatedEntity = user.entidade.Nome;
                     ViewBag.UserName = user.UserName;
                     return RedirectToAction("Manage", new { Message = ManageMessageId.ChangeSuccess });
                 }
                 else
                 {
                     ViewBag.ReturnUrl = Url.Action("Manage");
-                    ViewBag.AssociatedEntity = user.entidade.nome;
+                    ViewBag.AssociatedEntity = user.entidade.Nome;
                     ViewBag.UserName = user.UserName;
                     ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
@@ -411,7 +411,7 @@ namespace ISP.GestaoMatriculas.Controllers
 
             foreach (Entidade e in listaEntidades)
             {
-                e.nome = "" + e.entidadeId + " - " + e.nome;
+                e.Nome = "" + e.Id + " - " + e.Nome;
             }
             this.ViewBag.entidadeId = new SelectList(listaEntidades, "entidadeId", "nome", editedUser.entidadeId);
             this.ViewBag.userName = usersRepository.Find(editedUser.UserId).UserName;
@@ -453,7 +453,7 @@ namespace ISP.GestaoMatriculas.Controllers
 
                         foreach (Entidade e in listaEntidades)
                         {
-                            e.nome = "" + e.entidadeId + " - " + e.nome;
+                            e.Nome = "" + e.Id + " - " + e.Nome;
                         }
                         this.ViewBag.entidadeId = new SelectList(listaEntidades, "entidadeId", "nome", editedUser.entidadeId);
                         this.ViewBag.userName = usersRepository.Find(editedUser.UserId).UserName;
@@ -473,7 +473,7 @@ namespace ISP.GestaoMatriculas.Controllers
                     {
                         Roles.RemoveUserFromRoles(user.UserName, Roles.GetRolesForUser(user.UserName));
                     }
-                    Entidade newEntity = entidadesRepository.All.Include("role").Single(e => e.entidadeId == editedUser.entidadeId);
+                    Entidade newEntity = entidadesRepository.All.Include("role").Single(e => e.Id == editedUser.entidadeId);
                     Roles.AddUserToRole(user.UserName, newEntity.role.RoleName);
                 }
 
@@ -495,7 +495,7 @@ namespace ISP.GestaoMatriculas.Controllers
 
             foreach (Entidade e in listaEntidades)
             {
-                e.nome = "" + e.entidadeId + " - " + e.nome;
+                e.Nome = "" + e.Id + " - " + e.Nome;
             }
             this.ViewBag.entidadeId = new SelectList(listaEntidades, "entidadeId", "nome", editedUser.entidadeId);
             this.ViewBag.userName = usersRepository.Find(editedUser.UserId).UserName;

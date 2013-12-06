@@ -61,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Everis.Core\Everis.Core.csproj">
+      <Project>{58f6471e-2023-4afa-a826-5045edafa195}</Project>
+      <Name>Everis.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ISP.GestaoMatriculas.Model\ISP.GestaoMatriculas.Model.csproj">
       <Project>{51FBCB19-8F56-43A5-A4C3-3B0C0D5D550A}</Project>
       <Name>ISP.GestaoMatriculas.Model</Name>

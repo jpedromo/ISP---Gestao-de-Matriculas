@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Everis.Core.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,14 +7,9 @@ using System.Web;
 namespace ISP.GestaoMatriculas.Model
 {
     [Serializable]
-    public class Concelho
+    public class Concelho : Entity<int>
     {
-        //key - interna
-        public int concelhoId { get; set; }
-
-        public string codigoConcelho { get; set; }               //checked
-
-        public string nomeConcelho { get; set; }
-
+        public string Codigo { get; set; }               //checked
+        public string Nome { get; set; }
     }
 }

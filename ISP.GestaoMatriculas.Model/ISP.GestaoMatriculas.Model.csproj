@@ -85,6 +85,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Everis.Core\Everis.Core.csproj">
+      <Project>{58f6471e-2023-4afa-a826-5045edafa195}</Project>
+      <Name>Everis.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ISP.GestaoMatriculas.Utils\ISP.GestaoMatriculas.Utils.csproj">
       <Project>{DE366322-B897-47A3-A6C2-9E0D022769D5}</Project>
       <Name>ISP.GestaoMatriculas.Utils</Name>

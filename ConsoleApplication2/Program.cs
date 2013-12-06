@@ -94,7 +94,7 @@ namespace ConsoleApplication2
         public static void UploadFicheiro()
         {
 
-            Concelho file = new Concelho { concelhoId = 1,  nomeConcelho = "Lisboa" };
+            Concelho file = new Concelho { Id = 1,  Nome = "Lisboa" };
 
             var client = new System.Net.Http.HttpClient();
             

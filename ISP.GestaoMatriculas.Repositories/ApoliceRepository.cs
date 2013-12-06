@@ -39,7 +39,7 @@ namespace ISP.GestaoMatriculas.Repositories
         }
 
         public void InsertOrUpdate(Apolice apolice){
-            if (apolice.apoliceId == default(int))
+            if (apolice.Id == default(int))
             {
                 context.Apolices.Add(apolice);
             }

@@ -11,7 +11,7 @@ namespace ISP.GestaoMatriculas.Model.Indicadores
         public override Indicador calcular()
         {
 
-            valor = entidade.apolices.Select(a => a.numeroApolice).Distinct().Count();
+            valor = entidade.apolices.Select(a => a.NumeroApolice).Distinct().Count();
 
             return this;
         }

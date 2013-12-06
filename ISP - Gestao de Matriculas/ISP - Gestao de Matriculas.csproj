@@ -23,6 +23,10 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -592,6 +596,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Everis.Core\Everis.Core.csproj">
+      <Project>{58f6471e-2023-4afa-a826-5045edafa195}</Project>
+      <Name>Everis.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ISP.GestaoMatriculas.Contracts\ISP.GestaoMatriculas.Contracts.csproj">
       <Project>{4110CC2D-301C-4D62-8582-ACDDA2352011}</Project>
       <Name>ISP.GestaoMatriculas.Contracts</Name>

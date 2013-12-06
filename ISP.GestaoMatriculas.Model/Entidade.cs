@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using Everis.Core.Data;
 
 namespace ISP.GestaoMatriculas.Model
 {
 
-    public class Entidade
+    public class Entidade : Entity<int>
     {
         public Entidade(){
             apolices = new List<Apolice>();
@@ -19,15 +20,12 @@ namespace ISP.GestaoMatriculas.Model
         public enum ScopeLevel:int  { Local=0, Global=1 }
 
 
-        //key - interna
-        public int entidadeId { get; set; }
-
         //Role de autorização para a entidade (internos)
         public int roleId { get; set; }
         public virtual Role role { get; set; }
 
         //Atributos da Entidade
-        public string nome { get; set; }
+        public string Nome { get; set; }
 
         public string codigoSeguradora { get; set; }                                  //checked
 

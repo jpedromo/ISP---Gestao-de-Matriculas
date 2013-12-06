@@ -40,7 +40,7 @@ namespace ISP.GestaoMatriculas.Repositories
         }
 
         public void InsertOrUpdate(Concelho concelho){
-            if (concelho.concelhoId == default(int))
+            if (concelho.Id == default(int))
             {
                 context.Concelhos.Add(concelho);
             }

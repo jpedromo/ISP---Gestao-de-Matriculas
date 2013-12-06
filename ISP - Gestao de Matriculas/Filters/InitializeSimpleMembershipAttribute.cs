@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebMatrix.WebData;
 using ISP.GestaoMatriculas.Model;
 using ISP.GestaoMatriculas.Repositories.DbPopulate;
+using System.Linq;
 
 namespace ISP.GestaoMatriculas.Filters
 {
@@ -42,9 +43,15 @@ namespace ISP.GestaoMatriculas.Filters
 
                     if (!WebSecurity.Initialized)
                     {
-                        WebSecurity.InitializeDatabaseConnection("DomainModels", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                        WebSecurity.InitializeDatabaseConnection("ISPMatriculas", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                     }
-                    DbExample1.PopulateDB(new DomainModels());
+                    
+                    if (!WebMatrix.WebData.WebSecurity.UserExists("admin1"))
+                    {
+                        string userName = WebMatrix.WebData.WebSecurity.CreateUserAndAccount("admin1", "administrador", new { email = "admin1@app.net", ativo = true, entidadeId = new DomainModels().Entidades.Single(e => e.Nome == "ISP").Id }, false);
+                        System.Web.Security.Roles.AddUserToRole("admin1", "Admin");
+                    }
+                    
        
                 }
                 catch (Exception ex)
