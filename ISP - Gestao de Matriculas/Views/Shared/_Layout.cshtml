@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>ISP - @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- Enable Bootstrap Responsiveness -->
+    <meta name="viewport" content="width=device-width" initial-scale=1.0 />
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Fonts/Font-Awesome")
+
+    @*FuelUx includes Bootstrap old version*@
+    @*@Scripts.Render("~/bundles/fuelux")*@
+
+    @RenderSection("css", required: false)
+    @RenderSection("scripts", required: false)
+</head>
+
+<body>
+    <div id="wrapper">
+<header>
+        @*@Html.Partial("_MenuPartial")*@
+
+</header>
+        @{Html.RenderAction("Index", "Menu");}
+
+        <div id="body" class="container">
+        <div id="page-wrapper">
+            @RenderSection("featured", required: false)
+            @RenderBody()
+        </div>
+        </div>
+
+        <hr />
+        <div id="footer">
+            <p>footer here</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

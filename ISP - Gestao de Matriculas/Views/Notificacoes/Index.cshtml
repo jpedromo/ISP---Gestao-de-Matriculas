@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ISP.GestaoMatriculas.Model.Notificacao>
+
+@{
+    ViewBag.Title = "Notificações";
+}
+
+<h2>Notificações</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.entidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mensagem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dataCriacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.entidade.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mensagem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataCriacao)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.notificacaoId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,125 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.FilesUploadViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@section css{
+    @Styles.Render("~/Content/fuelux/css")
+    <link href="~/Scripts/dropzone/css/dropzone.css" rel="stylesheet" />
+}
+
+@section scripts{
+
+}
+<script>
+    $(document).ready(
+        function () {
+            $('#tabs a:first').tab('show')
+        })
+</script>
+
+<h2>Index</h2>
+
+<ul id="tabs" class="nav nav-tabs">
+@if (Model.upload)
+{
+    <li><a href="#uploadTab" data-toggle="tab" class="active">Upload</a></li>
+    <li><a href="#ficheirosTab" data-toggle="tab">Ficheiros</a></li>
+}
+else
+{
+    <li><a href="#uploadTab" data-toggle="tab">Upload</a></li>
+    <li><a href="#ficheirosTab" data-toggle="tab" class="active">Ficheiros</a></li>
+}
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="uploadTab">
+        <div>
+            @using (Html.BeginForm("Upload", "FilesUpload", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data",
+                id = "uploadForm",
+                @class = "dropzone dz-clickable"
+            }))
+            {
+                <div class="fallback">
+                    <input name="file" type="file" />
+                    <input type="submit" value="Upload" />
+                </div>
+            }
+        </div>
+
+        <script src="~/Scripts/dropzone/dropzone.js"></script>
+        <script type="text/javascript">
+            // "uploadDemo" is the camelized version of the HTML form's ID
+            Dropzone.options.uploadForm = {
+                paramName: "file", // Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+                maxFilesize: 50 //10 MB
+                //        accept: function(file, done) {
+                //            if (file.name == "justinbieber.jpg") {
+                //              done("Naha, you don't.");
+                //            }
+                //            else { done(); }
+                //            },
+
+            };
+ 
+        </script>
+    </div>
+
+    <div class="tab-pane fade" id="ficheirosTab">
+        
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().nomeFicheiro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().estado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().dataUpload)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().dataAlteracao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().erro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().userName)
+                </th>
+                <th>
+                </th>
+            </tr>
+            @foreach (var item in Model.ficheiros)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nomeFicheiro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dataUpload)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dataAlteracao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.erro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userName)
+                    </td>
+                    <td>
+                        @Html.Hidden("upload", (bool)false)
+                        @Html.ActionLink("Processar", "Processar", new { id = item.ficheiroId }) |
+                        @Html.ActionLink("Cancelar", "Cancelar", new { id = item.ficheiroId }) |
+                    </td>
+                </tr>
+            }
+        </table>        
+    </div>
+</div>

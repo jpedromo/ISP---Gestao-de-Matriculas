@@ -1,0 +1,207 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceCreationViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@section css{
+    @Styles.Render("~/Content/fuelux/css")
+}
+
+@section scripts{
+            
+       
+
+        <script type='text/javascript'>
+
+            $(document).ready(function () {
+
+                $('#MyWizard').on('change', function (e, data) {
+//                    console.log('change');
+                    if (data.step === 3 && data.direction === 'next') {
+                        // return e.preventDefault();
+                    }
+                });
+                $('#MyWizard').on('changed', function (e, data) {
+                    //                    console.log('changed');
+                    var item = $('#MyWizard').wizard('selectedItem');
+                    if (item.step === 5) {
+                        $('#btnWizardNext').attr('value', 'Guardar'); ;
+                    }
+                    else {
+                        $('#btnWizardNext').attr('value', 'Próximo'); ;
+                    }
+                });
+
+                $('#MyWizard').on('finished', function (e, data) {
+//                    console.log('finished');
+                    $('#ApoliceForm').submit();
+                });
+                $('#btnWizardPrev').on('click', function () {
+                    $('#MyWizard').wizard('previous');
+                });
+                $('#btnWizardNext').on('click', function () {
+                    $('#MyWizard').wizard('next', 'foo');
+                });
+                $('#btnWizardStep').on('click', function () {
+                    var item = $('#MyWizard').wizard('selectedItem');
+//                    console.log(item.step);
+                });
+                $('#MyWizard').on('stepclick', function (e, data) {
+//                    console.log('step' + data.step + ' clicked');
+                    if (data.step === 1) {
+                        // return e.preventDefault();
+                    }
+                });
+            });
+        
+        </script>
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Apolices", FormMethod.Post, new {@id = "ApoliceForm"}))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+    
+<div class="well wizard-example fuelux">
+  <div id="MyWizard" class="wizard">
+    <ul class="steps">
+      <li data-target="#step1" class="active"><span class="badge badge-info">1</span>Período Segurado<span class="chevron"></span></li>
+      <li data-target="#step2"><span class="badge">2</span>Veículo<span class="chevron"></span></li>
+      <li data-target="#step3"><span class="badge">3</span>Tomador do Seguro<span class="chevron"></span></li>
+      <li data-target="#step4"><span class="badge">4</span>Condutor habitual<span class="chevron"></span></li>
+      <li data-target="#step5"><span class="badge">5</span>Undefined<span class="chevron"></span></li>
+    </ul>
+@*    <div class="actions">
+      <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+      <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+    </div>*@
+  </div>
+  <div class="step-content">
+    <div class="step-pane active" id="step1">
+    
+        <legend>Período Segurado</legend>
+    <div class="editor-label">
+            @Html.LabelFor(model => model.apolice.numeroApolice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.apolice.numeroApolice)
+            @Html.ValidationMessageFor(model => model.apolice.numeroApolice)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.apolice.dataInicio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.apolice.dataInicio)
+            @Html.ValidationMessageFor(model => model.apolice.dataInicio)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.apolice.dataFim)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.apolice.dataFim)
+            @Html.ValidationMessageFor(model => model.apolice.dataFim)
+        </div> 
+
+     </div>
+    <div class="step-pane" id="step2">
+    <legend>Veículo</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.veiculo.categoriaId, "Categoria")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("categoriaId", String.Empty)
+            @Html.ValidationMessageFor(model => model.veiculo.categoriaId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.veiculo.numeroMatricula)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.veiculo.numeroMatricula)
+            @Html.ValidationMessageFor(model => model.veiculo.numeroMatricula)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.veiculo.anoConstrucao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.veiculo.anoConstrucao)
+            @Html.ValidationMessageFor(model => model.veiculo.anoConstrucao)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.veiculo.marcaVeiculo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.veiculo.marcaVeiculo)
+            @Html.ValidationMessageFor(model => model.veiculo.marcaVeiculo)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.veiculo.modeloVeiculo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.veiculo.modeloVeiculo)
+            @Html.ValidationMessageFor(model => model.veiculo.modeloVeiculo)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.apolice.concelhoCirculacaoId, "Concelho")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("concelhoId", String.Empty)
+            @Html.ValidationMessageFor(model => model.apolice.concelhoCirculacaoId)
+        </div>
+
+    </div>
+    <div class="step-pane" id="step3">
+    
+    <legend>Tomador do Seguro</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.tomador.nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.tomador.nome)
+            @Html.ValidationMessageFor(model => model.tomador.nome)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.tomador.numeroIdentificacao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.tomador.numeroIdentificacao)
+            @Html.ValidationMessageFor(model => model.tomador.numeroIdentificacao)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.tomador.nif)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.tomador.nif)
+            @Html.ValidationMessageFor(model => model.tomador.nif)
+        </div>
+    
+    </div>
+    <div class="step-pane" id="step4">
+
+    <legend>Condutor Habitual</legend>
+    
+    </div>
+    <div class="step-pane" id="step5">
+    
+    <legend>Undefined</legend>
+
+    </div>
+  </div>
+  <br>
+  <input type="button" class="btn" id="btnWizardPrev" value="Anterior">
+  <input type="button" class="btn btn-primary" id="btnWizardNext" value="Próximo">
+
+</div>
+<!-- /well -->
+        
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</div>

@@ -1,0 +1,36 @@
+﻿@model ISP.GestaoMatriculas.Model.Entidade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Entidade</legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nome)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.scope)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.scope)
+    </div>
+
+        <div class="display-label">
+         @Html.DisplayNameFor(model => model.role)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.role.RoleName)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.entidadeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

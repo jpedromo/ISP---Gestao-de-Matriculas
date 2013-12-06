@@ -1,0 +1,302 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceEditViewModel
+
+@{
+	ViewBag.Title = "Edit";
+}
+
+@section css{
+	@Styles.Render("~/Content/fuelux/css")
+}
+
+@section scripts{
+			
+	@Styles.Render("~/Content/myWizardFuelux/css")
+		
+		<script type='text/javascript'>
+			
+			$(function () {
+				$('#tabs a:first').tab('show')
+			});
+
+
+			$(document).ready(function () {
+
+				var $wizard = $('#MyWizard').wizard();
+				var wizard = $wizard.data('wizard');
+				$wizard.off('click', 'li.complete');
+				$wizard.on('click', 'li', $.proxy(wizard.stepclicked, wizard));
+
+				$('#MyWizard').on('change', function (e, data) {
+				});
+
+				$('#MyWizard').on('changed', function (e, data) {
+					//                    console.log('changed');
+
+					$("#MyWizard ul.steps").find("li").addClass("complete");
+					$("#MyWizard ul.steps").find("span.badge").addClass("badge-success");
+					
+					var item = $('#MyWizard').wizard('selectedItem');
+					//console.log(item.step);
+					if (item.step === 5) {
+						$('#btnWizardNext').attr('value', 'Guardar'); ;
+					}
+					else {
+						$('#btnWizardNext').attr('value', 'Próximo'); ;
+					}
+
+				});
+				$('#MyWizard').on('finished', function (e, data) {
+					//                    console.log('finished');
+					$('#ApoliceForm').submit();
+				});
+				$('#btnWizardPrev').on('click', function () {
+					$('#MyWizard').wizard('previous');
+				});
+				$('#btnWizardNext').on('click', function () {
+					$('#MyWizard').wizard('next', 'foo');
+				});
+				$('#btnWizardStep').on('click', function () {
+					var item = $('#MyWizard').wizard('selectedItem');
+					//                    console.log(item.step);
+				});
+				$('#btnWizardSave').on('click', function () {
+					$('#ApoliceForm').submit();
+				});
+				$('#MyWizard').on('stepclick', function (e, data) {
+					//                    console.log('step' + data.step + ' clicked');
+					if (data.step === 1) {
+						// return e.preventDefault();
+					}
+				});
+			});
+		
+		</script>
+}
+
+<h2>Edit</h2>
+
+<ul id="tabs" class="nav nav-tabs">
+  <li><a href="#editarTab" data-toggle="tab">Editar</a></li>
+  <li><a href="#historicoTab" data-toggle="tab">Histórico</a></li>
+  <li><a href="#avisosTab" data-toggle="tab">Avisos</a></li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="editarTab">
+@using (Html.BeginForm("Edit", "Apolices", FormMethod.Post, new {@id = "ApoliceForm"})) {
+	@Html.ValidationSummary(true)
+	@Html.AntiForgeryToken()
+
+	<fieldset>
+	<div id="rootwizard" class="fuelux well">
+	  <div class="wizard">
+	<ul class="steps">
+		<a class="active" href="#tab1" data-toggle="tab"><li class="active"><span class="badge badge-info">1</span> Período Segurado <span class="chevron"> </span></li></a>
+		<a href="#tab2" data-toggle="tab"><li class="complete"><span class="badge badge-success">2</span> Veículo <span class="chevron"> </span></li></a>
+		<a href="#tab3" data-toggle="tab"><li class="complete"><span class="badge badge-success">3</span> Tomador de Seguro<span class="chevron"> </span></li></a>
+	</ul>
+	</div>
+
+	<div class="tab-content">
+		<div class="tab-pane" id="tab1">
+			<legend>Período Segurado</legend>
+			<div class="editor-field">
+			@Html.HiddenFor(model => model.apolice.apoliceId)
+			</div>
+			<div class="editor-field">
+			@Html.HiddenFor(model => model.apolice.entidadeId)
+			</div>
+			<div class="editor-label">
+				@Html.LabelFor(model => model.apolice.numeroApolice)
+			</div>
+			<div class="editor-field">
+				@Html.EditorFor(model => model.apolice.numeroApolice)
+				@Html.ValidationMessageFor(model => model.apolice.numeroApolice)
+			</div>
+			<div class="editor-label">
+				@Html.LabelFor(model => model.apolice.dataInicio)
+			</div>
+			<div class="editor-field">
+				@Html.EditorFor(model => model.apolice.dataInicio)
+				@Html.ValidationMessageFor(model => model.apolice.dataInicio)
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(model => model.apolice.dataFim)
+			</div>
+			<div class="editor-field">
+				@Html.EditorFor(model => model.apolice.dataFim)
+				@Html.ValidationMessageFor(model => model.apolice.dataFim)
+			</div>
+			</div>
+
+		<div class="tab-pane" id="tab2">
+				<legend>Veículo</legend>
+				<div class="editor-field">
+				@Html.HiddenFor(model => model.veiculo.veiculoId)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.veiculo.categoriaId, "Categoria")
+				</div>
+				<div class="editor-field">
+					@Html.DropDownList("categoriaId", (SelectList) ViewData["Categorias"])
+					@Html.ValidationMessageFor(model => model.veiculo.categoriaId)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.veiculo.numeroMatricula)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.veiculo.numeroMatricula)
+					@Html.ValidationMessageFor(model => model.veiculo.numeroMatricula)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.veiculo.anoConstrucao)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.veiculo.anoConstrucao)
+					@Html.ValidationMessageFor(model => model.veiculo.anoConstrucao)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.veiculo.marcaVeiculo)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.veiculo.marcaVeiculo)
+					@Html.ValidationMessageFor(model => model.veiculo.marcaVeiculo)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.veiculo.modeloVeiculo)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.veiculo.modeloVeiculo)
+					@Html.ValidationMessageFor(model => model.veiculo.modeloVeiculo)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.apolice.concelhoCirculacaoId, "Concelho")
+				</div>
+				<div class="editor-field">
+					@Html.DropDownList("concelhoId", (SelectList) ViewData["Concelhos"])
+					@Html.ValidationMessageFor(model => model.apolice.concelhoCirculacaoId)
+				</div>
+
+				</div>
+		<div class="tab-pane" id="tab3">
+				<legend>Tomador do Seguro</legend>
+				<div class="editor-field">
+				@Html.HiddenFor(model => model.tomador.pessoaId)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.tomador.nome)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.tomador.nome)
+					@Html.ValidationMessageFor(model => model.tomador.nome)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.tomador.numeroIdentificacao)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.tomador.numeroIdentificacao)
+					@Html.ValidationMessageFor(model => model.tomador.numeroIdentificacao)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(model => model.tomador.nif)
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(model => model.tomador.nif)
+					@Html.ValidationMessageFor(model => model.tomador.nif)
+				</div>
+
+				</div>
+		<ul class="pager wizard">
+			<li class="previous first" style="display:none;"><a href="#">First</a></li>
+			<li class="previous"><a href="#">Previous</a></li>
+			<li class="next last" style="display:none;"><a href="#">Last</a></li>
+			<li class="next"><a href="#">Next</a></li>
+		</ul>
+
+	</div>	
+
+	<div class ="container"><input type="button" class="btn btn-primary" id="btnWizardSave" value="Guardar">
+	</fieldset>
+}
+
+</div>
+<div class="tab-pane" id="historicoTab">
+	<div class="well">
+ @if (Model.historicoApolices.Count() != 0)
+ { 
+    <table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().entidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().numeroApolice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().dataInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().dataFim)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.historicoApolices.First().veiculo.numeroMatricula)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.historicoApolices.First().tomador.nome)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.historicoApolices.First().concelho)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.historicoApolices)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.entidade.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroApolice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.veiculo.numeroMatricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tomador.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.concelho.nomeConcelho)
+        </td>
+        <td>
+            @Html.ActionLink("Detalhes", "DetalhesHistorico", new { id = item.apoliceId })
+        </td>
+    </tr>
+}
+
+</table>
+ }
+ else { 
+ <div>Não existe histórico.</div>
+ }
+	</div>
+</div>
+<div class="tab-pane" id="avisosTab">
+	<div class="well">
+		Avisos
+	</div>
+</div>
+
+</div>
+<div>
+	@Html.ActionLink("Voltar à listagem", "Index")
+</div>
+

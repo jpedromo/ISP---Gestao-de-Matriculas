@@ -1,0 +1,74 @@
+﻿@model ISP.GestaoMatriculas.Model.Apolice
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Apolice</legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.numeroApolice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.numeroApolice)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataInicio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataFim)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataFim)
+    </div>
+
+    <br />
+    <legend>Segurado</legend>
+        <div class="display-label">
+         @Html.DisplayNameFor(model => model.tomador.nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tomador.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tomador.numeroIdentificacao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tomador.numeroIdentificacao)
+    </div>
+
+    <br />
+    <legend>Veiculo</legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.numeroMatricula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.numeroMatricula)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.marcaVeiculo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.marcaVeiculo)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.modeloVeiculo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.modeloVeiculo)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Voltar à listagem", "Index")
+    </p>
+}

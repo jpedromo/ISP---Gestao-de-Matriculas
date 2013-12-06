@@ -1,0 +1,200 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceListViewModel
+
+@{
+    ViewBag.Title = "Apólices";
+}
+
+@section scripts{
+<script type='text/javascript'>
+			$(function () {
+                    $('#tabs a.active').tab('show')
+                });
+</script>
+}
+
+@section css{
+	@Styles.Render("~/Content/fuelux/css")
+}
+
+<h2>Períodos Segurados</h2>
+
+<ul id="tabs" class="nav nav-tabs">
+@if (Model.erros)
+{
+      <li><a href="#apolicesTab" data-toggle="tab">Efetivos</a></li>
+      <li><a href="#errosTab" data-toggle="tab" class="active">Área de Erros</a></li>
+}
+else { 
+      <li><a href="#apolicesTab" data-toggle="tab" class="active">Efetivos</a></li>
+      <li><a href="#errosTab" data-toggle="tab">Área de Erros</a></li>
+}
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane" id="apolicesTab">
+<div class="well fuelux">
+@using (Html.BeginForm("Index", "Apolices", FormMethod.Get, new { @id = "ListingForm" }))
+{
+<table>
+		<div class="editor-label">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.entidade)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.apolice)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.matricula)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.avisos)
+            </td>
+        </tr>
+        </div>
+        <div class="editor-field">
+        <tr>
+        <td>
+            @Html.DropDownList("entidade", (SelectList)ViewData["Entidades"])
+            @Html.ValidationMessageFor(model => model.entidade)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.apolice)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.matricula)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.avisos)
+        </td>
+        <td>
+        @Html.HiddenFor(m => m.apagados)
+            <input type="submit" class="btn" id="FiltrarBtn" value="Filtrar"/>
+        </td>
+        </tr>
+        </div>
+</table>
+}
+</div>
+
+<div class ="well">
+<div class ="container fuelux">
+<input type="button" class="btn btn-primary" id="novoPeriodoBtn" value="Criar Novo" onclick="window.location.href='@Url.Content("~/Apolices/Create")'"/>
+<input type="button" class="btn" id="exportarCsvBtn" value="Exportar para CSV"/>
+</div>
+<br />
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().entidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().numeroApolice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().dataInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().dataFim)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.apolicesEfetivas.First().veiculo.numeroMatricula)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.apolicesEfetivas.First().tomador.nome)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.apolicesEfetivas.First().concelho)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.apolicesEfetivas)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.entidade.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroApolice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.veiculo.numeroMatricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tomador.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.concelho.nomeConcelho)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.apoliceId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.apoliceId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.apoliceId })
+        </td>
+    </tr>
+}
+
+</table>
+</div>
+</div>
+<div class="tab-pane" id="errosTab">
+    <div class="well fuelux">
+@using (Html.BeginForm("Index", "Apolices", FormMethod.Get, new { @id = "ErrosForm" }))
+{
+<table>
+		<div class="editor-label">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.entidade)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.apolice)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.matricula)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.apagados)
+            </td>
+        </tr>
+        </div>
+        <div class="editor-field">
+        <tr>
+        <td>
+            @Html.DropDownList("entidade", (SelectList)ViewData["Entidades"])
+            @Html.ValidationMessageFor(model => model.entidade)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.apolice)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.matricula)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.apagados)
+        </td>
+        <td>
+            @Html.HiddenFor(m => m.avisos)
+            @Html.Hidden("erros", (bool)true)
+            <input type="submit" class="btn" id="FiltrarErrosBtn" value="Filtrar"/>
+        </td>
+        </tr>
+        </div>
+</table>
+}
+</div>
+
+    <div class="well">
+        Erros
+    </div>
+</div>
+</div>
+

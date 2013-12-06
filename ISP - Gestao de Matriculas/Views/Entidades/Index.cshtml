@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ISP.GestaoMatriculas.Model.Entidade>
+
+@{
+    ViewBag.Title = "Entidades";
+}
+
+<h2>Entidades</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.scope)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.scope)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role.RoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.entidadeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.entidadeId }) |
+            @if (item.ativo)
+            {   
+                @Html.ActionLink("Desativar", "Deactivate", new { id = item.entidadeId })
+            }
+            else
+            {
+                @Html.ActionLink("Ativar", "Activate", new { id = item.entidadeId })
+            }
+        </td>
+    </tr>
+}
+
+</table>
