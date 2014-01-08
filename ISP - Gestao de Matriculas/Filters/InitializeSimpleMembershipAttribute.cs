@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using WebMatrix.WebData;
 using ISP.GestaoMatriculas.Model;
 using ISP.GestaoMatriculas.Repositories.DbPopulate;
+<<<<<<< HEAD
+=======
+using System.Linq;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Filters
 {
@@ -42,9 +46,21 @@ namespace ISP.GestaoMatriculas.Filters
 
                     if (!WebSecurity.Initialized)
                     {
+<<<<<<< HEAD
                         WebSecurity.InitializeDatabaseConnection("DomainModels", "MAT_USER_PROFILE", "UserId_PK", "UserName", autoCreateTables: true);
                     }
                     DbExample1.PopulateDB(new DomainModels());
+=======
+                        WebSecurity.InitializeDatabaseConnection("ISPMatriculas", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    }
+                    
+                    if (!WebMatrix.WebData.WebSecurity.UserExists("admin1"))
+                    {
+                        string userName = WebMatrix.WebData.WebSecurity.CreateUserAndAccount("admin1", "administrador", new { email = "admin1@app.net", ativo = true, entidadeId = new DomainModels().Entidades.Single(e => e.Nome == "ISP").Id }, false);
+                        System.Web.Security.Roles.AddUserToRole("admin1", "Admin");
+                    }
+                    
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
        
                 }
                 catch (Exception ex)

@@ -12,9 +12,12 @@ using Autofac.Integration.Mvc;
 using Autofac.Configuration;
 using ISP.GestaoMatriculas.Repositories.DbPopulate;
 using ISP.GestaoMatriculas.Model;
+<<<<<<< HEAD
 using System.Security.Principal;
 using System.Reflection;
 using System.Web.Security;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 
 namespace ISP.GestaoMatriculas
@@ -35,7 +38,11 @@ namespace ISP.GestaoMatriculas
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
+<<<<<<< HEAD
             DbExample1.PopulateDB(new DomainModels());
+=======
+            //DbExample1.PopulateDB(new DomainModels());
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
         private void RegisterIoCContainer()
@@ -53,6 +60,7 @@ namespace ISP.GestaoMatriculas
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
+<<<<<<< HEAD
 
         //protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         //{
@@ -100,5 +108,7 @@ namespace ISP.GestaoMatriculas
 
         //    return roles;
         //}
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

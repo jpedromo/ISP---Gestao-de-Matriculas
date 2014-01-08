@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+<<<<<<< HEAD
 using ISP.GestaoMatriculas.Model;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -75,5 +76,24 @@ namespace ISP.GestaoMatriculas.Model
         //    }
         //    return "NA";
         //}
+=======
+
+namespace ISP.GestaoMatriculas.Model
+{
+    public abstract class Indicador
+    {
+
+        public int indicadorId { get; set; }
+
+        public int? entidadeId { get; set; }
+        public virtual Entidade entidade { get; set; }
+
+        public string descricao { get; set; }
+
+        public double valor { get; set; }
+
+        public abstract Indicador calcular();
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

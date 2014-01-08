@@ -84,6 +84,20 @@
     <Compile Include="DomainModels.cs" />
     <Compile Include="FicheiroRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="CategoriaRepository.cs" />
+    <Compile Include="ConcelhoRepository.cs" />
+    <Compile Include="ApoliceHistoricoRepository.cs" />
+    <Compile Include="EventoStaggingRepository.cs" />
+    <Compile Include="DbPopulate\DbExample1.cs" />
+    <Compile Include="Migrations\201312061313088_Initial.cs" />
+    <Compile Include="Migrations\201312061313088_Initial.Designer.cs">
+      <DependentUpon>201312061313088_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Respository.cs" />
+    <Compile Include="RoleRepository.cs" />
+    <Compile Include="DomainModels.cs" />
+    <Compile Include="FicheiroRepository.cs" />
     <Compile Include="VeiculoRepository.cs" />
     <Compile Include="EntidadeRepository.cs" />
     <Compile Include="NotificacaoRepository.cs" />
@@ -92,6 +106,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Everis.Core\Everis.Core.csproj">
+      <Project>{58f6471e-2023-4afa-a826-5045edafa195}</Project>
+      <Name>Everis.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ISP.GestaoMatriculas.Contracts\ISP.GestaoMatriculas.Contracts.csproj">
       <Project>{4110CC2D-301C-4D62-8582-ACDDA2352011}</Project>
       <Name>ISP.GestaoMatriculas.Contracts</Name>
@@ -108,6 +126,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201401071022257_inicial.resx">
       <DependentUpon>201401071022257_inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312061313088_Initial.resx">
+      <DependentUpon>201312061313088_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -119,4 +139,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+</Project>
 </Project>

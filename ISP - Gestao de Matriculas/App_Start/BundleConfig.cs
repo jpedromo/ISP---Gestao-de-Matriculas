@@ -19,6 +19,7 @@ namespace ISP.GestaoMatriculas
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+<<<<<<< HEAD
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                         "~/Scripts/bootstrap.js"));
 
@@ -39,6 +40,12 @@ namespace ISP.GestaoMatriculas
             //            "~/Scripts/fuelux-loader.min.js",
             //            "~/Scripts/require.js",
             //            "~/Scripts/wizard.js"));
+=======
+            bundles.Add(new ScriptBundle("~/bundles/fuelux").Include(
+                        "~/Scripts/fuelux-loader.min.js",
+                        "~/Scripts/require.js",
+                        "~/Scripts/wizard.js"));
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -47,8 +54,14 @@ namespace ISP.GestaoMatriculas
             //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Boot/bootstrap.css", "~/Content/sb-admin.css"));
 
+<<<<<<< HEAD
             bundles.Add(new StyleBundle("~/Fonts/Font-Awesome").Include("~/fonts/font-awesome/css/font-awesome.css"));
 
+=======
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js"));
+
+            bundles.Add(new StyleBundle("~/Fonts/Font-Awesome").Include("~/fonts/font-awesome/css/font-awesome.css"));
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
@@ -65,6 +78,7 @@ namespace ISP.GestaoMatriculas
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/myWizardFuelux/css").Include(
+<<<<<<< HEAD
                         "~/Content/myWizardFuelux.css"));
 
             bundles.Add(new StyleBundle("~/Content/myFuelux/css").Include(
@@ -78,3 +92,15 @@ namespace ISP.GestaoMatriculas
         }
     }
 }
+=======
+                        "~/Content/myWizardFuelux.css",
+                        "~/Content/fuelux-responsive.css"));
+
+            bundles.Add(new StyleBundle("~/Content/fuelux/css").Include(
+                        "~/Content/fuelux.css",
+                        "~/Content/fuelux-responsive.css"));
+
+        }
+    }
+}
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

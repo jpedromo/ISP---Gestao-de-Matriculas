@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
 }
+<<<<<<< HEAD
 @section scripts{
 <script type='text/javascript'>
     $(document).ready(function () {
@@ -43,6 +44,12 @@
 <div class="well fuelux">
 
 @using (Html.BeginForm("Edit", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
+=======
+
+<h2>Edit</h2>
+<h4>@ViewBag.errorMessage</h4>
+@using (Html.BeginForm()) {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
@@ -85,6 +92,7 @@
             @Html.ValidationMessageFor(model => model.entidadeId)
         </div>
         <br />
+<<<<<<< HEAD
         <legend>Alterar Acesso</legend>
 
          <div class="editor-label">
@@ -94,6 +102,9 @@
             @Html.EditorFor(model => model.utilizadorAD)
             @Html.ValidationMessageFor(model => model.utilizadorAD)
         </div>
+=======
+        <legend>Alterar Password</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
          <div class="editor-label">
             @Html.LabelFor(model => model.newPassword)
@@ -110,6 +121,7 @@
             @Html.EditorFor(model => model.ConfirmNewPassword)
             @Html.ValidationMessageFor(model => model.ConfirmNewPassword)
         </div>
+<<<<<<< HEAD
 
     </fieldset>
 }
@@ -117,4 +129,15 @@
 </div>
 <div>
     @Html.ActionLink("Voltar à listagem", "Index")
+=======
+        <br />
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </div>

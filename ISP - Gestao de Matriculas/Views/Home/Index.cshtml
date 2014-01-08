@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@model ISP.GestaoMatriculas.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
@@ -184,10 +185,28 @@
                 plotAccordingToChoices();
             });
     </script>
+=======
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section scripts {
+<script src="~/Scripts/jquery.bootstrap.wizard.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#rootwizard').bootstrapWizard({
+            tabClass: 'steps'
+        });
+    });
+
+</script>
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 }
 @section featured {
 }
 @section css{
+<<<<<<< HEAD
     @Styles.Render("~/Content/myWizardFuelux/css")
     @Styles.Render("~/Content/morris/css")
 }
@@ -336,3 +355,78 @@
 </div>
 
 
+=======
+    @*<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">*@
+    @Styles.Render("~/Content/myWizardFuelux/css")
+    @*     @Styles.Render("~/Content/fuelux/css")*@
+}
+
+ @if (Request.IsAuthenticated)
+ {
+ <h3> @ViewBag.entidade</h3>
+<h3> @ViewBag.numIndicadores Indicadores</h3>     
+ <h3> @ViewData["Indicador.Descricao"]</h3>
+ <h3> @ViewData["Indicador.Valor"]</h3>
+ }
+
+ <div id="rootwizard" class ="fuelux">
+	  <div class="wizard">
+	<ul class="steps">
+	  	<a class="active" href="#tab1" data-toggle="tab"><li class="active"><span class="badge badge-info">1</span> Pedíodo Segurado <span class="chevron"> </span></li></a>
+		<a href="#tab2" data-toggle="tab"><li class="complete"><span class="badge badge-success">2</span> Veículo <span class="chevron"> </span></li></a>
+		<a href="#tab3" data-toggle="tab"><li class="complete"><span class="badge badge-success">3</span> Tomador de Seguro<span class="chevron"> </span></li></a>
+		<a href="#tab4" data-toggle="tab"><li><span class="badge">4</span>Condutor Habitual<span class="chevron"> </span></li></a>
+		<a href="#tab5" data-toggle="tab"><li><span class="badge">5</span>Undefined<span class="chevron"> </span></li></a>
+	</ul>
+	</div>
+
+	<div class="tab-content">
+	    <div class="tab-pane" id="tab1">
+        <span class="chevron"></span>
+	      1
+          <span class="chevron"></span>
+	    </div>
+	    <div class="tab-pane" id="tab2">
+	      2
+	    </div>
+		<div class="tab-pane" id="tab3">
+			3
+	    </div>
+		<div class="tab-pane" id="tab4">
+			4
+	    </div>
+		<div class="tab-pane" id="tab5">
+			5
+	    </div>
+		<div class="tab-pane" id="tab6">
+			6
+	    </div>
+		<div class="tab-pane" id="tab7">
+			7
+	    </div>
+
+		<ul class="pager wizard">
+			<li class="previous first" style="display:none;"><a href="#">First</a></li>
+			<li class="previous"><a href="#">Previous</a></li>
+			<li class="next last" style="display:none;"><a href="#">Last</a></li>
+		  	<li class="next"><a href="#">Next</a></li>
+		</ul>
+
+	</div>	
+
+      <div id="MyWizard" class="wizard">
+    <ul class="steps">
+      <li data-target="#step1" class="active"><span class="badge badge-info">1</span>Período Segurado<span class="chevron"></span></li>
+      <li data-target="#step2" class="complete"><span class="badge badge-success">2</span>Veículo<span class="chevron"></span></li>
+      <li data-target="#step3" class="complete"><span class="badge badge-success">3</span>Tomador do Seguro<span class="chevron"></span></li>
+      <li data-target="#step4"><span class="badge">4</span>Condutor habitual<span class="chevron"></span></li>
+      <li data-target="#step5"><span class="badge">5</span>Undefined<span class="chevron"></span></li>
+    </ul>
+@*    <div class="actions">
+      <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+      <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+    </div>*@
+    </div>
+</div>
+ 
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

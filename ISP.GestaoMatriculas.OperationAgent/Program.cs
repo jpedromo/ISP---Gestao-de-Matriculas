@@ -13,6 +13,7 @@ namespace ISP.GestaoMatriculas.OperationAgent
         /// </summary>
         static void Main()
         {
+<<<<<<< HEAD
 #if(DEBUG)
             FNMPASOperationAgent service = new FNMPASOperationAgent();
             string[] args = new string[] { "arg1", "arg2" };
@@ -25,6 +26,14 @@ namespace ISP.GestaoMatriculas.OperationAgent
 			};
             ServiceBase.Run(ServicesToRun);
 #endif
+=======
+            ServiceBase[] ServicesToRun;
+            ServicesToRun = new ServiceBase[] 
+			{ 
+				new Service1() 
+			};
+            ServiceBase.Run(ServicesToRun);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
     }
 }

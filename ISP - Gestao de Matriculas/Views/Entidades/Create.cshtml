@@ -5,12 +5,23 @@
 }
 
 
+<<<<<<< HEAD
 <h2>Criar Entidade</h2>
 <div class="well fuelux">
 @using (Html.BeginForm("Create", "Entidades", FormMethod.Post, new {@id = "EntidadesForm"})) {
     @Html.ValidationSummary(true)
 
     <fieldset>
+=======
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Entidade</legend>
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         <div class="editor-label">
             @Html.LabelFor(model => model.nome)
         </div>
@@ -67,10 +78,21 @@
             @Html.ValidationMessageFor(model => model.ativo)
         </div>
 
+<<<<<<< HEAD
     </fieldset>
 }
 <input type="button" class="btn btn-primary" id="novaEntidadeBtn" value="Guardar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
 </div>
 <div>
     @Html.ActionLink("Voltar à listagem", "Index")
+=======
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </div>

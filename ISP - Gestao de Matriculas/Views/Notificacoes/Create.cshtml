@@ -4,10 +4,16 @@
     ViewBag.Title = "Create";
 }
 
+<<<<<<< HEAD
 <h2>Criar Notificação</h2>
 
 <div class="well fuelux">
 @using (Html.BeginForm("Create", "Notificacoes", FormMethod.Post, new {@id = "NotificacoesForm"})) {
+=======
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -22,17 +28,26 @@
         </div>
 
         <div class="editor-label">
+<<<<<<< HEAD
             @Html.LabelFor(model => model.tipologia)
         </div>
         <div class="editor-field">
             @Html.DropDownList("tipologiaId", String.Empty)
             @Html.ValidationMessageFor(model => model.tipologiaId)
+=======
+            @Html.LabelFor(model => model.tipo)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("tipo", String.Empty)
+            @Html.ValidationMessageFor(model => model.tipo)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.mensagem)
         </div>
         <div class="editor-field">
+<<<<<<< HEAD
             @*@Html.EditorFor(model => model.mensagem)*@
             @Html.TextAreaFor(model => model.mensagem, new { rows = 5, cols = 400})
             @Html.ValidationMessageFor(model => model.mensagem)
@@ -44,5 +59,19 @@
 
 <div>
     @Html.ActionLink("Voltar à listagem", "Index")
+=======
+            @Html.EditorFor(model => model.mensagem)
+            @Html.ValidationMessageFor(model => model.mensagem)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </div>
 

@@ -6,11 +6,19 @@
 
 <h2>Delete</h2>
 
+<<<<<<< HEAD
 <div class="well fuelux">
 @using (Html.BeginForm("Activate", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
     @Html.AntiForgeryToken()
 <fieldset>
     <legend>Deseja ativar @Html.DisplayFor(model => model.UserName) ?</legend>
+=======
+<h4>@ViewBag.errorMessage</h4>
+
+<h3>Are you sure you want to activate this user?</h3>
+<fieldset>
+    <legend>UserProfile</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     <div class="display-label">
          @Html.DisplayNameFor(model => model.UserName)
     </div>
@@ -45,6 +53,7 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.entidade.nome)
     </div>
+<<<<<<< HEAD
     <div class="display-label">
          @Html.DisplayNameFor(model => model.utilizadorAD)
     </div>
@@ -59,3 +68,13 @@
         @Html.ActionLink("Back to List", "Index")
     </p>
 
+=======
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Activate" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

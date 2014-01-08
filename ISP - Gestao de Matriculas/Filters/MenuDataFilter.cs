@@ -8,7 +8,11 @@ using System.Web.Mvc;
 using ISP.GestaoMatriculas.Models;
 using ISP.GestaoMatriculas.Model;
 using WebMatrix.WebData;
+<<<<<<< HEAD
 
+=======
+using ISP.GestaoMatriculas.Model.Indicadores;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Filters
 {
@@ -39,7 +43,11 @@ namespace ISP.GestaoMatriculas.Filters
                 for(int i = 0; i < messagesToPreview; i++){
                     filterContext.Controller.ViewData["Notificacao" + (i) + ".ID"] = notificacaoPreviewList[i].notificacaoId.ToString();
                     filterContext.Controller.ViewData["Notificacao" + (i) + ".ImageUrl"] = notificacaoPreviewList[i].imageUrl();
+<<<<<<< HEAD
                     filterContext.Controller.ViewData["Notificacao" + (i) + ".Tipo"] = notificacaoPreviewList[i].tipologia.descricao;
+=======
+                    filterContext.Controller.ViewData["Notificacao" + (i) + ".Tipo"] = notificacaoPreviewList[i].tipoToString();
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                     filterContext.Controller.ViewData["Notificacao" + (i) + ".Mensagem"] = notificacaoPreviewList[i].mensagemToString();
                     filterContext.Controller.ViewData["Notificacao" + (i) + ".Data"] = notificacaoPreviewList[i].dataCriacao.ToString();
                 }
@@ -50,7 +58,11 @@ namespace ISP.GestaoMatriculas.Filters
                 for (int i = 0; i < numIndicadores; i++)
                 {
                     filterContext.Controller.ViewData["Indicador" + (i) + ".Descricao"] = listaIndicadores[i].descricao;
+<<<<<<< HEAD
                     filterContext.Controller.ViewData["Indicador" + (i) + ".Valor"] = listaIndicadores[i].valor;
+=======
+                    filterContext.Controller.ViewData["Indicador" + (i) + ".Valor"] = listaIndicadores[i].calcular().valor;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                 }
             }
             else

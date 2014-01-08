@@ -11,7 +11,11 @@ namespace ISP.GestaoMatriculas.Model
     public class UsersContext : DbContext
     {
         public UsersContext()
+<<<<<<< HEAD
             : base("DefaultConnection")
+=======
+            : base("ISPMatriculas")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         {
         }
 

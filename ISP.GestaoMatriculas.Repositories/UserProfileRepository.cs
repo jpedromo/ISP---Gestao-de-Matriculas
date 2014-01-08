@@ -9,14 +9,20 @@ using System.Web;
 
 using ISP.GestaoMatriculas.Contracts;
 using ISP.GestaoMatriculas.Model;
+<<<<<<< HEAD
 using Microsoft.ApplicationServer.Caching;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Repositories
 {
     public class UserProfileRepository : IUserProfileRepository
     {
         DomainModels context = new DomainModels();
+<<<<<<< HEAD
         private DataCache m_cache = null;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
         public IQueryable<UserProfile> All
         {
@@ -39,6 +45,7 @@ namespace ISP.GestaoMatriculas.Repositories
         public UserProfile Find(int id)
         {
             return context.UserProfiles.Find(id);
+<<<<<<< HEAD
 
             m_cache = CacheUtil.GetCache();
             DataCacheItemVersion version = null;
@@ -108,6 +115,8 @@ namespace ISP.GestaoMatriculas.Repositories
             }
 
             return result;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
         public void InsertOrUpdate(UserProfile userProfile){

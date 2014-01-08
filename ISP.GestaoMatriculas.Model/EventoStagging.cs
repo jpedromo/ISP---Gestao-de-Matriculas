@@ -4,12 +4,16 @@ using System.Linq;
 using System.Web;
 using ISP.GestaoMatriculas.Model.Exceptions;
 using System.ComponentModel.DataAnnotations.Schema;
+<<<<<<< HEAD
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Model
 {
     public class EventoStagging
+<<<<<<< HEAD
     {        
         [Key]
         [Column("CodEventoStaggingId_PK")]
@@ -455,5 +459,59 @@ namespace ISP.GestaoMatriculas.Model
         
         }
                  
+=======
+    {
+        public enum estadoEventoStagging
+        {
+            submetido,
+            processamento,
+            processado
+        }
+
+        public int eventoStaggingId { get; set; }
+        public string idOcorrencia { get; set; }
+        public string CodigoOperacao { get; set; }
+
+        [ForeignKey("entidade")]
+        public int? entidadId { get; set; }
+        public virtual Entidade entidade { get; set; }
+
+        public string nrApolice { get; set; }
+        public string nrCertificadoProvisorio { get; set; }
+        public string dataInicioCobertura { get; set; }
+        public string dataFimCobertura { get; set; }
+          
+        public string matricula { get; set; }
+        public string marca { get; set; }
+        public string modelo { get; set; }
+        public string anoConstrucao { get; set; }
+        public string categoriaVeiculo { get; set; }
+        public string concelhoCirculacao { get; set; }
+
+        public string nomeTomadorSeguro { get; set; }
+        public string moradaTomadorSeguro { get; set; }
+        public string codigoPostalTomador { get; set; }
+        public string nrIdentificacaoTomadorSeguro { get; set; }
+
+        public estadoEventoStagging estadoEvento { get; set; }
+        
+        [ForeignKey("ficheiro")]
+        public int? ficheiroID { get; set; }
+        public virtual Ficheiro ficheiro { get; set; }
+
+        public List<ErroEventoStagging> errosEventoStagging { get; set; }
+
+        public EventoStagging()
+        {
+            errosEventoStagging = new List<ErroEventoStagging>();
+        }
+
+        public Apolice validar()
+        {
+            throw new ErroEventoStaggingException();
+            //TODO
+            return new Apolice();
+        }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

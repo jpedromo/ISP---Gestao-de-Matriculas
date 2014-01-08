@@ -4,11 +4,18 @@
     ViewBag.Title = "Details";
 }
 
+<<<<<<< HEAD
 <h2>Detalhes de utilizador</h2>
 
 <div class="well fuelux">
 <fieldset>
     <legend>Utilizador @Html.DisplayFor(model => model.UserName)</legend>
+=======
+<h2>Details</h2>
+
+<fieldset>
+    <legend>UserProfile</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     <div class="display-label">
          @Html.DisplayNameFor(model => model.UserName)
     </div>
@@ -43,6 +50,7 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.entidade.nome)
     </div>
+<<<<<<< HEAD
     <div class="display-label">
          @Html.DisplayNameFor(model => model.utilizadorAD)
     </div>
@@ -54,4 +62,10 @@
 <p>
     @Html.ActionLink("Editar", "Edit", new { id=Model.UserId }) |
     @Html.ActionLink("Voltar à listagem", "Index")
+=======
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </p>

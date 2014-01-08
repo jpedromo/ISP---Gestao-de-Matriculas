@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ISP.GestaoMatriculas.Model;
+<<<<<<< HEAD
 using ISP.GestaoMatriculas.BaseListViewModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,10 +11,17 @@ using System.ComponentModel.DataAnnotations;
 namespace ISP.GestaoMatriculas.ViewModels
 {
     public class ApoliceListViewModel : ListViewModel
+=======
+
+namespace ISP.GestaoMatriculas.ViewModels
+{
+    public class ApoliceListViewModel
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     {
         public ApoliceListViewModel()
         {
             apolicesEfetivas = new List<Apolice>();
+<<<<<<< HEAD
             eventosStagging = new List<EventoStagging>();
             eventosProcessados = new List<EventoStagging>();
             apolice = string.Empty;
@@ -115,5 +123,30 @@ namespace ISP.GestaoMatriculas.ViewModels
         public string matricula { get; set; }
         [Display(Name = "Nome do Tomador")]
         public string tomador { get; set; }
+=======
+            apolice = string.Empty;
+            matricula = string.Empty;
+            erros = false;
+            apagados = false;
+            avisos = false;
+        }
+
+        //public string Params { get; set; }
+
+        public IEnumerable<Apolice> apolicesEfetivas { get; set; }
+
+        public int entidade { get; set; }
+        public string apolice { get; set; }
+        public string matricula { get; set; }
+        public bool avisos { get; set; }
+
+        public bool apagados { get; set; }
+
+        public bool erros { get; set; }
+
+
+        //IEnumerable<ApoliceErro> ApolicesErradas { get; set; }
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

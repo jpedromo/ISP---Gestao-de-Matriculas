@@ -4,6 +4,7 @@
     ViewBag.Title = "Deactivate";
 }
 
+<<<<<<< HEAD
 <h2>Desativar utilizador</h2>
 
 <div class="well fuelux">
@@ -11,6 +12,15 @@
     @Html.AntiForgeryToken()
 <fieldset>
     <legend>Deseja desativar @Html.DisplayFor(model => model.UserName) ?</legend>
+=======
+<h2>Delete</h2>
+
+<h4>@ViewBag.errorMessage</h4>
+
+<h3>Are you sure you want to deactivate this user?</h3>
+<fieldset>
+    <legend>UserProfile</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     <div class="display-label">
          @Html.DisplayNameFor(model => model.UserName)
     </div>
@@ -45,6 +55,7 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.entidade.nome)
     </div>
+<<<<<<< HEAD
     <div class="display-label">
          @Html.DisplayNameFor(model => model.utilizadorAD)
     </div>
@@ -59,3 +70,13 @@
     <p>
         @Html.ActionLink("Voltar à listagem", "Index")
     </p>
+=======
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Deactivate" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

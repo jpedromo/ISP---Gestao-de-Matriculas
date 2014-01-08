@@ -8,15 +8,21 @@ using System.Data.Entity;
 using System.Web;
 using ISP.GestaoMatriculas.Contracts;
 using ISP.GestaoMatriculas.Model;
+<<<<<<< HEAD
 using System.Data.Entity.Core.Objects;
 using Microsoft.ApplicationServer.Caching;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Repositories
 {
     public class ApoliceRepository : IApoliceRepository
     {
         DomainModels context = new DomainModels();
+<<<<<<< HEAD
         private DataCache m_cache = null;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
         public IQueryable<Apolice> All
         {
@@ -41,6 +47,7 @@ namespace ISP.GestaoMatriculas.Repositories
             return context.Apolices.Find(id);
         }
 
+<<<<<<< HEAD
 
         public Apolice FindCache(int id)
         {
@@ -65,6 +72,12 @@ namespace ISP.GestaoMatriculas.Repositories
             if (apolice.apoliceId == default(int))
             {
                 apolice = context.Apolices.Add(apolice);
+=======
+        public void InsertOrUpdate(Apolice apolice){
+            if (apolice.Id == default(int))
+            {
+                context.Apolices.Add(apolice);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
             else
             {
@@ -82,12 +95,17 @@ namespace ISP.GestaoMatriculas.Repositories
         {
             context.SaveChanges();
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         public void Dispose()
         {
             context.Dispose();
         }
 
+<<<<<<< HEAD
 
 
         public IList<Apolice> Search(Expression<Func<Apolice, bool>> filters, string sorting, List<string> includeList)
@@ -111,5 +129,7 @@ namespace ISP.GestaoMatriculas.Repositories
             query = query.OrderBy(s => s.numeroApolice);
             return query;
         }
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

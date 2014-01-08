@@ -12,17 +12,27 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
+<<<<<<< HEAD
     @Scripts.Render("~/bundles/monthpicker")
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/Content/myFuelux/css")
+=======
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     @Styles.Render("~/Fonts/Font-Awesome")
 
     @*FuelUx includes Bootstrap old version*@
     @*@Scripts.Render("~/bundles/fuelux")*@
 
     @RenderSection("css", required: false)
+<<<<<<< HEAD
+=======
+    @RenderSection("scripts", required: false)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </head>
 
 <body>
@@ -33,6 +43,7 @@
 </header>
         @{Html.RenderAction("Index", "Menu");}
 
+<<<<<<< HEAD
         <div id="body" class="container" style="margin-top:100px">
             @Html.Partial("_SKAlerts")
             <div id="page-wrapper">
@@ -47,6 +58,20 @@
         </div>
     </div>
         @RenderSection("scripts", required: false)
+=======
+        <div id="body" class="container">
+        <div id="page-wrapper">
+            @RenderSection("featured", required: false)
+            @RenderBody()
+        </div>
+        </div>
+
+        <hr />
+        <div id="footer">
+            <p>footer here</p>
+        </div>
+    </div>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </div>
 </body>
 </html>

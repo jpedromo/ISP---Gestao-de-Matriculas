@@ -3,6 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A1865E86-8981-4B79-B2D8-F9CC04833DE4}"
 EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP - Gestao de Matriculas", "ISP - Gestao de Matriculas\ISP - Gestao de Matriculas.csproj", "{B0C775E1-26F3-41A2-A192-2C75F5FCB20A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.GestaoMatriculas.Model", "ISP.GestaoMatriculas.Model\ISP.GestaoMatriculas.Model.csproj", "{51FBCB19-8F56-43A5-A4C3-3B0C0D5D550A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A1865E86-8981-4B79-B2D8-F9CC04833DE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.GestaoMatriculas.Repositories", "ISP.GestaoMatriculas.Repositories\ISP.GestaoMatriculas.Repositories.csproj", "{F7F9C1CE-6B15-4DD6-B8B1-EB2745020D5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.GestaoMatriculas.Contracts", "ISP.GestaoMatriculas.Contracts\ISP.GestaoMatriculas.Contracts.csproj", "{4110CC2D-301C-4D62-8582-ACDDA2352011}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{869D4F15-1A8B-423B-B86A-7473D42D5B10}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -28,9 +40,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.GestaoMatriculas.Contra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.WebAPI", "ISP.WebAPI\ISP.WebAPI.csproj", "{97ABFCBC-02BC-4FD8-B05A-97E05D176401}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.WebAPI", "ISP.WebAPI\ISP.WebAPI.csproj", "{97ABFCBC-02BC-4FD8-B05A-97E05D176401}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServices", "WebServices", "{7287CC90-4E98-471D-B2F9-9FAF0668FACB}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.WebServices", "ISP.WebServices\ISP.WebServices.csproj", "{B024C009-EC42-4A3B-8639-EDC78C271AC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication2", "ConsoleApplication2\ConsoleApplication2.csproj", "{279F147A-96C9-4249-909F-9AA37DEDBDFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsServices", "WindowsServices", "{B9E0F05B-B4E4-4968-9D70-64138B25E151}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISP.GestaoMatriculas.FileAgent", "ISP.GestaoMatriculas.FileAgent\ISP.GestaoMatriculas.FileAgent.csproj", "{8C580CB2-D8F6-48BD-8CAB-F141B1A3809A}"
 EndProject
@@ -61,6 +79,55 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "IndicadoresAgentSetup", "IndicadoresAgentSetup\IndicadoresAgentSetup.vdproj", "{17C7BC24-36C0-48A6-8E5F-6B1C20A1B36B}"
 EndProject
 Global
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 12
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://slx01tfs01:8080/tfs/projetosisp
+		SccLocalPath0 = ISP.WebAPI
+		SccProjectFilePathRelativizedFromConnection0 = ..\\
+		SccProjectUniqueName1 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas\\ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.csproj
+		SccProjectName1 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas
+		SccLocalPath1 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas
+		SccProjectUniqueName2 = ISP.GestaoMatriculas.Repositories\\ISP.GestaoMatriculas.Repositories.csproj
+		SccProjectTopLevelParentUniqueName2 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName2 = ISP.GestaoMatriculas.Repositories
+		SccLocalPath2 = ISP.GestaoMatriculas.Repositories
+		SccProjectUniqueName3 = ISP.GestaoMatriculas.Model\\ISP.GestaoMatriculas.Model.csproj
+		SccProjectTopLevelParentUniqueName3 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName3 = ISP.GestaoMatriculas.Model
+		SccLocalPath3 = ISP.GestaoMatriculas.Model
+		SccProjectUniqueName4 = ISP.GestaoMatriculas.Contracts\\ISP.GestaoMatriculas.Contracts.csproj
+		SccProjectTopLevelParentUniqueName4 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName4 = ISP.GestaoMatriculas.Contracts
+		SccLocalPath4 = ISP.GestaoMatriculas.Contracts
+		SccProjectUniqueName5 = ISP.WebAPI\\ISP.WebAPI.csproj
+		SccProjectTopLevelParentUniqueName5 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccLocalPath5 = ISP.WebAPI
+		SccProjectUniqueName6 = ISP.WebServices\\ISP.WebServices.csproj
+		SccProjectTopLevelParentUniqueName6 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName6 = ISP.WebServices
+		SccLocalPath6 = ISP.WebServices
+		SccProjectUniqueName7 = ConsoleApplication2\\ConsoleApplication2.csproj
+		SccProjectName7 = ConsoleApplication2
+		SccLocalPath7 = ConsoleApplication2
+		SccProjectUniqueName8 = ISP.GestaoMatriculas.FileAgent\\ISP.GestaoMatriculas.FileAgent.csproj
+		SccProjectTopLevelParentUniqueName8 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName8 = ISP.GestaoMatriculas.FileAgent
+		SccLocalPath8 = ISP.GestaoMatriculas.FileAgent
+		SccProjectUniqueName9 = ISP.GestaoMatriculas.OperationAgent\\ISP.GestaoMatriculas.OperationAgent.csproj
+		SccProjectTopLevelParentUniqueName9 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName9 = ISP.GestaoMatriculas.OperationAgent
+		SccLocalPath9 = ISP.GestaoMatriculas.OperationAgent
+		SccProjectUniqueName10 = ISP.GestaoMatriculas.NotificationAgent\\ISP.GestaoMatriculas.NotificationAgent.csproj
+		SccProjectTopLevelParentUniqueName10 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName10 = ISP.GestaoMatriculas.NotificationAgent
+		SccLocalPath10 = ISP.GestaoMatriculas.NotificationAgent
+		SccProjectUniqueName11 = ISP.GestaoMatriculas.Utils\\ISP.GestaoMatriculas.Utils.csproj
+		SccProjectTopLevelParentUniqueName11 = ISP\u0020-\u0020Gestao\u0020de\u0020Matriculas.sln
+		SccProjectName11 = ISP.GestaoMatriculas.Utils
+		SccLocalPath11 = ISP.GestaoMatriculas.Utils
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

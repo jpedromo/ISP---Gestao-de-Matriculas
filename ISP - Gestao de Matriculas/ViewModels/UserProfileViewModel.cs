@@ -9,7 +9,11 @@ namespace ISP.GestaoMatriculas.ViewModels
 {
     public class UserProfileViewModel
     {
+<<<<<<< HEAD
             [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+=======
+            [Required]
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             public int userId { get; set; }
 
             [Display(Name = "Nome da pessoa")]
@@ -36,7 +40,10 @@ namespace ISP.GestaoMatriculas.ViewModels
             [Compare("newPassword", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmNewPassword { get; set; }
 
+<<<<<<< HEAD
             public string utilizadorAD { get; set; }
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

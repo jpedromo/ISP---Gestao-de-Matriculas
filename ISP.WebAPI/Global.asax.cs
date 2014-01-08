@@ -7,11 +7,14 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using ISP.WebAPI.Modules;
+<<<<<<< HEAD
 using Autofac;
 using Autofac.Configuration;
 using Autofac.Integration.WebApi;
 using System.Reflection;
 using WebMatrix.WebData;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.WebAPI
 {
@@ -24,13 +27,17 @@ namespace ISP.WebAPI
         {
             AreaRegistration.RegisterAllAreas();
 
+<<<<<<< HEAD
             RegisterIoCContainer();
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+<<<<<<< HEAD
             if (!WebSecurity.Initialized)
             {
                 WebSecurity.InitializeDatabaseConnection("DomainModels", "MAT_USER_PROFILE", "UserId_PK", "UserName", autoCreateTables: true);
@@ -51,6 +58,9 @@ namespace ISP.WebAPI
             var resolver = new AutofacWebApiDependencyResolver(container);
 
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
     }
 }

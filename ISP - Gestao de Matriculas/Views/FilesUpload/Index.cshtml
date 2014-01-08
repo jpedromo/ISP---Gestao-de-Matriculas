@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@model ISP.GestaoMatriculas.ViewModels.FilesUploadListViewModel
 @using ISP.GestaoMatriculas.Code.Util
 @{
@@ -88,24 +89,68 @@ else
     <div class="tab-pane active" id="uploadTab">
         <div>
             @using (Html.BeginForm("Upload", "FilesUpload", new { tabNr = Model.TabNumber }, FormMethod.Post, new
+=======
+﻿@model ISP.GestaoMatriculas.ViewModels.FilesUploadViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@section css{
+    @Styles.Render("~/Content/fuelux/css")
+    <link href="~/Scripts/dropzone/css/dropzone.css" rel="stylesheet" />
+}
+
+@section scripts{
+
+}
+<script>
+    $(document).ready(
+        function () {
+            $('#tabs a:first').tab('show')
+        })
+</script>
+
+<h2>Index</h2>
+
+<ul id="tabs" class="nav nav-tabs">
+@if (Model.upload)
+{
+    <li><a href="#uploadTab" data-toggle="tab" class="active">Upload</a></li>
+    <li><a href="#ficheirosTab" data-toggle="tab">Ficheiros</a></li>
+}
+else
+{
+    <li><a href="#uploadTab" data-toggle="tab">Upload</a></li>
+    <li><a href="#ficheirosTab" data-toggle="tab" class="active">Ficheiros</a></li>
+}
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="uploadTab">
+        <div>
+            @using (Html.BeginForm("Upload", "FilesUpload", FormMethod.Post, new
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             {
                 enctype = "multipart/form-data",
                 id = "uploadForm",
                 @class = "dropzone dz-clickable"
             }))
             {
+<<<<<<< HEAD
                 if (!User.IsInRole("Seguradora"))
                 {
                 @Html.DropDownList("entidadeId", (SelectList)ViewData["Entidades"])
                 @Html.ValidationMessageFor(model => model.entidadeId)   
                 <br />
                 }
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                 <div class="fallback">
                     <input name="file" type="file" />
                     <input type="submit" value="Upload" />
                 </div>
             }
         </div>
+<<<<<<< HEAD
         
     </div>
     <div class="tab-pane" id="ficheirosTab">
@@ -201,20 +246,71 @@ else
                                 sortColumn: "UserName",
                                 direction: "desc"),
                                 new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+=======
+
+        <script src="~/Scripts/dropzone/dropzone.js"></script>
+        <script type="text/javascript">
+            // "uploadDemo" is the camelized version of the HTML form's ID
+            Dropzone.options.uploadForm = {
+                paramName: "file", // Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+                maxFilesize: 50 //10 MB
+                //        accept: function(file, done) {
+                //            if (file.name == "justinbieber.jpg") {
+                //              done("Naha, you don't.");
+                //            }
+                //            else { done(); }
+                //            },
+
+            };
+ 
+        </script>
+    </div>
+
+    <div class="tab-pane fade" id="ficheirosTab">
+        
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().nomeFicheiro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().estado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().dataUpload)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().dataAlteracao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().erro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().userName)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                 </th>
                 <th>
                 </th>
             </tr>
+<<<<<<< HEAD
             </thead>
             <tbody>
             @foreach (var item in Model.ficheiros)
             {                
+=======
+            @foreach (var item in Model.ficheiros)
+            {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.nomeFicheiro)
                     </td>
                     <td>
+<<<<<<< HEAD
                         @Html.DisplayFor(modelItem => item.estado.descricao)
+=======
+                        @Html.DisplayFor(modelItem => item.estado)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.dataUpload)
@@ -223,10 +319,17 @@ else
                         @Html.DisplayFor(modelItem => item.dataAlteracao)
                     </td>
                     <td>
+<<<<<<< HEAD
+=======
+                        @Html.DisplayFor(modelItem => item.erro)
+                    </td>
+                    <td>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                         @Html.DisplayFor(modelItem => item.userName)
                     </td>
                     <td>
                         @Html.Hidden("upload", (bool)false)
+<<<<<<< HEAD
                         @if (item.estado.valor == "SUBMETIDO" && !User.IsInRole("ISP-Leitura"))
                         {
                             <span>
@@ -247,5 +350,13 @@ else
                                                 controllerName: "FilesUpload",
                                                 routeValues: Url.GetRouteValueDictionaryForList(Model),
                                                 pageRouteValueName: "page"))
+=======
+                        @Html.ActionLink("Processar", "Processar", new { id = item.ficheiroId }) |
+                        @Html.ActionLink("Cancelar", "Cancelar", new { id = item.ficheiroId }) |
+                    </td>
+                </tr>
+            }
+        </table>        
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     </div>
 </div>

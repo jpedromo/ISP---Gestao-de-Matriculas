@@ -1,0 +1,6 @@
+Error	4	Web deployment task failed.(Remote agent (URL https://slx01dev23:8172/msdeploy.axd?site=Default Web Site) could not be contacted.  Make sure the remote agent service is installed and started on the target computer.)
+The requested resource does not exist, or the requested URL is incorrect.
+Error details:
+Remote agent (URL https://slx01dev23:8172/msdeploy.axd?site=Default Web Site) could not be contacted.  Make sure the remote agent service is installed and started on the target computer.
+An unsupported response was received. The response header 'MSDeploy.Response' was '' but 'v1' was expected.
+The remote server returned an error: (404) Not Found.		0	0	ISP - Gestao de Matriculas

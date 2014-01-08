@@ -83,12 +83,15 @@ table.tablesorter thead tr th:hover {
   height: 100%;
 }
 
+<<<<<<< HEAD
   .navbar-inverse
   {
       background-color: #e8e7e2;
       border-color: transparent;
   }
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 /* Edit Below to Customize Widths > 768px */
 @media (min-width:768px) {
 
@@ -109,6 +112,7 @@ table.tablesorter thead tr th:hover {
 	left: 225px;
 	width: 225px;
 	position: fixed;
+<<<<<<< HEAD
 	top: 90px;
 	height: 100%;
 	border-radius: 0;
@@ -131,6 +135,15 @@ table.tablesorter thead tr th:hover {
       background-color: #e8e7e2;
       border-color: transparent;
   }
+=======
+	top: 50px;
+	height: 100%;
+	border-radius: 0;
+	border: none;
+	background-color: #222222;
+	overflow-y: auto;
+  }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
   /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
 
@@ -155,8 +168,12 @@ table.tablesorter thead tr th:hover {
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
 	color: #fff;
+<<<<<<< HEAD
 	*background-color: #080808;
 	background-color: #A34B1B;
+=======
+	background-color: #080808;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   }
 
   .side-nav>li>a {
@@ -165,8 +182,12 @@ table.tablesorter thead tr th:hover {
 
   .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
+<<<<<<< HEAD
 	*background-color: #080808;
 	background-color: #A34B1B;
+=======
+	background-color: #080808;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   }
 
   /* Nav Messages */
@@ -179,6 +200,7 @@ table.tablesorter thead tr th:hover {
 	white-space: normal;
   }
 
+<<<<<<< HEAD
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover,
  .navbar-inverse .navbar-nav > .active > a:focus 
  {
@@ -204,4 +226,6 @@ table.tablesorter thead tr th:hover {
     {
         color: #080808;
     }
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 }

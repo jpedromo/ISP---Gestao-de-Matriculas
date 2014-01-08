@@ -6,15 +6,32 @@
 @section scripts {
 }
 
+<<<<<<< HEAD
 <h2>Perfil de Utilizador</h2>
 
 <div class="well fuelux">
 @using (Html.BeginForm("Manage", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
+=======
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<h4>You're logged in as <strong>@User.Identity.Name</strong>.</h4>
+<h4>You are currently associated with: <strong>@ViewBag.AssociatedEntity</strong></h4>
+
+    @using (Html.BeginForm()) {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
     <fieldset>
+<<<<<<< HEAD
         <legend>Utilizador @ViewBag.UserName - @ViewBag.AssociatedEntity</legend>
+=======
+        <legend>@ViewBag.UserName</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
         <div class="editor-label">
             @Html.HiddenFor(model => model.userId)
@@ -44,11 +61,17 @@
             @Html.ValidationMessageFor(model => model.telefone)
         </div>
         <br />
+<<<<<<< HEAD
         @if (Model.utilizadorAD == string.Empty || Model.utilizadorAD == null)
         {
         <legend>Alterar Password (Opcional)</legend>
 
         <div class="editor-label">
+=======
+        <legend>Alterar Password</legend>
+
+                 <div class="editor-label">
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             @Html.LabelFor(model => model.oldPassword)
         </div>
         <div class="editor-field">
@@ -71,10 +94,19 @@
             @Html.EditorFor(model => model.ConfirmNewPassword)
             @Html.ValidationMessageFor(model => model.ConfirmNewPassword)
         </div>
+<<<<<<< HEAD
         }
     </fieldset>
 }
 <input type="button" class="btn btn-primary" id="manageBtn" value="Guardar" onclick="javascript:document.getElementById('AccountForm').submit()"/>
 </div>
+=======
+        <br />
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 

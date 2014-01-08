@@ -94,6 +94,7 @@ try {
 } catch {
     Write-Error "Unable to update the web.config file at $configPath. Add the following connection string to your config: <add name=`"DefaultConnection`" providerName=`"System.Data.SqlClient`" connectionString=`"$connectionString`" />"
 }
+<<<<<<< HEAD
 
 # SIG # Begin signature block
 # MIIaRAYJKoZIhvcNAQcCoIIaNTCCGjECAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
@@ -238,3 +239,5 @@ try {
 # KU2zGKBt/Z4T4hih8LjZdyQjcUytna9ZM34grT+MV9U61S0OVo5kOnBh5o3sFTT7
 # 7wZ88NWhWEo=
 # SIG # End signature block
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

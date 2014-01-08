@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ISP.GestaoMatriculas.Model
 {
+<<<<<<< HEAD
     public class ApoliceHistorico
     {
 
@@ -144,5 +145,11 @@ namespace ISP.GestaoMatriculas.Model
             this.eventoHistoricoId = apolice.eventoHistoricoId;
         }
 
+=======
+    public class ApoliceHistorico : Apolice
+    {
+        public int ApoliceId { get; set; }
+        public Apolice Apolice { get; set; }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

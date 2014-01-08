@@ -5,6 +5,10 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using ISP.GestaoMatriculas.Model;
+<<<<<<< HEAD
+=======
+using ISP.GestaoMatriculas.Model.Indicadores;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 using System.Data.Entity.Core.Objects;
 using System.Data.Common;
 
@@ -15,7 +19,11 @@ namespace ISP.GestaoMatriculas.Model
 
         public DbSet<Apolice> Apolices { get; set; }
         public DbSet<ApoliceHistorico> ApolicesHistorico { get; set; }
+<<<<<<< HEAD
         public DbSet<Aviso> Avisos { get; set; }
+=======
+        public DbSet<AvisoApolice> AvisosApolice { get; set; }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         
         public DbSet<ActionLog> ActionLogs { get; set; }
 
@@ -37,6 +45,7 @@ namespace ISP.GestaoMatriculas.Model
         public DbSet<EventoHistorico> EventosHistorico { get; set; }
         public DbSet<ErroEventoStagging> ErrosEventoStagging { get; set; }
 
+<<<<<<< HEAD
         public DbSet<Indicador> Indicadores { get; set; }
 
         public DbSet<ApoliceIsento> ApolicesIsentos { get; set; }
@@ -44,6 +53,8 @@ namespace ISP.GestaoMatriculas.Model
 
         public DbSet<ValorSistema> ValoresSistema { get; set; }
         
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges(); // Important!
@@ -101,6 +112,7 @@ namespace ISP.GestaoMatriculas.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+<<<<<<< HEAD
             modelBuilder.Entity<Apolice>().ToTable("MAT_PERIODO_COBERTURA");
             modelBuilder.Entity<ApoliceHistorico>().ToTable("MAT_PERIODO_COBERTURA_HISTORICO");
             modelBuilder.Entity<Aviso>().ToTable("MAT_AVISO");
@@ -144,6 +156,47 @@ namespace ISP.GestaoMatriculas.Model
             modelBuilder.Entity<EventoStagging>().HasMany<ErroEventoStagging>(e => e.errosEventoStagging).WithOptional(a => a.eventoStagging);
 
             modelBuilder.Entity<FicheiroIsentos>().HasMany<ApoliceIsento>(e => e.apolicesIsentos).WithOptional(a => a.ficheiroIsentos);
+=======
+            modelBuilder.Entity<Apolice>().ToTable("Apolices");
+            modelBuilder.Entity<AvisoApolice>().ToTable("AvisosApolice");
+
+            modelBuilder.Entity<Veiculo>().ToTable("Veiculos");
+            modelBuilder.Entity<Pessoa>().ToTable("Segurados");
+
+            modelBuilder.Entity<Categoria>().ToTable("Categorias");
+            modelBuilder.Entity<Concelho>().ToTable("Concelhos");
+            modelBuilder.Entity<Entidade>().ToTable("Entidades");
+            modelBuilder.Entity<Notificacao>().ToTable("Notificacoes");
+            
+            modelBuilder.Entity<Ficheiro>().ToTable("Ficheiros");
+            modelBuilder.Entity<ErroFicheiro>().ToTable("ErrosFicheiro");
+
+            modelBuilder.Entity<EventoStagging>().ToTable("EventosStagging");
+            modelBuilder.Entity<EventoHistorico>().ToTable("EventosHistorico");
+            modelBuilder.Entity<ErroEventoStagging>().ToTable("ErrosEventoStagging");
+
+            modelBuilder.Entity<Indicador>().ToTable("Indicadores");
+
+            modelBuilder.Entity<ApoliceHistorico>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("ApolicesHistorico");
+            });
+ 
+
+            //TODO: mudar para required em vez de optional. Refazer controlador de Apolices para conter a mudança.
+            //modelBuilder.Entity<Entidade>().HasMany<Apolice>(e => e.apolices).WithOptional(a => a.entidade);
+            //modelBuilder.Entity<Entidade>().HasMany<ApoliceHistorico>(e => e.apolicesHistorico).WithOptional(a => a.entidade);
+            
+            //modelBuilder.Entity<Entidade>().HasMany<Notificacao>(e => e.notificacoes).WithOptional(n => n.entidade);
+            //modelBuilder.Entity<Entidade>().HasMany<Indicador>(e => e.indicadores).WithOptional(i => i.entidade);
+            //modelBuilder.Entity<Entidade>().HasMany<EventoStagging>(e => e.eventosStagging).WithRequired(i => i.entidade);
+
+            //modelBuilder.Entity<Ficheiro>().HasMany<ErroFicheiro>(e => e.errosFicheiro).WithRequired(a => a.ficheiro);
+            //modelBuilder.Entity<Ficheiro>().HasMany<EventoStagging>(e => e.eventosStagging).WithOptional(a => a.ficheiro);
+            //modelBuilder.Entity<Apolice>().HasMany<AvisoApolice>(e => e.avisosApolice).WithRequired(a => a.apolice);
+            //modelBuilder.Entity<EventoStagging>().HasMany<ErroEventoStagging>(e => e.errosEventoStagging).WithRequired(a => a.eventoStagging);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             base.OnModelCreating(modelBuilder);
 

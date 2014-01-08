@@ -4,17 +4,29 @@
     ViewBag.Title = "Manage";
 }
 
+<<<<<<< HEAD
 <h2>Perfil de Entidade</h2>
 
 <p class="message-success">@ViewBag.StatusMessage</p>
 
 <div class="well fuelux">
 @using (Html.BeginForm("Manage", "Entidades", FormMethod.Post, new {@id = "EntidadesForm"})) {
+=======
+<h2>Manage</h2>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+@using (Html.BeginForm()) {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     @Html.ValidationSummary(true)
     @Html.AntiForgeryToken();
 
     <fieldset>
+<<<<<<< HEAD
         <legend>Entidade @ViewBag.NomeEntidade</legend>
+=======
+        <legend>@ViewBag.NomeEntidade</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
         <div class="editor-label">
             @Html.HiddenFor(model => model.entityId)
@@ -43,9 +55,22 @@
             @Html.EditorFor(model => model.telefoneResponsavel)
             @Html.ValidationMessageFor(model => model.telefoneResponsavel)
         </div>
+<<<<<<< HEAD
     </fieldset>
 }
 <input type="button" class="btn btn-primary" id="editBtn" value="Guardar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
 </div>
 
+=======
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 

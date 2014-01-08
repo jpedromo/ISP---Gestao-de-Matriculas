@@ -23,6 +23,10 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -215,6 +219,20 @@
     <Compile Include="Code\Utils\UrlHelperExtensions.cs" />
     <Compile Include="Code\Utils\HtmlHelperExtensions.cs" />
     <Compile Include="Code\Utils\PagerHtmlRenderer.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApolicesController.cs" />
     <Compile Include="Controllers\ActionLogController.cs" />
@@ -229,6 +247,11 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NotificacoesController.cs" />
     <Compile Include="Controllers\SitePublicoController.cs" />
+    <Compile Include="Controllers\EntidadesController.cs" />
+    <Compile Include="Controllers\FilesUploadController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\NotificacoesController.cs" />
     <Compile Include="Filters\ActionLogFilter.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\MenuDataFilter.cs" />
@@ -259,10 +282,13 @@
     <Compile Include="ViewModels\StaggingEditViewModel.cs" />
     <Compile Include="ViewModels\StaggingDetailsViewModel.cs" />
     <Compile Include="ViewModels\FilesUploadListViewModel.cs" />
+    <Compile Include="ViewModels\FilesUploadViewModel.cs" />
     <Compile Include="ViewModels\EntityProfileViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Areas\HelpPage\TestClient.css" />
     <Content Include="Content\Backload\content-types\128\Excel.png" />
     <Content Include="Content\Backload\content-types\128\File.png" />
     <Content Include="Content\Backload\content-types\128\FileNotFound.png" />
@@ -367,6 +393,8 @@
     <Content Include="Content\myFuelux.css" />
     <Content Include="Content\myWizardFuelux.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\fuelux.css" />
+    <Content Include="Content\myWizardFuelux.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -442,6 +470,10 @@
     <Content Include="Images\Logo_ISP.png" />
     <Content Include="Images\Notificacoes\Error.png" />
     <Content Include="Images\Notificacoes\ISP_Logo.png" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\Notificacoes\Error.png" />
     <Content Include="Images\Notificacoes\Success.png" />
     <Content Include="Images\Notificacoes\Warning.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -501,6 +533,7 @@
     <Content Include="Scripts\jquery.mtz.monthpicker.js" />
     <Content Include="Scripts\morris-0.4.3.min.js" />
     <Content Include="Scripts\myWizardFuelux.js" />
+    <Content Include="Scripts\jquery.bootstrap.wizard.js" />
     <Content Include="Scripts\jquery.bootstrap.wizard.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -581,6 +614,24 @@
     <Content Include="fonts\font-awesome\fonts\FontAwesome.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientReferences.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientDialogs.cshtml" />
+    <None Include="fonts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <None Include="fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <None Include="fonts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <None Include="fonts\font-awesome\fonts\FontAwesome.otf" />
     <Content Include="Views\Apolices\Index.cshtml" />
     <Content Include="Views\Apolices\Create.cshtml" />
     <Content Include="Views\ActionLog\Index.cshtml" />
@@ -664,6 +715,10 @@
     <Content Include="Views\Shared\EditorTemplates\DateMonth.cshtml" />
     <Content Include="Views\Indicadores\DetailsSLA.cshtml" />
     <Content Include="Views\Account\LoginAD.cshtml" />
+    <Content Include="Views\FilesUpload\Index1.cshtml" />
+    <Content Include="Views\FilesUpload\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Apolices\DetalhesHistorico.cshtml" />
     <None Include="Web.Backload.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -672,6 +727,9 @@
     <ProjectReference Include="..\Everis.Web.Mvc\Everis.Web.Mvc.csproj">
       <Project>{7936B2C6-CC79-42EA-94AB-0BA92F658342}</Project>
       <Name>Everis.Web.Mvc</Name>
+    <ProjectReference Include="..\Everis.Core\Everis.Core.csproj">
+      <Project>{58f6471e-2023-4afa-a826-5045edafa195}</Project>
+      <Name>Everis.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ISP.GestaoMatriculas.Contracts\ISP.GestaoMatriculas.Contracts.csproj">
       <Project>{4110CC2D-301C-4D62-8582-ACDDA2352011}</Project>
@@ -707,6 +765,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52523</DevelopmentServerPort>
+          <DevelopmentServerPort>53091</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

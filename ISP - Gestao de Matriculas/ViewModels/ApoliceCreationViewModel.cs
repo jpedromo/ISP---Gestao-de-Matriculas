@@ -11,6 +11,7 @@ namespace ISP.GestaoMatriculas.ViewModels
     {
         public Apolice apolice { get; set; }
 
+<<<<<<< HEAD
         public Veiculo veiculo { get; set; }
 
         public Pessoa tomador { get; set; }
@@ -18,5 +19,14 @@ namespace ISP.GestaoMatriculas.ViewModels
         public int? categoriaId { get; set; }
 
         public int? concelhoId { get; set; }
+=======
+        public Pessoa tomador { get; set; }
+
+        public Veiculo veiculo { get; set; }
+
+        public int categoriaId { get; set; }
+
+        public int concelhoId { get; set; }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

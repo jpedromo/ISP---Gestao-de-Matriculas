@@ -6,15 +6,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ISP.GestaoMatriculas.Model
 {
+<<<<<<< HEAD
     [Table("MAT_USER_PROFILE")]
     public class UserProfile
     {
         [Key]
         [Column("UserID_PK")]
+=======
+    [Table("UserProfile")]
+    public class UserProfile
+    {
+        [Key]
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         //Foreign Key para Entidade
+<<<<<<< HEAD
         [ForeignKey("entidade")]
         [Column("EntidadeId_FK")]
         public int entidadeId { get; set; }
@@ -36,10 +44,21 @@ namespace ISP.GestaoMatriculas.Model
         public string utilizadorAD { get; set; }
 
         [Column("FlgAtivo")]
+=======
+        public int entidadeId { get; set; }
+        public virtual Entidade entidade { get; set; }
+
+        public string UserName { get; set; }
+        public string nome { get; set; }
+        public string email { get; set; }
+        public string telefone { get; set; }
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         [Display(Name = "Ativo")]
         public bool ativo { get; set; }
     }
 
+<<<<<<< HEAD
     //[Table("UserProfile")]
     //public class UserProfile
     //{
@@ -60,6 +79,8 @@ namespace ISP.GestaoMatriculas.Model
     //    public bool ativo { get; set; }
     //}
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     [Table("webpages_Membership")]
     public class Membership {
         public Membership()
@@ -77,11 +98,19 @@ namespace ISP.GestaoMatriculas.Model
         public DateTime? LastPasswordFailureDate { get; set; }
         public int PasswordFailuresSinceLastSuccess { get; set; }
 
+<<<<<<< HEAD
         [Required(ErrorMessage = "O campo '{0}' é obrigatório."), StringLength(128)]
         public string Password { get; set; }
         public DateTime? PasswordChangedDate { get; set; }
 
         [Required(ErrorMessage = "O campo '{0}' é obrigatório."), StringLength(128)]
+=======
+        [Required, StringLength(128)]
+        public string Password { get; set; }
+        public DateTime? PasswordChangedDate { get; set; }
+
+        [Required, StringLength(128)]
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         public string PasswordSalt { get; set; }
 
         [StringLength(128)]

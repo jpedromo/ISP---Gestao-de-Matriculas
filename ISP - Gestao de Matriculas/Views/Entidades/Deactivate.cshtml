@@ -4,12 +4,22 @@
     ViewBag.Title = "Deactivate";
 }
 
+<<<<<<< HEAD
 <h2>Desativar Entidade</h2>
 
 <div class="well fuelux">
 @using (Html.BeginForm("Deactivate", "Entidades", FormMethod.Post, new {@id = "EntidadesForm"})) {
 <fieldset>
     <legend>Deseja desativar @Html.DisplayFor(model => model.nome) ?</legend>
+=======
+<h2>Deactivate</h2>
+
+<h4>@ViewBag.errorMessage</h4>
+
+<h3>Are you sure you want to deactivate this?</h3>
+<fieldset>
+    <legend>@Html.DisplayFor(model => model.nome)</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.nome)
@@ -50,7 +60,11 @@
          @Html.DisplayNameFor(model => model.scope)
     </div>
     <div class="display-field">
+<<<<<<< HEAD
         @Html.DisplayFor(model => model.scope.descricao)
+=======
+        @Html.DisplayFor(model => model.scope)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     </div>
 
     <div class="display-label">
@@ -60,6 +74,7 @@
         @Html.DisplayFor(model => model.ativo)
     </div>
 </fieldset>
+<<<<<<< HEAD
 }
 <input type="button" class="btn btn-primary" id="deactivateBtn" value="Desativar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
 </div>
@@ -67,3 +82,11 @@
 <p>
         @Html.ActionLink("Voltar à listagem", "Index")
     </p>
+=======
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Desativar" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

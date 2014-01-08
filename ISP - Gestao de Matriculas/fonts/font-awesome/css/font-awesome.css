@@ -1,13 +1,44 @@
 /*!
+<<<<<<< HEAD
  *  Font Awesome 4.0.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+=======
+ *  Font Awesome 4.0.1
+ *  the iconic font designed for Bootstrap
+ *  ------------------------------------------------------------------------------
+ *  The full suite of pictographic icons, examples, and documentation can be
+ *  found at http://fontawesome.io.  Stay up to date on Twitter at
+ *  http://twitter.com/fontawesome.
+ *
+ *  License
+ *  ------------------------------------------------------------------------------
+ *  - The Font Awesome font is licensed under SIL OFL 1.1 -
+ *    http://scripts.sil.org/OFL
+ *  - Font Awesome CSS, LESS, and SASS files are licensed under MIT License -
+ *    http://opensource.org/licenses/mit-license.html
+ *  - Font Awesome documentation licensed under CC BY 3.0 -
+ *    http://creativecommons.org/licenses/by/3.0/
+ *  - Attribution is no longer required in Font Awesome 3.0, but much appreciated:
+ *    "Font Awesome by Dave Gandy - http://fontawesome.io"
+ *
+ *  Author - Dave Gandy
+ *  ------------------------------------------------------------------------------
+ *  Email: dave@fontawesome.io
+ *  Twitter: http://twitter.com/davegandy
+ *  Work: Lead Product Designer @ Kyruus - http://kyruus.com
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
+<<<<<<< HEAD
   src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
   src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+=======
+  src: url('../fonts/fontawesome-webfont.eot?v=4.0.1');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.0.1') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.0.1') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.0.1') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.0.1#fontawesomeregular') format('svg');
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   font-weight: normal;
   font-style: normal;
 }
@@ -394,7 +425,11 @@
 .fa-check-square-o:before {
   content: "\f046";
 }
+<<<<<<< HEAD
 .fa-arrows:before {
+=======
+.fa-move:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f047";
 }
 .fa-step-backward:before {
@@ -479,10 +514,17 @@
 .fa-share:before {
   content: "\f064";
 }
+<<<<<<< HEAD
 .fa-expand:before {
   content: "\f065";
 }
 .fa-compress:before {
+=======
+.fa-resize-full:before {
+  content: "\f065";
+}
+.fa-resize-small:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f066";
 }
 .fa-plus:before {
@@ -549,10 +591,17 @@
 .fa-folder-open:before {
   content: "\f07c";
 }
+<<<<<<< HEAD
 .fa-arrows-v:before {
   content: "\f07d";
 }
 .fa-arrows-h:before {
+=======
+.fa-resize-vertical:before {
+  content: "\f07d";
+}
+.fa-resize-horizontal:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f07e";
 }
 .fa-bar-chart-o:before {
@@ -697,11 +746,18 @@
 .fa-briefcase:before {
   content: "\f0b1";
 }
+<<<<<<< HEAD
 .fa-arrows-alt:before {
   content: "\f0b2";
 }
 .fa-group:before,
 .fa-users:before {
+=======
+.fa-fullscreen:before {
+  content: "\f0b2";
+}
+.fa-group:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f0c0";
 }
 .fa-chain:before,
@@ -732,7 +788,11 @@
 .fa-square:before {
   content: "\f0c8";
 }
+<<<<<<< HEAD
 .fa-bars:before {
+=======
+.fa-reorder:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f0c9";
 }
 .fa-list-ul:before {
@@ -869,10 +929,17 @@
 .fa-file-text-o:before {
   content: "\f0f6";
 }
+<<<<<<< HEAD
 .fa-building-o:before {
   content: "\f0f7";
 }
 .fa-hospital-o:before {
+=======
+.fa-building:before {
+  content: "\f0f7";
+}
+.fa-hospital:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f0f8";
 }
 .fa-ambulance:before {
@@ -958,6 +1025,15 @@
 .fa-folder-open-o:before {
   content: "\f115";
 }
+<<<<<<< HEAD
+=======
+.fa-expand-o:before {
+  content: "\f116";
+}
+.fa-collapse-o:before {
+  content: "\f117";
+}
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 .fa-smile-o:before {
   content: "\f118";
 }
@@ -1072,16 +1148,27 @@
 .fa-anchor:before {
   content: "\f13d";
 }
+<<<<<<< HEAD
 .fa-unlock-alt:before {
+=======
+.fa-unlock-o:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f13e";
 }
 .fa-bullseye:before {
   content: "\f140";
 }
+<<<<<<< HEAD
 .fa-ellipsis-h:before {
   content: "\f141";
 }
 .fa-ellipsis-v:before {
+=======
+.fa-ellipsis-horizontal:before {
+  content: "\f141";
+}
+.fa-ellipsis-vertical:before {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
   content: "\f142";
 }
 .fa-rss-square:before {
@@ -1333,6 +1420,9 @@
 .fa-try:before {
   content: "\f195";
 }
+<<<<<<< HEAD
 .fa-plus-square-o:before {
   content: "\f196";
 }
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

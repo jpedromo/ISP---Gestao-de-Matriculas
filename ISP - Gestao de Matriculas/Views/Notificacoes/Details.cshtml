@@ -4,9 +4,14 @@
     ViewBag.Title = "Details";
 }
 
+<<<<<<< HEAD
 <h2>Detalhes de notificação</h2>
 
 <div class="well fuelux">
+=======
+<h2>Details</h2>
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 <fieldset>
     <legend>Notificacao</legend>
 
@@ -16,11 +21,19 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.entidade.nome)
     </div>
+<<<<<<< HEAD
     <div class="display-label">
          @Html.DisplayNameFor(model => model.tipologia)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.tipologia.descricao)
+=======
+        <div class="display-label">
+         @Html.DisplayNameFor(model => model.tipo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tipo)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     </div>
     <div class="display-label">
          @Html.DisplayNameFor(model => model.dataCriacao)
@@ -43,8 +56,13 @@
         @Html.DisplayFor(model => model.lida)
     </div>
 </fieldset>
+<<<<<<< HEAD
 </div>
 
 <p>
     @Html.ActionLink("Voltar à listagem", "Index")
+=======
+<p>
+    @Html.ActionLink("Back to List", "Index")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </p>

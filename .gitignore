@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Created by http://www.gitignore.io
+=======
+# Created by http://gitignore.io
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -10,11 +14,16 @@
 *.sln.docstates
 
 # Build results
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 x64/
 build/
+<<<<<<< HEAD
 bld/
 [Bb]in/
 [Oo]bj/
@@ -22,10 +31,16 @@ bld/
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
 
+=======
+[Bb]in/
+[Oo]bj/
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
+<<<<<<< HEAD
 #NUNIT
 *.VisualState.xml
 TestResult.xml
@@ -33,6 +48,10 @@ TestResult.xml
 *_i.c
 *_p.c
 *_i.h
+=======
+*_i.c
+*_p.c
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 *.ilk
 *.meta
 *.obj
@@ -52,12 +71,18 @@ TestResult.xml
 *.vssscc
 .builds
 *.pidb
+<<<<<<< HEAD
 *.svclog
 *.scc
 
 # Chutzpah Test files
 _Chutzpah*
 
+=======
+*.log
+*.scc
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 # Visual C++ cache files
 ipch/
 *.aps
@@ -71,19 +96,25 @@ ipch/
 *.vsp
 *.vspx
 
+<<<<<<< HEAD
 # TFS 2012 Local Workspace
 $tf/
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 # Guidance Automation Toolkit
 *.gpState
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/
 *.[Rr]e[Ss]harper
+<<<<<<< HEAD
 *.DotSettings.user
 
 # JustCode is a .NET coding addin-in
 .JustCode
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 # TeamCity is a build add-in
 _TeamCity*
@@ -93,6 +124,7 @@ _TeamCity*
 
 # NCrunch
 *.ncrunch*
+<<<<<<< HEAD
 _NCrunch_*
 .*crunch*.local.xml
 
@@ -100,6 +132,10 @@ _NCrunch_*
 *.mm.*
 AutoTest.Net/
 
+=======
+.*crunch*.local.xml
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 # Installshield output folder
 [Ee]xpress/
 
@@ -117,17 +153,28 @@ DocProject/Help/html
 publish/
 
 # Publish Web Output
+<<<<<<< HEAD
 *.[Pp]ublish.xml
 *.azurePubxml
+=======
+*.Publish.xml
+*.pubxml
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
 #packages/
+<<<<<<< HEAD
 ## TODO: If the tool you use requires repositories.config, also uncomment the next line
 #!packages/repositories.config
 
 # Windows Azure Build Output
 csx/
+=======
+
+# Windows Azure Build Output
+csx
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 *.build.csdef
 
 # Windows Store app package directory
@@ -141,7 +188,11 @@ ClientBin/
 ~$*
 *~
 *.dbmdl
+<<<<<<< HEAD
 *.dbproj.schemaview
+=======
+*.[Pp]ublish.xml
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 *.pfx
 *.publishsettings
 
@@ -164,9 +215,12 @@ App_Data/*.ldf
 *.bim.layout
 *.bim_*.settings
 
+<<<<<<< HEAD
 # Microsoft Fakes
 FakesAssemblies/
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 # =========================
 # Windows detritus
 # =========================
@@ -179,4 +233,11 @@ ehthumbs.db
 Desktop.ini
 
 # Recycle Bin used on file shares
+<<<<<<< HEAD
 $RECYCLE.BIN/
+=======
+$RECYCLE.BIN/
+
+# Mac crap
+.DS_Store
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c

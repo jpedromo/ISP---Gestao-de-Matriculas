@@ -1,6 +1,7 @@
 ﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceDetailsViewModel
 
 @{
+<<<<<<< HEAD
     ViewBag.Title = "Detalhes " + @Html.DisplayFor(model => model.apolice.numeroApolice) + " " + @Html.DisplayFor(model => model.apolice.veiculo.numeroMatricula);
 }
 
@@ -12,6 +13,19 @@
 
         @Scripts.Render("~/bundles/myWizardFuelux");
 
+=======
+    ViewBag.Title = "Details";
+}
+
+@section css{
+    @Styles.Render("~/Content/fuelux/css")
+}
+
+@section scripts{
+            
+    @*@Scripts.Render("~/bundles/fuelux")*@
+        
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         <script type='text/javascript'>
 
             $(function () {
@@ -19,6 +33,7 @@
             });
 
             $(document).ready(function () {
+<<<<<<< HEAD
                 $('#rootwizard').bootstrapWizard({
                     tabClass: 'steps'
                 });
@@ -44,6 +59,63 @@
   {
       <span class="badge badge-warning">@Model.apolice.avisosApolice.Count</span>
   }</a></li>
+=======
+
+                var $wizard = $('#MyWizard').wizard();
+                var wizard = $wizard.data('wizard');
+                $wizard.off('click', 'li.complete');
+                $wizard.on('click', 'li', $.proxy(wizard.stepclicked, wizard));
+
+                $('#MyWizard').on('change', function (e, data) {
+                });
+
+                $('#MyWizard').on('changed', function (e, data) {
+                    //                    console.log('changed');
+
+                    $("#MyWizard ul.steps").find("li").addClass("complete");
+                    $("#MyWizard ul.steps").find("span.badge").addClass("badge-success");
+
+                    var item = $('#MyWizard').wizard('selectedItem');
+                    //console.log(item.step);
+                    if (item.step === 5) {
+                        $('#btnWizardNext').hide(); ;
+                    }
+                    else {
+                        $('#btnWizardNext').show(); ;
+                    }
+
+                });
+                $('#MyWizard').on('finished', function (e, data) {
+                    //                    console.log('finished');
+                });
+                $('#btnWizardPrev').on('click', function () {
+                    $('#MyWizard').wizard('previous');
+                });
+                $('#btnWizardNext').on('click', function () {
+                    $('#MyWizard').wizard('next', 'foo');
+                });
+                $('#btnWizardStep').on('click', function () {
+                    var item = $('#MyWizard').wizard('selectedItem');
+                    //                    console.log(item.step);
+                });
+                $('#MyWizard').on('stepclick', function (e, data) {
+                    //                    console.log('step' + data.step + ' clicked');
+                    if (data.step === 1) {
+                        // return e.preventDefault();
+                    }
+                });
+            });
+        
+        </script>
+}
+
+<h2>Details</h2>
+
+<ul id="tabs" class="nav nav-tabs">
+  <li><a href="#detalhesTab" data-toggle="tab">Detalhes</a></li>
+  <li><a href="#historicoTab" data-toggle="tab">Histórico</a></li>
+  <li><a href="#avisosTab" data-toggle="tab">Avisos</a></li>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </ul>
 
 <div class="tab-content">
@@ -51,6 +123,7 @@
 <div class="tab-pane active" id="detalhesTab">
 
 <fieldset>
+<<<<<<< HEAD
 <div id="rootwizard" class ="well fuelux">
 	  <div class="wizard">
 	<ul class="steps">
@@ -210,14 +283,145 @@
 		  	<li class="next d"><a href="#">Próximo</a></li>
 		</div>
     </div>
+=======
+<div class="well wizard-example fuelux">
+  <div id="MyWizard" class="wizard">
+    <ul class="steps">
+      <li data-target="#step1" class="active"><span class="badge badge-info">1</span>Período Segurado<span class="chevron"></span></li>
+      <li data-target="#step2" class="complete"><span class="badge badge-success">2</span>Veículo<span class="chevron"></span></li>
+      <li data-target="#step3" class="complete"><span class="badge badge-success">3</span>Tomador do Seguro<span class="chevron"></span></li>
+      <li data-target="#step4" class="complete"><span class="badge badge-success">4</span>Condutor habitual<span class="chevron"></span></li>
+      <li data-target="#step5" class="complete"><span class="badge badge-success">5</span>Undefined<span class="chevron"></span></li>
+    </ul>
+@*    <div class="actions">
+      <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+      <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+    </div>*@
+  </div>
+
+  <div class="step-content">
+    <div class="step-pane active" id="step1">
+
+    <legend>Período Segurado</legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.numeroApolice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.numeroApolice)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.dataInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.dataInicio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.dataFim)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.dataFim)
+    </div>
+
+    </div>
+
+    <div class="step-pane" id="step2">
+
+        <legend>Veículo</legend>
+        
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.veiculo.numeroMatricula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.veiculo.numeroMatricula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.veiculo.categoria)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.veiculo.categoria.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.veiculo.marcaVeiculo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.veiculo.marcaVeiculo)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.veiculo.modeloVeiculo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.veiculo.modeloVeiculo)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.veiculo.anoConstrucao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.veiculo.anoConstrucao)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.concelho)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.concelho.nomeConcelho)
+    </div>
+
+    </div>
+
+    <div class="step-pane" id="step3">
+    
+    <legend>Tomador do Seguro</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.tomador.nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.tomador.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.tomador.numeroIdentificacao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.tomador.numeroIdentificacao)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.apolice.tomador.nif)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apolice.tomador.nif)
+    </div>
+
+    </div>
+
+    <div class="step-pane" id="step4">
+
+    <legend>Condutor Habitual</legend>
+
+    </div>
+
+    <div class="step-pane" id="step5">
+
+    <legend>Undefined</legend>
+
+    </div>
+    </div>
+      <input type="button" class="btn" id="btnWizardPrev" value="Anterior">
+      <input type="button" class="btn btn-primary" id="btnWizardNext" value="Próximo">
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </fieldset>
 </div>
 <div class="tab-pane" id="historicoTab">
     <div class="well">
         @if (Model.historicoApolices.Count() != 0)
         { 
+<<<<<<< HEAD
         <table class="table table-striped table-hover table-mega-condensed" >
         <thead>
+=======
+        <table>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.historicoApolices.First().entidade)
@@ -242,8 +446,12 @@
         </th>
         <th></th>
     </tr>
+<<<<<<< HEAD
     </thead>
     <tbody>
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 @foreach (var item in Model.historicoApolices)
 {
     <tr>
@@ -273,7 +481,11 @@
         </td>
     </tr>
 }
+<<<<<<< HEAD
 </tbody>
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </table>
         }
         else { 
@@ -283,6 +495,7 @@
 </div>
 <div class="tab-pane" id="avisosTab">
     <div class="well">
+<<<<<<< HEAD
         @if (Model.apolice.avisosApolice.Count() != 0)
         { 
         <table class="table table-striped table-hover table-mega-condensed" >
@@ -315,14 +528,22 @@
         else { 
             <div>Não existem avisos.</div>
         }
+=======
+        Avisos
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     </div>
 </div>
 </div>
 <p>
+<<<<<<< HEAD
     @Html.ActionLink("Voltar à listagem", "Index")
     @if(!User.IsInRole("ISP-Leitura")){
        <span> | 
        @Html.ActionLink("Editar", "Edit", new { id = Model.apolice.apoliceId })
        </span>
     }
+=======
+    @Html.ActionLink("Voltar à listagem", "Index") | 
+    @Html.ActionLink("Editar", "Edit", new { id = Model.apolice.apoliceId })
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </p>

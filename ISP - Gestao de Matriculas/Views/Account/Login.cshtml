@@ -4,6 +4,7 @@
     ViewBag.Title = "Log in";
 }
 
+<<<<<<< HEAD
 @section scripts{
 @*<script type='text/javascript'>
             $(document).ready(function () {
@@ -59,10 +60,23 @@
 <div class="well fuelux">
 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@id = "AccountForm", ReturnUrl = ViewBag.ReturnUrl}))
 {
+=======
+@section scripts {
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+<h2>Use a local account to log in.</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
+<<<<<<< HEAD
         <legend>Insira as suas credenciais</legend>
             <div class="editor-label">
 				@Html.LabelFor(m => m.UserName)
@@ -99,4 +113,27 @@
     {
         @Html.HiddenFor(m => m.ReturnUrl)
     }
+=======
+        <legend>Log in Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+            </li>
+        </ol>
+        <input type="submit" value="Log in" />
+    </fieldset>
+}
+</section>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 

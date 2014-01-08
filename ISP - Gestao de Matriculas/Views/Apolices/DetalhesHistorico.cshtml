@@ -1,6 +1,7 @@
 ﻿@model ISP.GestaoMatriculas.Model.ApoliceHistorico
 
 @{
+<<<<<<< HEAD
     ViewBag.Title = "Detalhes de Histórico " + @Html.DisplayFor(model => model.numeroApolice) + " " + @Html.DisplayFor(model => model.veiculo.numeroMatricula);
 }
 
@@ -195,6 +196,142 @@
 		  	<li class="next d"><a href="#">Próximo</a></li>
 		</div>
     </div>
+=======
+    ViewBag.Title = "DetalhesHistorico";
+}
+
+@section css{
+    @Styles.Render("~/Content/fuelux/css")
+}
+<h2>Details</h2>
+
+<fieldset>
+<div class="well wizard-example fuelux">
+  <div id="MyWizard" class="wizard">
+    <ul class="steps">
+      <li data-target="#step1" class="active"><span class="badge badge-info">1</span>Período Segurado<span class="chevron"></span></li>
+      <li data-target="#step2" class="complete"><span class="badge badge-success">2</span>Veículo<span class="chevron"></span></li>
+      <li data-target="#step3" class="complete"><span class="badge badge-success">3</span>Tomador do Seguro<span class="chevron"></span></li>
+      <li data-target="#step4" class="complete"><span class="badge badge-success">4</span>Condutor habitual<span class="chevron"></span></li>
+      <li data-target="#step5" class="complete"><span class="badge badge-success">5</span>Undefined<span class="chevron"></span></li>
+    </ul>
+@*    <div class="actions">
+      <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+      <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+    </div>*@
+  </div>
+
+  <div class="step-content">
+    <div class="step-pane active" id="step1">
+
+    <legend>Período Segurado</legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.numeroApolice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.numeroApolice)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataInicio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataFim)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataFim)
+    </div>
+
+    </div>
+
+    <div class="step-pane" id="step2">
+
+        <legend>Veículo</legend>
+        
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.numeroMatricula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.numeroMatricula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.categoria)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.categoria.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.marcaVeiculo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.marcaVeiculo)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.modeloVeiculo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.modeloVeiculo)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.veiculo.anoConstrucao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.veiculo.anoConstrucao)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.concelho)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.concelho.nomeConcelho)
+    </div>
+
+    </div>
+
+    <div class="step-pane" id="step3">
+    
+    <legend>Tomador do Seguro</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tomador.nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tomador.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tomador.numeroIdentificacao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tomador.numeroIdentificacao)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tomador.nif)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tomador.nif)
+    </div>
+
+    </div>
+
+    <div class="step-pane" id="step4">
+
+    <legend>Condutor Habitual</legend>
+
+    </div>
+
+    <div class="step-pane" id="step5">
+
+    <legend>Undefined</legend>
+
+    </div>
+    </div>
+      <input type="button" class="btn" id="btnWizardPrev" value="Anterior">
+      <input type="button" class="btn btn-primary" id="btnWizardNext" value="Próximo">
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </fieldset>
 
 <p>

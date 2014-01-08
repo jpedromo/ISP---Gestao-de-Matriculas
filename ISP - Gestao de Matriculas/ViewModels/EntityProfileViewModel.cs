@@ -8,7 +8,11 @@ namespace ISP.GestaoMatriculas.ViewModels
 {
     public class EntityProfileViewModel
     {
+<<<<<<< HEAD
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+=======
+        [Required]
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         public int entityId { get; set; }
 
         [Display(Name = "Nome do Responsável")]

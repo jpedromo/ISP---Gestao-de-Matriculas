@@ -4,6 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
+<<<<<<< HEAD
 <h2>Editar Entidade</h2>
 
 <div class="well fuelux">
@@ -11,6 +12,15 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
+=======
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Entidade</legend>
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
         @Html.HiddenFor(model => model.entidadeId)
 
@@ -50,8 +60,13 @@
             @Html.LabelFor(model => model.scope)
         </div>
         <div class="editor-field">
+<<<<<<< HEAD
             @Html.DropDownList("scopeId", (SelectList)ViewData["Scopes"])
             @Html.ValidationMessageFor(model => model.scopeId)
+=======
+            @Html.DropDownList("scope", (SelectList) ViewBag.scopeList)
+            @Html.ValidationMessageFor(model => model.scope)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         </div>
 
         <div class="editor-label">
@@ -61,11 +76,22 @@
             @Html.DropDownList("roleId", (SelectList) ViewData["Roles"])
             @Html.ValidationMessageFor(model => model.roleId)
         </div>
+<<<<<<< HEAD
     </fieldset>
 }
 <input type="button" class="btn btn-primary" id="editBtn" value="Guardar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
 </div>
 <div>
     @Html.ActionLink("Voltar à listagem", "Index")
+=======
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 </div>
 

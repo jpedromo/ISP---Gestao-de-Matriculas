@@ -46,11 +46,16 @@ namespace ISP.GestaoMatriculas.Controllers
                 {
                     ViewData["Notificacao" + (i) + ".ID"] = notificacaoPreviewList[i].notificacaoId.ToString();
                     ViewData["Notificacao" + (i) + ".ImageUrl"] = notificacaoPreviewList[i].imageUrl();
+<<<<<<< HEAD
                     ViewData["Notificacao" + (i) + ".Tipo"] = notificacaoPreviewList[i].tipologia.descricao;
+=======
+                    ViewData["Notificacao" + (i) + ".Tipo"] = notificacaoPreviewList[i].tipoToString();
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                     ViewData["Notificacao" + (i) + ".Mensagem"] = notificacaoPreviewList[i].mensagemToString();
                     ViewData["Notificacao" + (i) + ".Data"] = notificacaoPreviewList[i].dataCriacao.ToString();
                 }
 
+<<<<<<< HEAD
                 //int numIndicadores = user.entidade.indicadores.Count;
                 //ViewData["NumIndicadores"] = numIndicadores;
                 //List<Indicador> listaIndicadores = user.entidade.indicadores.ToList();
@@ -59,11 +64,25 @@ namespace ISP.GestaoMatriculas.Controllers
                 //    ViewData["Indicador" + (i) + ".Descricao"] = listaIndicadores[i].descricao;
                 //    ViewData["Indicador" + (i) + ".Valor"] = listaIndicadores[i].valor;
                 //}
+=======
+                int numIndicadores = user.entidade.indicadores.Count;
+                ViewData["NumIndicadores"] = numIndicadores;
+                List<Indicador> listaIndicadores = user.entidade.indicadores.ToList();
+                for (int i = 0; i < numIndicadores; i++)
+                {
+                    ViewData["Indicador" + (i) + ".Descricao"] = listaIndicadores[i].descricao;
+                    ViewData["Indicador" + (i) + ".Valor"] = listaIndicadores[i].calcular().valor;
+                }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
             else
             {
                 ViewData["NumNotificacoes"] = null;
+<<<<<<< HEAD
                 //ViewData["NumIndicadores"] = null;
+=======
+                ViewData["NumIndicadores"] = null;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
 
             return View();

@@ -12,18 +12,26 @@ using System.Data.Entity;
 using WebMatrix.WebData;
 using System.Data.Entity.Infrastructure;
 using ISP.GestaoMatriculas.Contracts;
+<<<<<<< HEAD
 using ISP.GestaoMatriculas.Utils;
 using Everis.Web.Mvc;
 using PagedList;
 using System.Globalization;
 using ISP.GestaoMatriculas.Repositories;
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Controllers
 {
     [InitializeSimpleMembership(Order = 1)]
+<<<<<<< HEAD
     [Authorize(Order = 2)]
     //[MenuDataFilter(Order = 2)]
     public class ApolicesController : SKController
+=======
+    [MenuDataFilter(Order = 2)]
+    public class ApolicesController : Controller
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     {
         private IApoliceRepository apolicesRepository;
         private IApoliceHistoricoRepository apolicesHistoricoRepository;
@@ -33,6 +41,7 @@ namespace ISP.GestaoMatriculas.Controllers
         private IConcelhoRepository concelhosRepository;
         private IVeiculoRepository veiculosRepository;
         private IPessoaRepository pessoasRepository;
+<<<<<<< HEAD
         private IAvisoRepository avisosRepository;
         private IEventoStaggingRepository eventosStaggingRepository;
         private IValorSistemaRepository valoresSistemaRepository;
@@ -41,6 +50,12 @@ namespace ISP.GestaoMatriculas.Controllers
             IConcelhoRepository concelhosRepository, IVeiculoRepository veiculosRepository, IPessoaRepository pessoasRepository,
             IApoliceHistoricoRepository apolicesHistoricoRepository, IEntidadeRepository entidadesRepository, IAvisoRepository avisosRepository,
             IEventoStaggingRepository eventosStaggingRepository, IValorSistemaRepository valoresSistemaRepository)
+=======
+
+        public ApolicesController(IApoliceRepository apolicesRepository, IUserProfileRepository usersRepository, ICategoriaRepository categoriasRepository,
+            IConcelhoRepository concelhosRepository, IVeiculoRepository veiculosRepository, IPessoaRepository pessoasRepository,
+            IApoliceHistoricoRepository apolicesHistoricoRepository, IEntidadeRepository entidadesRepository)
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         {
             this.apolicesRepository = apolicesRepository;
             this.apolicesHistoricoRepository = apolicesHistoricoRepository;
@@ -50,6 +65,7 @@ namespace ISP.GestaoMatriculas.Controllers
             this.veiculosRepository = veiculosRepository;
             this.pessoasRepository = pessoasRepository;
             this.entidadesRepository = entidadesRepository;
+<<<<<<< HEAD
             this.avisosRepository = avisosRepository;
             this.eventosStaggingRepository = eventosStaggingRepository;
             this.valoresSistemaRepository = valoresSistemaRepository;
@@ -181,10 +197,19 @@ namespace ISP.GestaoMatriculas.Controllers
 
         protected ApoliceListViewModel getApolices(ApoliceListViewModel viewModel)
         {            
+=======
+        }
+        //
+        // GET: /Apolices/
+
+        public ActionResult Index(int? entidade, string apolice, string matricula, bool? avisos, bool? apagados, bool? erros)
+        {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
             Entidade ent = user.entidade;
             int entId = -1;
 
+<<<<<<< HEAD
 
                 if (viewModel.entidade != null && viewModel.entidade != 0)
                 {
@@ -521,6 +546,71 @@ namespace ISP.GestaoMatriculas.Controllers
             #endregion
 
             return viewModel;
+=======
+            if (entidade != null && (int)entidade <= entidadesRepository.All.Count())
+            {
+                entId = (int)entidade;
+
+                if (entidadesRepository.Find(entId).Nome == "ISP")
+                {
+                    entId = -1;
+                }
+            }
+
+
+            List<Apolice> apolicesToView = null;
+            IQueryable<Apolice> query = null;
+            if (ent.scope == Entidade.ScopeLevel.Global)
+            {
+                query = apolicesRepository.All.Include("veiculo").Include("tomador").Include("concelho").Include("entidade");
+                if (entId > 0)
+                {
+                    this.ViewBag.entidade = new SelectList(entidadesRepository.All, "entidadeId", "nome", entidadesRepository.Find(entId).Id);
+                    query = query.Where(a => a.EntidadeId == entId);
+                }
+                else
+                {
+                    this.ViewBag.entidade = new SelectList(entidadesRepository.All, "entidadeId", "nome");
+                }
+            }
+            else
+            {
+                //Seguradoras (Acesso Local)
+                query = apolicesRepository.All.Include("veiculo").Include("tomador").Include("concelho").Include("entidade").Where(a => a.EntidadeId == ent.Id);
+            }
+
+            if (!(apolice == null || apolice == ""))
+            {
+                query = query.Where(a => a.NumeroApolice.Contains(apolice));
+            }
+            if (!(matricula == null || matricula == ""))
+            {
+                query = query.Where(a => a.Veiculo.numeroMatricula.Contains(matricula));
+            }
+            //TODO: Filtro sobre Avisos
+
+            apolicesToView = query.ToList();
+
+            ApoliceListViewModel viewModel = new ApoliceListViewModel();
+            viewModel.apolicesEfetivas = apolicesToView;
+
+            //viewModel.apolice = apolice;
+            //viewModel.matricula = matricula;
+/*            if (avisos == null)
+            {
+                viewModel.avisos = false;
+            }
+            else
+            {
+                viewModel.avisos = (bool)avisos;
+            }
+            */
+
+            if(erros != null)
+            { viewModel.erros = (bool)erros;}
+
+            return View(viewModel);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
         //
@@ -530,6 +620,7 @@ namespace ISP.GestaoMatriculas.Controllers
         {
             Apolice apolice = null;
             List<ApoliceHistorico> historico = null;
+<<<<<<< HEAD
             
             try
             {
@@ -546,6 +637,13 @@ namespace ISP.GestaoMatriculas.Controllers
 
                 historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.entidadeId == apolice.entidadeId) && (h.dataInicio == apolice.dataInicio) && (h.veiculo.numeroMatricula == apolice.veiculo.numeroMatricula)))
                     .OrderByDescending(h => h.dataArquivo).ToList();
+=======
+
+            try
+            {
+                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("veiculo.categoria").Include("concelho").Single(a => a.Id == id);
+                historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.EntidadeId == apolice.EntidadeId) && (h.DataInicio == apolice.DataInicio) && (h.Veiculo.numeroMatricula == apolice.Veiculo.numeroMatricula))).ToList();
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
             catch (System.ArgumentNullException)
             {
@@ -558,23 +656,39 @@ namespace ISP.GestaoMatriculas.Controllers
 
             ApoliceDetailsViewModel viewModel = new ApoliceDetailsViewModel();
             viewModel.apolice = apolice;
+<<<<<<< HEAD
             viewModel.historicoApolices = historico.OrderByDescending(a => a.dataReporte);
+=======
+            viewModel.historicoApolices = historico;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             return View(viewModel);
         }
 
         //
         // GET: /Apolices/Create
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
         public ActionResult Create()
         {
             this.ViewBag.categoriaId = new SelectList(categoriasRepository.All.OrderBy(c => c.nome), "categoriaId", "nome");
             this.ViewBag.concelhoId = new SelectList(concelhosRepository.All.OrderBy(c => c.nomeConcelho), "concelhoId", "nomeConcelho");
+=======
+
+        public ActionResult Create()
+        {
+            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome");
+            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho");
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             DateTime dataInicio = DateTime.Today;
             DateTime dataFim = DateTime.Today.AddMinutes(new TimeSpan(23, 59, 0).TotalMinutes);
 
+<<<<<<< HEAD
             ApoliceCreationViewModel apoliceTemplate = new ApoliceCreationViewModel { apolice = new Apolice {dataInicio = dataInicio, dataFim = dataFim } };
+=======
+            ApoliceCreationViewModel apoliceTemplate = new ApoliceCreationViewModel { apolice = new Apolice { DataInicio = dataInicio, DataFim = dataFim } };
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             return View(apoliceTemplate);
         }
@@ -582,11 +696,15 @@ namespace ISP.GestaoMatriculas.Controllers
         //
         // POST: /Apolices/Create
         //[ActionLogFilter( ParameterName= "apoliceCreation" )]
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ApoliceCreationViewModel apoliceCreation)
         {
+<<<<<<< HEAD
             //List<ValorSistema> queryValSistema = valoresSistemaRepository.All.Where(v => v.tipologia == "OPERACAO_EVENTO" || 
             //                                    v.tipologia == "ESTADO_EVENTO_STAGGING" ||
             //                                    v.tipologia == "PARAM_HORA_LIMITE_SLA" ||
@@ -680,22 +798,50 @@ namespace ISP.GestaoMatriculas.Controllers
                     eventosStaggingRepository.InsertOrUpdate(evento);
                     eventosStaggingRepository.Save();
                 }
+=======
+            //TODO: Optimizar para haver apenas a inserção de uma apólice. Tudo o resto deverá ser automático.
+            if (ModelState.IsValid)
+            {
+                apoliceCreation.apolice.ConcelhoCirculacaoId = apoliceCreation.concelhoId;
+                apoliceCreation.veiculo.categoriaId = apoliceCreation.categoriaId;
+
+                apoliceCreation.apolice.Tomador = apoliceCreation.tomador;
+                apoliceCreation.apolice.Veiculo = apoliceCreation.veiculo;
+
+                UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
+                Entidade entidadeAssociada = user.entidade;
+                apoliceCreation.apolice.Entidade = entidadeAssociada;
+
+                veiculosRepository.InsertOrUpdate(apoliceCreation.veiculo);
+                pessoasRepository.InsertOrUpdate(apoliceCreation.tomador);
+                apolicesRepository.InsertOrUpdate(apoliceCreation.apolice);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
                 apolicesRepository.Save();
                 return RedirectToAction("Index");
             }
 
+<<<<<<< HEAD
 
             this.ViewBag.categoriaId = new SelectList(categoriasRepository.All.OrderBy(c => c.nome), "categoriaId", "nome");
             this.ViewBag.concelhoId = new SelectList(concelhosRepository.All.OrderBy(c=> c.nomeConcelho), "concelhoId", "nomeConcelho");
 
             this.Alerts.Danger("Erro na criação de registo.");
+=======
+            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome");
+            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho");
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             return View(apoliceCreation);
         }
 
         //
         // GET: /Apolices/Edit/5
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         public ActionResult Edit(int id)
         {
             //Apolice apolice = this.db.Apolices.Find(id);
@@ -704,6 +850,7 @@ namespace ISP.GestaoMatriculas.Controllers
 
             try
             {
+<<<<<<< HEAD
                 apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").
                     Include("avisosApolice").Include("eventoHistorico").Single(a => a.apoliceId == id);
 
@@ -714,6 +861,10 @@ namespace ISP.GestaoMatriculas.Controllers
                 }
 
                 historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.entidadeId == apolice.entidadeId) && (h.dataInicio == apolice.dataInicio) && (h.veiculo.numeroMatricula == apolice.veiculo.numeroMatricula))).ToList();
+=======
+                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").Single(a => a.Id == id);
+                historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.EntidadeId == apolice.EntidadeId) && (h.DataInicio == apolice.DataInicio) && (h.Veiculo.numeroMatricula == apolice.Veiculo.numeroMatricula))).ToList();
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
             catch (System.ArgumentNullException)
             {
@@ -724,21 +875,33 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.HttpNotFound();
             }
 
+<<<<<<< HEAD
             ApoliceEditViewModel apoliceView = new ApoliceEditViewModel { apolice = apolice, tomador = apolice.tomador, veiculo = apolice.veiculo, historicoApolices = historico};
 
             this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.veiculo.categoriaId);
             this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.concelhoCirculacaoId);
+=======
+            ApoliceEditViewModel apoliceView = new ApoliceEditViewModel { apolice = apolice, tomador = apolice.Tomador, veiculo = apolice.Veiculo, historicoApolices = historico};
+
+            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.Veiculo.categoriaId);
+            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.ConcelhoCirculacaoId);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             return View(apoliceView);
         }
 
         //
         // POST: /Apolices/Edit/5
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
+=======
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ApoliceCreationViewModel apoliceView)
         {
+<<<<<<< HEAD
             //List<ValorSistema> queryValSistema = valoresSistemaRepository.All.Where(v => v.tipologia == "OPERACAO_EVENTO" ||
             //                                    v.tipologia == "ESTADO_EVENTO_STAGGING" ||
             //                                    v.tipologia == "PARAM_HORA_LIMITE_SLA" ||
@@ -779,10 +942,14 @@ namespace ISP.GestaoMatriculas.Controllers
             {
                 return this.HttpNotFound();
             }
+=======
+            UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
             if (ModelState.IsValid)
             {
                 //Adiciona Registo
+<<<<<<< HEAD
                 apoliceView.apolice.concelhoCirculacaoId = apoliceView.concelhoId;
                 apoliceView.veiculo.categoriaId = apoliceView.categoriaId;
                 apoliceView.apolice.concelhoCirculacaoId = apoliceView.concelhoId;
@@ -995,6 +1162,57 @@ namespace ISP.GestaoMatriculas.Controllers
                 }
 
                 historico = apolicesHistoricoRepository.All.Include("veiculo").Where(h => ((h.entidadeId == apolice.entidadeId) && (h.dataInicio == apolice.dataInicio) && (h.veiculo.numeroMatricula == apolice.veiculo.numeroMatricula))).ToList();
+=======
+                apoliceView.apolice.ConcelhoCirculacaoId = apoliceView.concelhoId;
+                apoliceView.veiculo.categoriaId = apoliceView.categoriaId;
+
+                apoliceView.apolice.Tomador = apoliceView.tomador;
+                apoliceView.apolice.Veiculo = apoliceView.veiculo;
+
+                veiculosRepository.InsertOrUpdate(apoliceView.veiculo);
+                pessoasRepository.InsertOrUpdate(apoliceView.tomador);
+                apolicesRepository.InsertOrUpdate(apoliceView.apolice);
+
+
+                /* Esmaga Registo
+                Apolice apolice = apoliceView.apolice;
+
+                apolice.concelhoId = apoliceView.concelhoId;
+                apoliceView.veiculo.categoriaId = apoliceView.categoriaId;
+
+                apolice.seguradoId = apoliceView.segurado.pessoaId;
+                apolice.veiculoId = apoliceView.veiculo.veiculoId;
+                
+                apolice.segurado = apoliceView.segurado;
+                apolice.veiculo = apoliceView.veiculo;
+
+                this.db.Entry<Apolice>(apolice).State = EntityState.Modified;
+                this.db.Entry<Pessoa>(apolice.segurado).State = EntityState.Modified;
+                this.db.Entry<Veiculo>(apolice.veiculo).State = EntityState.Modified;
+                */
+
+                apolicesRepository.Save();
+
+                return this.RedirectToAction("Index");
+            }
+
+            this.ViewBag.categoriaId = new SelectList(categoriasRepository.All, "categoriaId", "nome", apoliceView.apolice.Veiculo.categoriaId);
+            this.ViewBag.concelhoId = new SelectList(concelhosRepository.All, "concelhoId", "nomeConcelho", apoliceView.apolice.ConcelhoCirculacaoId);
+
+            return View(apoliceView);
+        }
+
+        //
+        // GET: /Apolices/Delete/5
+
+        public ActionResult Delete(int id)
+        {
+            Apolice apolice = null;
+            try
+            {
+                apolice = apolicesRepository.All.Include("tomador").Include("veiculo").Include("entidade").Single(a => a.Id == id);
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
             catch (System.ArgumentNullException)
             {
@@ -1005,6 +1223,7 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.HttpNotFound();
             }
 
+<<<<<<< HEAD
             ApoliceCancelViewModel cancelView = new ApoliceCancelViewModel { apolice = apolice, historicoApolices = historico };
 
             return View(cancelView);
@@ -1279,6 +1498,43 @@ namespace ISP.GestaoMatriculas.Controllers
                     (h.horaInicioCobertura == eventoStagging.horaInicioCobertura) && (h.matricula == eventoStagging.matricula) && h.eventoStaggingId != id)
                     && h.estadoEvento.valor == "ERRO").OrderByDescending(h => h.dataUltimaAlteracaoErro).ToList();
 
+=======
+            return this.View(apolice);
+
+        }
+
+        //
+        // POST: /Apolices/Delete/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+
+            Apolice apolice = apolicesRepository.Find(id);
+            Veiculo veiculo = veiculosRepository.Find(apolice.VeiculoId);
+            Pessoa tomador = pessoasRepository.Find(apolice.TomadorId);
+
+            veiculosRepository.Delete(veiculo.veiculoId);
+            pessoasRepository.Delete(tomador.pessoaId);
+            apolicesRepository.Delete(apolice.Id);
+
+            apolicesRepository.Save();
+
+            return this.RedirectToAction("Index"); 
+
+        }
+
+        public ActionResult DetalhesHistorico(int id)
+        {
+            ApoliceHistorico apolice = null;
+
+
+            //TODO: Review this: Exceptions are expensive!!!
+            try
+            {
+                apolice = apolicesHistoricoRepository.All.Include("tomador").Include("veiculo").Include("veiculo.categoria").Include("concelho").Single(a => a.Id == id);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
             catch (System.ArgumentNullException)
             {
@@ -1289,6 +1545,7 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.HttpNotFound();
             }
 
+<<<<<<< HEAD
             StaggingEditViewModel viewModel = new StaggingEditViewModel();
             viewModel.eventoStagging = eventoStagging;
             viewModel.historicoStagging = historicoErro;
@@ -1451,6 +1708,11 @@ namespace ISP.GestaoMatriculas.Controllers
 
         
 
+=======
+            return this.View();
+        }
+
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 
 }

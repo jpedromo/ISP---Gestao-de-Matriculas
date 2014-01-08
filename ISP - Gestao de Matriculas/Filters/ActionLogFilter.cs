@@ -19,8 +19,11 @@ namespace ISP.GestaoMatriculas.Filters
         // Log Action Filter Call
         DomainModels db = new DomainModels();
 
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         //var result = (ApoliceCreationViewModel)filterContext.ActionParameters[ParameterName];
         /*var context = new UsersContext();
         var username = filterContext.HttpContext.User.Identity.Name;

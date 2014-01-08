@@ -10,6 +10,7 @@ using ISP.GestaoMatriculas.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using WebMatrix.WebData;
+<<<<<<< HEAD
 using ISP.GestaoMatriculas.Filters;
 using Everis.Web.Mvc;
 using PagedList;
@@ -159,12 +160,47 @@ namespace ISP.GestaoMatriculas.Controllers
             viewModel.ficheiros = ficheirosToView.ToList();
 
             return viewModel;
+=======
+
+namespace ISP.GestaoMatriculas.Models.DbPopulate
+{
+    public class FilesUploadController : Controller
+    {
+        private IFicheiroRepository ficheirosRepository;
+        private IUserProfileRepository usersRepository;
+
+        public FilesUploadController(IFicheiroRepository ficheirosRepository, IUserProfileRepository usersRepository)
+        {
+            this.ficheirosRepository = ficheirosRepository;
+            this.usersRepository = usersRepository;
+        }
+
+        //
+        // GET: /Index/
+        //
+        public ActionResult Index(bool? upload)
+        {
+            FilesUploadViewModel viewModel = new FilesUploadViewModel();
+
+            UserProfile user = usersRepository.All.Include("entidade").Single(u => u.UserId  == WebSecurity.CurrentUserId);
+            IQueryable<Ficheiro> query = null;
+            query = ficheirosRepository.All.Where(f => f.entidadeId == user.entidadeId).OrderByDescending(f => f.dataUpload);
+            viewModel.ficheiros = query.ToList();
+
+            if (upload != null)
+            { 
+                viewModel.upload = (bool)upload;
+            }
+
+            return View(viewModel);
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
         
         //
         // POST: /Upload
         //
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
         [HttpPost]
         public ActionResult Upload(FilesUploadListViewModel model, HttpPostedFileBase file)
@@ -181,12 +217,18 @@ namespace ISP.GestaoMatriculas.Controllers
             ValorSistema pastaUploadIsentos = valoresSistemaRepository.GetPorTipologia("PARAM_PASTA_FICHEIROS_ISENTOS").Single();
             
 
+=======
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             if (file != null && file.ContentLength > 0)
             {
                 DateTime dataSubmissao = DateTime.Now;
                 var filename = Path.GetFileNameWithoutExtension(file.FileName);
                 var fileExtension = Path.GetExtension(file.FileName);
                 var newFilename = filename + "_" + dataSubmissao.ToString("yyyyMMddHHmmssfff") + fileExtension;
+<<<<<<< HEAD
                 var destination = pastaUpload.valor;
                 //var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), filename);
                 var path = Path.Combine(destination, newFilename);
@@ -213,6 +255,29 @@ namespace ISP.GestaoMatriculas.Controllers
                 ficheirosRepository.Insert(newFicheiro);
                 ficheirosRepository.Save();
 
+=======
+                var destination = System.Configuration.ConfigurationManager.AppSettings["FilesUploadDestination"];
+                //var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), filename);
+                var path = Path.Combine(destination, newFilename);
+                file.SaveAs(path);
+         
+                UserProfile user = usersRepository.All.Include("entidade").Single(u => u.UserId  == WebSecurity.CurrentUserId);
+                Entidade entidadeAssociada = user.entidade;
+
+                Ficheiro newFicheiro = new Ficheiro();
+                newFicheiro.nomeFicheiro = filename;
+                newFicheiro.localizacao = path;
+                newFicheiro.dataUpload = dataSubmissao;
+                newFicheiro.dataAlteracao = dataSubmissao;
+                //newFicheiro.entidade = entidadeAssociada;
+                newFicheiro.entidadeId = entidadeAssociada.Id;
+                newFicheiro.estado = Ficheiro.EstadoFicheiro.submetido;
+                newFicheiro.erro = false;
+                newFicheiro.userName = user.UserName;
+
+                ficheirosRepository.Insert(newFicheiro);
+                ficheirosRepository.Save();
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             }
 
             return RedirectToAction("Index");            
@@ -221,11 +286,16 @@ namespace ISP.GestaoMatriculas.Controllers
         //
         // GET: /Processar/2
         //
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
         public ActionResult Processar(int id)
         {
             List<ValorSistema> estadosFicheiro = valoresSistemaRepository.GetPorTipologia("ESTADO_FICHEIRO").ToList();
             List<ValorSistema> tiposNotificao = valoresSistemaRepository.GetPorTipologia("TIPO_NOTIFICACAO").ToList();
+=======
+        public ActionResult Processar(int id)
+        {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
 
             Ficheiro ficheiro = null;
@@ -233,14 +303,21 @@ namespace ISP.GestaoMatriculas.Controllers
             {
                 ficheiro = ficheirosRepository.All.Single(f => f.ficheiroId  == id);
                 //Altera estado do ficheiro
+<<<<<<< HEAD
                 if (ficheiro.estado.valor == "SUBMETIDO")
                 {
                     ficheiro.estadoId = estadosFicheiro.Where(f => f.valor == "PENDENTE").Single().valorSistemaId;
+=======
+                if (ficheiro.estado == Ficheiro.EstadoFicheiro.submetido)
+                {
+                    ficheiro.estado = Ficheiro.EstadoFicheiro.pendente;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                     ficheiro.dataAlteracao = DateTime.Now;
                     ficheiro.userName = user.UserName;
 
                     ficheirosRepository.InsertOrUpdate(ficheiro);
                     ficheirosRepository.Save();
+<<<<<<< HEAD
 
                     Notificacao notificacao = new Notificacao
                     {
@@ -258,6 +335,8 @@ namespace ISP.GestaoMatriculas.Controllers
                     entidadesRepository.Save();
                     notificacoesRepository.Save();
 
+=======
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                 }
                 else
                 {
@@ -273,17 +352,27 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.HttpNotFound();
             }
 
+<<<<<<< HEAD
             this.Alerts.Success("Ficheiro marcado para processamento.");
             return this.RedirectToAction("Index", new { tabNr = 2 }); 
+=======
+            
+            return this.RedirectToAction("Index"); 
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
         //
         // GET: /Cancelar/2
         //
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, ISP, Seguradora")]
         public ActionResult Cancelar(int id)
         {
             List<ValorSistema> estadosFicheiro = valoresSistemaRepository.GetPorTipologia("ESTADO_FICHEIRO");
+=======
+        public ActionResult Cancelar(int id)
+        {
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
             UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
 
             Ficheiro ficheiro = null;
@@ -291,9 +380,15 @@ namespace ISP.GestaoMatriculas.Controllers
             {
                 ficheiro = ficheirosRepository.All.Single(f => f.ficheiroId == id);
                 //Altera estado do ficheiro
+<<<<<<< HEAD
                 if (ficheiro.estado.valor == "SUBMETIDO")
                 {
                     ficheiro.estadoId = estadosFicheiro.Where(f => f.valor == "CANCELADO").Single().valorSistemaId; ;
+=======
+                if (ficheiro.estado == Ficheiro.EstadoFicheiro.submetido)
+                {
+                    ficheiro.estado = Ficheiro.EstadoFicheiro.cancelado;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
                     ficheiro.dataAlteracao = DateTime.Now;
                     ficheiro.userName = user.UserName;
 
@@ -314,8 +409,12 @@ namespace ISP.GestaoMatriculas.Controllers
                 return this.HttpNotFound();
             }
 
+<<<<<<< HEAD
             this.Alerts.Success("Ficheiro cancelado.");
             return this.RedirectToAction("Index", new { tabNr = 2 }); 
+=======
+            return this.RedirectToAction("Index"); 
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
     }
 }

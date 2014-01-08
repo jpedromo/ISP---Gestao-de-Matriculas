@@ -12,6 +12,7 @@ using ISP.GestaoMatriculas.Model;
 
 namespace ISP.GestaoMatriculas.Repositories
 {
+<<<<<<< HEAD
     public class ApoliceHistoricoRepository : IApoliceHistoricoRepository
     {
         DomainModels context = new DomainModels();
@@ -66,5 +67,13 @@ namespace ISP.GestaoMatriculas.Repositories
             context.Dispose();
         }
 
+=======
+    public class ApoliceHistoricoRepository : Respository<DomainModels, ApoliceHistorico>, IApoliceHistoricoRepository
+    {
+        public ApoliceHistoricoRepository():base()
+        {
+            DbSet = Context.ApolicesHistorico;
+        }
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
     }
 }

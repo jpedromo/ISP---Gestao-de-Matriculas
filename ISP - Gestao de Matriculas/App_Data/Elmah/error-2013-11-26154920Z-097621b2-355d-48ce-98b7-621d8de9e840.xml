@@ -1,0 +1,183 @@
+﻿<error errorId="097621b2-355d-48ce-98b7-621d8de9e840" application="/" host="WLX0113153" type="System.Web.HttpException" message="Maximum request length exceeded." source="System.Web" detail="System.Web.HttpException (0x80004005): Maximum request length exceeded.&#xD;&#xA;   at System.Web.HttpRequest.GetEntireRawContent()&#xD;&#xA;   at System.Web.HttpRequest.GetMultipartContent()&#xD;&#xA;   at System.Web.HttpRequest.FillInFormCollection()&#xD;&#xA;   at System.Web.HttpRequest.get_Form()&#xD;&#xA;   at Microsoft.Web.Infrastructure.DynamicValidationHelper.ValidationUtility.CollectionReplacer.&lt;&gt;c__DisplayClass8.&lt;MakeCollectionsLazy&gt;b__2()&#xD;&#xA;   at Microsoft.Web.Infrastructure.DynamicValidationHelper.ValidationUtility.CollectionReplacer.&lt;&gt;c__DisplayClass12.&lt;ReplaceCollection&gt;b__e()&#xD;&#xA;   at Microsoft.Web.Infrastructure.DynamicValidationHelper.ValidationUtility.CollectionReplacer.&lt;&gt;c__DisplayClass12.&lt;ReplaceCollection&gt;b__11()&#xD;&#xA;   at Microsoft.Web.Infrastructure.DynamicValidationHelper.DeferredCountArrayList.get_Count()&#xD;&#xA;   at System.Collections.Specialized.NameObjectCollectionBase.get_Count()&#xD;&#xA;   at System.Web.HttpRequest.ValidateNameValueCollection(NameValueCollection nvc, RequestValidationSource requestCollection)&#xD;&#xA;   at System.Web.HttpRequest.get_Form()&#xD;&#xA;   at System.Web.HttpRequestWrapper.get_Form()&#xD;&#xA;   at System.Web.Mvc.HttpRequestExtensions.GetHttpMethodOverride(HttpRequestBase request)&#xD;&#xA;   at System.Web.Mvc.AcceptVerbsAttribute.IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)&#xD;&#xA;   at System.Web.Mvc.HttpPostAttribute.IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncActionMethodSelector.&lt;&gt;c__DisplayClass19.&lt;RunSelectionFilters&gt;b__15(ActionMethodSelectorAttribute attr)&#xD;&#xA;   at System.Linq.Enumerable.All[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncActionMethodSelector.RunSelectionFilters(ControllerContext controllerContext, List`1 methodInfos)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncActionMethodSelector.FindAction(ControllerContext controllerContext, String actionName)&#xD;&#xA;   at System.Web.Mvc.Async.ReflectedAsyncControllerDescriptor.FindAction(ControllerContext controllerContext, String actionName)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.FindAction(ControllerContext controllerContext, ControllerDescriptor controllerDescriptor, String actionName)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeAction(ControllerContext controllerContext, String actionName, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.Controller.&lt;&gt;c__DisplayClass1d.&lt;BeginExecuteCore&gt;b__17(AsyncCallback asyncCallback, Object asyncState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.Controller.BeginExecuteCore(AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.Controller.BeginExecute(RequestContext requestContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.BeginExecute(RequestContext requestContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.&lt;&gt;c__DisplayClass8.&lt;BeginProcessRequest&gt;b__2(AsyncCallback asyncCallback, Object asyncState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.Begin(AsyncCallback callback, Object state, Int32 timeout)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)&#xD;&#xA;   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="admin1" time="2013-11-26T15:49:20.4623097Z" statusCode="500">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CACHE_CONTROL:no-cache&#xD;&#xA;HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_CONTENT_LENGTH:7878281&#xD;&#xA;HTTP_CONTENT_TYPE:multipart/form-data; boundary=----WebKitFormBoundarydp5KKh3zjDM8oWMh&#xD;&#xA;HTTP_ACCEPT:application/json&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip,deflate,sdch&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:pt-PT,pt;q=0.8,en-US;q=0.6,en;q=0.4&#xD;&#xA;HTTP_COOKIE:__RequestVerificationToken=ub4TZsnnOQ60sQIF3-1qcgosAyG_U2LJELbGn7Pvr1WmP217yXCDxLerT52Hu4GSFBkHo83I354UBc3dBTf32x5HwIw0_F8CJrujaKlUB1nonPitBbwWLsj8UDp-L-LaI-aysj5JW8kzrluJZAzyJw2; .ASPXAUTH=B9C47A9E86833890E4A8967B4FBC3C5814C861380BDA502F2456C9E7C341BBC00BDF17E9F8197325794566AB5C95DB95A12F7F433DB5829E9666F9F8F0B14EB4E4AB1E7A2CDA1C1B9CFD653E66FF2561CCF65D816D64668CE4FD67587015D8FD18B535CE1D838EF9F061774B62B9A0252D36DD03375A6A5AFB6F5143D643C7B5; .ASPXROLES=Ys8BvtR7gXLXZifmQNV3lgNaDZFM0-LvWB-kINP_GaJjrjjo3mDbFwsLT-DEOCpNZCOpp6RnVgHYvh95lcCHwydw2-a1UhhsyAXw56Sqc6TSw4PFxo9ahRNp6evJsVWUsGNcejFSVojfjlm-6znSughpfdvUwP-m51kkh2Bb4Gx050-2Tbn9C5KtxjOMqrz42ky7VMCaX_vQtgEPrpPV6w76I0kDw26XcwbjH91YEcc-pFHUlDj7U2T-IaTtyz2A6GVRgepcfrO58lGj_nHDjeRzCUwWXvQ6sZjpyKDIRQ_Zc4oyk1VnMUHUzzaQ8C7_wEKasFvZz_vI5Hsyx-4qbjw5vSafdYAIgLVmVObNHMxRi76M79kcWsWqeT2cxQ7IOKajvnevXVnYiErjVIpapC46FdXV5T4hxeTjd41iu6P0rAxX716-d9Q_S8KwlhFT8d6uPcV8XcjWheUK5_njrC-fEfwqiHbIycDxqSLi_VCThY_a51vPlwuK_9Z7hreq4kxHewCTzAjw5f4acCnc9kJLhsjGVjTCgUalUaPyHHQ1&#xD;&#xA;HTTP_HOST:localhost:55465&#xD;&#xA;HTTP_REFERER:http://localhost:55465/filesUpload/index2&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:55465&#xD;&#xA;HTTP_X_REQUESTED_WITH:XMLHttpRequest&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Cache-Control: no-cache&#xD;&#xA;Connection: keep-alive&#xD;&#xA;Content-Length: 7878281&#xD;&#xA;Content-Type: multipart/form-data; boundary=----WebKitFormBoundarydp5KKh3zjDM8oWMh&#xD;&#xA;Accept: application/json&#xD;&#xA;Accept-Encoding: gzip,deflate,sdch&#xD;&#xA;Accept-Language: pt-PT,pt;q=0.8,en-US;q=0.6,en;q=0.4&#xD;&#xA;Cookie: __RequestVerificationToken=ub4TZsnnOQ60sQIF3-1qcgosAyG_U2LJELbGn7Pvr1WmP217yXCDxLerT52Hu4GSFBkHo83I354UBc3dBTf32x5HwIw0_F8CJrujaKlUB1nonPitBbwWLsj8UDp-L-LaI-aysj5JW8kzrluJZAzyJw2; .ASPXAUTH=B9C47A9E86833890E4A8967B4FBC3C5814C861380BDA502F2456C9E7C341BBC00BDF17E9F8197325794566AB5C95DB95A12F7F433DB5829E9666F9F8F0B14EB4E4AB1E7A2CDA1C1B9CFD653E66FF2561CCF65D816D64668CE4FD67587015D8FD18B535CE1D838EF9F061774B62B9A0252D36DD03375A6A5AFB6F5143D643C7B5; .ASPXROLES=Ys8BvtR7gXLXZifmQNV3lgNaDZFM0-LvWB-kINP_GaJjrjjo3mDbFwsLT-DEOCpNZCOpp6RnVgHYvh95lcCHwydw2-a1UhhsyAXw56Sqc6TSw4PFxo9ahRNp6evJsVWUsGNcejFSVojfjlm-6znSughpfdvUwP-m51kkh2Bb4Gx050-2Tbn9C5KtxjOMqrz42ky7VMCaX_vQtgEPrpPV6w76I0kDw26XcwbjH91YEcc-pFHUlDj7U2T-IaTtyz2A6GVRgepcfrO58lGj_nHDjeRzCUwWXvQ6sZjpyKDIRQ_Zc4oyk1VnMUHUzzaQ8C7_wEKasFvZz_vI5Hsyx-4qbjw5vSafdYAIgLVmVObNHMxRi76M79kcWsWqeT2cxQ7IOKajvnevXVnYiErjVIpapC46FdXV5T4hxeTjd41iu6P0rAxX716-d9Q_S8KwlhFT8d6uPcV8XcjWheUK5_njrC-fEfwqiHbIycDxqSLi_VCThY_a51vPlwuK_9Z7hreq4kxHewCTzAjw5f4acCnc9kJLhsjGVjTCgUalUaPyHHQ1&#xD;&#xA;Host: localhost:55465&#xD;&#xA;Referer: http://localhost:55465/filesUpload/index2&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Safari/537.36&#xD;&#xA;Origin: http://localhost:55465&#xD;&#xA;X-Requested-With: XMLHttpRequest&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\@Work\Gestão Matriculas\Dev\ISP - Gestao de Matriculas\ISP - Gestao de Matriculas\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="Forms" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="admin1" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="REDEISP\jpamota" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="admin1" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="7878281" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="multipart/form-data; boundary=----WebKitFormBoundarydp5KKh3zjDM8oWMh" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="" />
+    </item>
+    <item name="HTTPS">
+      <value string="" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/FilesUpload/Upload" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\@Work\Gestão Matriculas\Dev\ISP - Gestao de Matriculas\ISP - Gestao de Matriculas\FilesUpload\Upload" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="POST" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/FilesUpload/Upload" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="55465" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="" />
+    </item>
+    <item name="URL">
+      <value string="/FilesUpload/Upload" />
+    </item>
+    <item name="HTTP_CACHE_CONTROL">
+      <value string="no-cache" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_CONTENT_LENGTH">
+      <value string="7878281" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="multipart/form-data; boundary=----WebKitFormBoundarydp5KKh3zjDM8oWMh" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip,deflate,sdch" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="pt-PT,pt;q=0.8,en-US;q=0.6,en;q=0.4" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="__RequestVerificationToken=ub4TZsnnOQ60sQIF3-1qcgosAyG_U2LJELbGn7Pvr1WmP217yXCDxLerT52Hu4GSFBkHo83I354UBc3dBTf32x5HwIw0_F8CJrujaKlUB1nonPitBbwWLsj8UDp-L-LaI-aysj5JW8kzrluJZAzyJw2; .ASPXAUTH=B9C47A9E86833890E4A8967B4FBC3C5814C861380BDA502F2456C9E7C341BBC00BDF17E9F8197325794566AB5C95DB95A12F7F433DB5829E9666F9F8F0B14EB4E4AB1E7A2CDA1C1B9CFD653E66FF2561CCF65D816D64668CE4FD67587015D8FD18B535CE1D838EF9F061774B62B9A0252D36DD03375A6A5AFB6F5143D643C7B5; .ASPXROLES=Ys8BvtR7gXLXZifmQNV3lgNaDZFM0-LvWB-kINP_GaJjrjjo3mDbFwsLT-DEOCpNZCOpp6RnVgHYvh95lcCHwydw2-a1UhhsyAXw56Sqc6TSw4PFxo9ahRNp6evJsVWUsGNcejFSVojfjlm-6znSughpfdvUwP-m51kkh2Bb4Gx050-2Tbn9C5KtxjOMqrz42ky7VMCaX_vQtgEPrpPV6w76I0kDw26XcwbjH91YEcc-pFHUlDj7U2T-IaTtyz2A6GVRgepcfrO58lGj_nHDjeRzCUwWXvQ6sZjpyKDIRQ_Zc4oyk1VnMUHUzzaQ8C7_wEKasFvZz_vI5Hsyx-4qbjw5vSafdYAIgLVmVObNHMxRi76M79kcWsWqeT2cxQ7IOKajvnevXVnYiErjVIpapC46FdXV5T4hxeTjd41iu6P0rAxX716-d9Q_S8KwlhFT8d6uPcV8XcjWheUK5_njrC-fEfwqiHbIycDxqSLi_VCThY_a51vPlwuK_9Z7hreq4kxHewCTzAjw5f4acCnc9kJLhsjGVjTCgUalUaPyHHQ1" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:55465" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:55465/filesUpload/index2" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:55465" />
+    </item>
+    <item name="HTTP_X_REQUESTED_WITH">
+      <value string="XMLHttpRequest" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="__RequestVerificationToken">
+      <value string="ub4TZsnnOQ60sQIF3-1qcgosAyG_U2LJELbGn7Pvr1WmP217yXCDxLerT52Hu4GSFBkHo83I354UBc3dBTf32x5HwIw0_F8CJrujaKlUB1nonPitBbwWLsj8UDp-L-LaI-aysj5JW8kzrluJZAzyJw2" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="B9C47A9E86833890E4A8967B4FBC3C5814C861380BDA502F2456C9E7C341BBC00BDF17E9F8197325794566AB5C95DB95A12F7F433DB5829E9666F9F8F0B14EB4E4AB1E7A2CDA1C1B9CFD653E66FF2561CCF65D816D64668CE4FD67587015D8FD18B535CE1D838EF9F061774B62B9A0252D36DD03375A6A5AFB6F5143D643C7B5" />
+    </item>
+    <item name=".ASPXROLES">
+      <value string="Ys8BvtR7gXLXZifmQNV3lgNaDZFM0-LvWB-kINP_GaJjrjjo3mDbFwsLT-DEOCpNZCOpp6RnVgHYvh95lcCHwydw2-a1UhhsyAXw56Sqc6TSw4PFxo9ahRNp6evJsVWUsGNcejFSVojfjlm-6znSughpfdvUwP-m51kkh2Bb4Gx050-2Tbn9C5KtxjOMqrz42ky7VMCaX_vQtgEPrpPV6w76I0kDw26XcwbjH91YEcc-pFHUlDj7U2T-IaTtyz2A6GVRgepcfrO58lGj_nHDjeRzCUwWXvQ6sZjpyKDIRQ_Zc4oyk1VnMUHUzzaQ8C7_wEKasFvZz_vI5Hsyx-4qbjw5vSafdYAIgLVmVObNHMxRi76M79kcWsWqeT2cxQ7IOKajvnevXVnYiErjVIpapC46FdXV5T4hxeTjd41iu6P0rAxX716-d9Q_S8KwlhFT8d6uPcV8XcjWheUK5_njrC-fEfwqiHbIycDxqSLi_VCThY_a51vPlwuK_9Z7hreq4kxHewCTzAjw5f4acCnc9kJLhsjGVjTCgUalUaPyHHQ1" />
+    </item>
+  </cookies>
+</error>

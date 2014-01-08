@@ -7,13 +7,20 @@ using ISP.GestaoMatriculas.Filters;
 using WebMatrix.WebData;
 using ISP.GestaoMatriculas.Models;
 using ISP.GestaoMatriculas.Model;
+<<<<<<< HEAD
 using ISP.GestaoMatriculas.Contracts;
 using System.Data.Entity;
 using ISP.GestaoMatriculas.ViewModels;
+=======
+using ISP.GestaoMatriculas.Model.Indicadores;
+using ISP.GestaoMatriculas.Contracts;
+using System.Data.Entity;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
 
 namespace ISP.GestaoMatriculas.Controllers
 {
     [InitializeSimpleMembership(Order = 1)]
+<<<<<<< HEAD
     //[MenuDataFilter(Order = 2)]
     public class HomeController : Controller
     {
@@ -27,11 +34,22 @@ namespace ISP.GestaoMatriculas.Controllers
             this.usersRepository = usersRepository;
             this.indicadoresRepository = indicadoresRepository;
             this.apolicesRepository = apolicesRepository;
+=======
+    [MenuDataFilter(Order = 2)]
+    public class HomeController : Controller
+    {
+        private IUserProfileRepository usersRepository;
+
+        public HomeController(IUserProfileRepository usersRepository)
+        {
+            this.usersRepository = usersRepository;
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
 
         public ActionResult Index()
         {
+<<<<<<< HEAD
             UserProfile user = usersRepository.Find(WebSecurity.CurrentUserId);
             if (user == null)
                 return Redirect("~/SitePublico/Index");     
@@ -131,6 +149,42 @@ namespace ISP.GestaoMatriculas.Controllers
 
             return View(homeVM);
 
+=======
+           //TODO: Criar uma viewModel para index contendo os indicadores necessários a apresentar.
+            if(WebSecurity.IsAuthenticated && WebSecurity.HasUserId){
+                UserProfile user = usersRepository.All.Include("entidade").Single(u => u.UserId == WebSecurity.CurrentUserId);
+
+                Entidade entidadeAssociada = user.entidade;
+                ViewBag.entidade = entidadeAssociada.Nome;
+
+                ViewBag.numIndicadores = entidadeAssociada.indicadores.Count;
+
+                foreach(Indicador i in entidadeAssociada.indicadores){
+                    ViewData["Indicador.Descricao"] = i.descricao;
+                    ViewData["Indicador.Valor"] = i.calcular().valor;
+                }
+            }
+
+            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+
+            return View();
+
+        }
+
+        [Authorize(Roles = "AdminGroup")]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+>>>>>>> 6bef4ea7199f182f1dcc5a1156a157494ff9f29c
         }
 
         public ActionResult Error()

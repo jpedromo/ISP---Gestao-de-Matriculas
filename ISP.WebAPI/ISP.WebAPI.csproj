@@ -176,6 +176,12 @@
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="FormsAuth\FormsAuthConfigurationSection.cs" />
     <Compile Include="FormsAuth\FormsAuthModule.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\EntidadeController.cs" />
+    <Compile Include="Controllers\FicheiroController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -378,6 +384,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52528</DevelopmentServerPort>
+          <DevelopmentServerPort>53086</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
