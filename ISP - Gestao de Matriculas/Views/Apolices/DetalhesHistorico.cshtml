@@ -1,0 +1,202 @@
+﻿@model ISP.GestaoMatriculas.Model.ApoliceHistorico
+
+@{
+    ViewBag.Title = "Detalhes de Histórico " + @Html.DisplayFor(model => model.numeroApolice) + " " + @Html.DisplayFor(model => model.veiculo.numeroMatricula);
+}
+
+@section css{
+   @Styles.Render("~/Content/myWizardFuelux/css")
+}
+
+@section scripts{    
+
+        @Scripts.Render("~/bundles/myWizardFuelux");
+
+        <script type='text/javascript'>
+
+            $(document).ready(function () {
+                $('#rootwizard').bootstrapWizard({
+                    tabClass: 'steps'
+                });
+            });
+
+        </script>
+}
+
+<h2>Detalhes de Histórico @Html.DisplayFor(model => model.numeroApolice)</h2>
+<h4>(@Html.DisplayFor(model => model.veiculo.numeroMatricula), 
+@Html.DisplayFor(model => model.entidade.nome), @Html.DisplayFor(model => model.dataInicio))</h4>
+
+
+<fieldset>
+
+<div id="rootwizard" class ="well fuelux">
+	  <div class="wizard">
+	<ul class="steps">
+	  	<a href="#periodo" data-toggle="tab"><li class="complete active"><span class="badge badge-info">1</span> Período Seguro <span class="chevron"> </span></li></a>
+		<a href="#veiculo" data-toggle="tab"><li class="complete"><span class="badge badge-success">2</span> Veículo <span class="chevron"> </span></li></a>
+		<a href="#tomador" data-toggle="tab"><li class="complete"><span class="badge badge-success">3</span> Tomador de Seguro<span class="chevron"> </span></li></a>
+	</ul>
+	</div>
+
+    	<div class="tab-content">
+	    <div class="tab-pane" id="periodo">
+            <legend>Período Seguro</legend>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.numeroApolice)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.numeroApolice)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.dataInicio)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.dataInicio)
+            </div>
+
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.dataFim)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.dataFim)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.numeroCertificadoProvisorio)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.numeroCertificadoProvisorio)
+            </div>
+            <legend>Dados de Controlo</legend>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.eventoHistorico.codigoOperacao)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.eventoHistorico.codigoOperacao.descricao)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.dataReporte)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.dataReporte)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.utilizadorReporte)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.utilizadorReporte)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.dataFimPlaneada)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.dataFimPlaneada)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.SLA)
+            </div>
+            <div class="display-field">
+                <span>@Html.DisplayFor(model => model.SLA.Days)</span> Dias 
+                <span>@Html.DisplayFor(model => model.SLA.Hours)</span> Horas
+                <span>@Html.DisplayFor(model => model.SLA.Minutes)</span> Minutos
+                <span>@Html.DisplayFor(model => model.SLA.Seconds)</span> Segundos
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.dataArquivo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.dataArquivo)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.utilizadorArquivo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.utilizadorArquivo)
+            </div>
+        </div>
+        <div class="tab-pane" id="veiculo">
+        <legend>Veículo</legend>
+        
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.veiculo.numeroMatricula)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.veiculo.numeroMatricula)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.veiculo.categoria)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.veiculo.categoria.nome)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.veiculo.marcaVeiculo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.veiculo.marcaVeiculo)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.veiculo.modeloVeiculo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.veiculo.modeloVeiculo)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.veiculo.anoConstrucao)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.veiculo.anoConstrucao)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.concelho)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.concelho.nomeConcelho)
+            </div>
+        </div>
+        <div class="tab-pane" id="tomador">
+            <legend>Tomador do Seguro</legend>
+
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.tomador.nome)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.tomador.nome)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.tomador.numeroIdentificacao)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.tomador.numeroIdentificacao)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.tomador.nif)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.tomador.nif)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.tomador.morada)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.tomador.morada)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.tomador.codigoPostal)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.tomador.codigoPostal)
+            </div>
+        </div>
+        <div class="wizard-buttons">
+			@*<li class="previous first" style="display:none;"><a href="#">Primeiro</a></li>*@
+			<li class="previous d"><a href="#">Anterior</a></li>
+			@*<li class="next last" style="display:none;"><a href="#">Último</a></li>*@
+		  	<li class="next d"><a href="#">Próximo</a></li>
+		</div>
+    </div>
+</fieldset>
+
+<p>
+    <a href="javascript:history.go(-1);">Voltar</a>
+</p>

@@ -1,0 +1,28 @@
+﻿@inherits System.Web.Mvc.WebViewPage<DateTime>
+
+    <script type="text/javascript" language="javascript" >
+        jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+
+
+        options = {
+            pattern: 'yyyy-mm', // Default is 'mm/yyyy' and separator char is not mandatory
+            startYear: 1900,
+            finalYear: 2050,
+            monthNames: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        };
+
+        
+        $(function () {
+            $(".monthpicker").monthpicker(options);
+        });  
+    </script>
+
+@Html.TextBoxFor(p => p, new { @class = "monthpicker" })

@@ -1,0 +1,80 @@
+﻿@model ISP.GestaoMatriculas.Model.ApoliceIsento
+
+@{
+    ViewBag.Title = "Detalhes de Período Isento " + Html.DisplayFor(model => model.matricula);
+}
+
+<h2>Detalhes de Período Isento @Html.DisplayFor(model => model.matricula)</h2>
+<h4>(@Html.DisplayFor(model => model.entidadeResponsavel), 
+@Html.DisplayFor(model => model.matricula))</h4>
+
+<div class="fuelux well">
+<fieldset>
+    <legend>Período Isento de Seguro</legend>
+
+    <div class="display-label" style="font-weight:bold; padding:">
+         @Html.DisplayNameFor(model => model.matricula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.matricula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.entidadeResponsavel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.entidadeResponsavel)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.mensagem)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.mensagem)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataInicio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataFim)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataFim)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.confidencial)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.confidencial)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataReporte)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataReporte)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataModificacao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataModificacao)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.arquivo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.arquivo)
+    </div>
+</fieldset>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.apoliceIsentoId }) |
+    @Html.ActionLink("Voltar à listagem", "Index")
+</p>

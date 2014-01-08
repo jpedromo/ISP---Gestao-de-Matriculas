@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ISP.GestaoMatriculas.Model.Entidade>
+@{
+    ViewBag.Title = "Entidades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Entidades</h2>
+<div class="well fuelux">
+    <input type="button" class="btn btn-primary" id="novaNotificacaoBtn" value="Criar Entidade" onclick="window.location.href='@Url.Content("~/Entidades/Create")'"/>
+    <br />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.scope)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.role)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ativo)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+    
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.scope.descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.role.RoleName)
+                    </td>
+                    <td align="center" valign="top">
+                        @Html.DisplayFor(modelItem => item.ativo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.entidadeId }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.entidadeId }) |
+                        @if (item.ativo)
+                        {   
+                            @Html.ActionLink("Desativar", "Deactivate", new { id = item.entidadeId })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Ativar", "Activate", new { id = item.entidadeId })
+                        }
+                    </td>
+                </tr>
+    
+            }
+        </tbody>
+    </table>
+</div>

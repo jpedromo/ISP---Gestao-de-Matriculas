@@ -1,0 +1,800 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceListViewModel
+@using ISP.GestaoMatriculas.Code.Util
+@{
+    ViewBag.Title = "Apólices";
+}
+@section scripts{
+    <script type='text/javascript'>
+        $(function () {
+            $('#tabs a.active').tab('show')
+        });
+
+
+        $(document).ready(function () {
+            $('#tab1').click(function () {
+                $('#tabNr').val("1");
+                $('#tabsForm').submit();
+            });
+
+            $('#tab2').click(function () {
+                $('#tabNr').val("2");
+                $('#tabsForm').submit();
+            });
+
+            $('#tab3').click(function () {
+                $('#tabNr').val("3");
+                $('#tabsForm').submit();
+            });
+        });
+    </script>
+}
+@section css{
+}
+
+<h2>Períodos Seguros</h2>
+
+<ul id="tabs" class="nav nav-tabs">
+    @if (Model.TabNumber == 2)
+    {
+        <li><a href="#apolicesTab" data-toggle="tab" id="tab1">Efetivos</a></li>
+        <li><a href="#errosTab" data-toggle="tab" id="tab2" class="active">Área de Erros <span id="errosMarcador"
+            class='badge badge-important'>@if (Model.totalNumberOfEventos > 0)
+                                          {
+                <span>!</span>
+                                          }</span></a></li>
+        <li><a href="#processamentoTab" data-toggle="tab" id="tab3">Área de Processamento</a></li>
+    }
+    else
+    {
+        if (Model.TabNumber == 3)
+        {
+        <li><a href="#apolicesTab" data-toggle="tab" id="tab1">Efetivos</a></li>
+        <li><a href="#errosTab" data-toggle="tab" id="tab2">Área de Erros <span id="errosMarcador"
+            class='badge badge-important'>@if (Model.totalNumberOfEventos > 0)
+                                          {
+                <span>!</span>
+                                          }</span></a></li>
+        <li><a href="#processamentoTab" data-toggle="tab" class="active" id="tab3">Área de Processamento</a></li>
+        }
+        else
+        { 
+        <li><a href="#apolicesTab" data-toggle="tab" class="active" id="tab1">Efetivos</a></li>
+        <li><a href="#errosTab" data-toggle="tab" id="tab2">Área de Erros <span id="errosMarcador"
+            class='badge badge-important'>@if (Model.totalNumberOfEventos > 0)
+                                          {
+                <span>!</span>
+                                          }</span></a></li>
+        <li><a href="#processamentoTab" data-toggle="tab" id="tab3">Área de Processamento</a></li>
+
+        }
+    }
+</ul>
+<div class="tab-content">
+    <div class="tab-pane" id="apolicesTab">
+        <div class="well fuelux">
+            @using (Html.BeginForm("Index", "Apolices", new { tabNr = Model.TabNumber }, FormMethod.Post, new { @id = "ListingForm" }))
+            {
+                <table>
+                    <div class="editor-label">
+                        <tr>
+                            @if (!User.IsInRole("Seguradora"))
+                            { 
+                                <td>
+                                    @Html.LabelFor(model => model.entidade)
+                                </td>
+                            }
+                            <td>
+                                @Html.LabelFor(model => model.apolice)
+                            </td>
+                            <td>
+                                @Html.LabelFor(model => model.matricula)
+                            </td>
+                            <td>
+                                @Html.LabelFor(model => model.avisos)
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="editor-field">
+                        <tr>
+                            @if (!User.IsInRole("Seguradora"))
+                            { 
+                                <td>
+                                    @Html.DropDownList("entidade", (SelectList)ViewData["Entidades"])
+                                    @Html.ValidationMessageFor(model => model.entidade)
+                                </td>
+                            }
+                            <td>
+                                @Html.EditorFor(m => m.apolice)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.matricula)
+                            </td>
+                            <td align=center>
+                                @Html.EditorFor(m => m.avisos)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(m => m.arquivados)
+                                @Html.HiddenFor(m => m.TabNumber)
+                            </td>
+                        </tr>
+                    </div>
+                </table>
+                            if (Model.TabNumber == 1)
+                            { 
+                <table>
+                    <div class="editor-field">
+                        <tr>
+                            <td>
+                                @Html.Label("No Período de:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.dataInicio)
+                            </td>
+                            <td>@Html.Label(" a ")</td>
+                            <td>
+                                @Html.EditorFor(m => m.dataFim)
+                            </td>
+                            <td>
+                                <input type="submit" class="btn" id="FiltrarBtn" value="Filtrar" />
+                            </td>
+                        </tr>
+                    </div>
+                </table>
+                            }
+            }
+        </div>
+        <div class="well fuelux">
+            <div class="container fuelux">
+                <input type="button" class="btn btn-primary" id="novoPeriodoBtn" value="Criar Novo" onclick="window.location.href='@Url.Content("~/Apolices/Create")'"/>
+                @Html.ActionLink("Exportar para CSV", "exportApolicesToCsv", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                    Model),
+                                    new Dictionary<string, object> { { "class", "btn" } })
+            </div>
+            <br />
+            @if (Model.apolicesEfetivas.Count() > 0)
+            { 
+                <table class="table table-striped table-hover table-mega-condensed" >
+                    <thead>
+                    <tr>
+                        <th>
+                            <div>
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().entidade)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Entidade",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Entidade",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().numeroApolice)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Apolice",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Apolice",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().dataInicio)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_DataInicio",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_DataInicio",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().dataFim)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_DataFim",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_DataFim",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().veiculo.numeroMatricula)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Matricula",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Matricula",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                            <div>   
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().tomador.nome)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Nome",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Nome",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                            @Html.DisplayNameFor(model => model.apolicesEfetivas.First().concelho)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Concelho",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Apolices_Concelho",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                            </div>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.apolicesEfetivas)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.entidade.nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numeroApolice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dataInicio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dataFim)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.veiculo.numeroMatricula)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tomador.nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.concelho.nomeConcelho)
+                            </td>
+                            <td>
+                            @if (!User.IsInRole("ISP-Leitura"))
+                            {
+                                <span>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.apoliceId }) |
+                                </span>
+                            }
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.apoliceId })
+                                @if (!User.IsInRole("ISP-Leitura"))
+                                {
+                                <span>|
+                                    @Html.ActionLink("Anular", "Anular", new { id = item.apoliceId })
+                                </span>
+                                }
+                            </td>
+                        </tr>
+                        
+                    }
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Url, new PagerHtmlRenderer(
+                                                currentPageNumber: Model.CurrentPageNumber,
+                                                pageSize: Model.PageSize,
+                                                totalNumberOfItems: Model.totalNumberOfApolices,
+                                                actionName: "Index",
+                                                controllerName: "Apolices",
+                                                routeValues: Url.GetRouteValueDictionaryForList(Model),
+                                                pageRouteValueName: "page"))
+
+            }
+            else
+            { 
+                <br />
+                <p>Não existem registos de períodos seguros.</p>
+            }
+        </div>
+    </div>
+    <div class="tab-pane" id="errosTab">
+        <div class="well fuelux">
+            @using (Html.BeginForm("Index", "Apolices", new { tabNr = Model.TabNumber }, FormMethod.Post, new { @id = "ErrosForm" }))
+            {
+                <table>
+                    <div class="editor-label">
+                        <tr>
+                            @if (!User.IsInRole("Seguradora"))
+                            {
+                                <td>
+                                    @Html.LabelFor(model => model.entidade)
+                                </td>
+                            }
+                            <td>
+                                @Html.LabelFor(model => model.apolice)
+                            </td>
+                            <td>
+                                @Html.LabelFor(model => model.matricula)
+                            </td>
+                            <td >
+                                @Html.LabelFor(model => model.arquivados)
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="editor-field">
+                        <tr>
+                            @if (!User.IsInRole("Seguradora"))
+                            { 
+                                <td>
+                                    @Html.DropDownList("entidade", (SelectList)ViewData["Entidades"])
+                                    @Html.ValidationMessageFor(model => model.entidade)
+                                </td>
+                            }
+                            <td>
+                                @Html.EditorFor(m => m.apolice)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.matricula)
+                            </td>
+                            <td align="center">
+                                @Html.EditorFor(m => m.arquivados)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(m => m.avisos)
+                                @Html.HiddenFor(m => m.TabNumber)
+                            </td>
+                        </tr>
+                    </div>
+                </table>
+                            if (Model.TabNumber == 2)
+                            { 
+                <table>
+                    <div class="editor-field">
+                        <tr>
+                            <td>
+                                @Html.Label("No Período de:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.dataInicio)
+                            </td>
+                            <td>@Html.Label(" a: ")</td>
+                            <td>
+                                @Html.EditorFor(m => m.dataFim)
+                            </td>
+                            <td>
+                                <input type="submit" class="btn" id="FiltrarErrosBtn" value="Filtrar" />
+                            </td>
+                        </tr>
+                    </div>
+                </table>
+                            }
+            }
+        </div>
+        <div class="well fuelux">
+            @Html.ActionLink("Exportar para CSV", "exportErrosToCsv", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                    Model),
+                                    new Dictionary<string, object> { { "class", "btn" } })
+            @if (Model.eventosStagging.Count() > 0)
+            { 
+                <table class="table table-striped table-hover table-mega-condensed">
+                    <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().entidade)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Entidade",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Entidade",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().codigoOperacao)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Operacao",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Operacao",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().nrApolice)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Apolice",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Apolice",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().dataInicioCobertura)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataInicio",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataInicio",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().dataFimCobertura)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataFim",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataFim",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().matricula)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Matricula",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Matricula",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().nomeTomadorSeguro)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Tomador",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Tomador",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var stagging in Model.eventosStagging)
+                    {                        
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.entidade.nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.codigoOperacao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.nrApolice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.dataInicioCobertura)
+                                @Html.DisplayFor(modelItem => stagging.horaInicioCobertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.dataFimCobertura)
+                                @Html.DisplayFor(modelItem => stagging.horaFimCobertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.matricula)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stagging.nomeTomadorSeguro)
+                            </td>
+                            <td>
+                            @if (!User.IsInRole("ISP-Leitura"))
+                            {
+                                <span>@Html.ActionLink("Editar", "EditStagging", new { id = stagging.eventoStaggingId })
+                                |
+                                </span>
+                            }
+                                @Html.ActionLink("Detalhes", "DetailsStagging", new { id = stagging.eventoStaggingId })
+                                @if (!User.IsInRole("ISP-Leitura"))
+                                {
+                                <span>|
+                                    @Html.ActionLink("Arquivar", "ArquivarStagging", new { id = stagging.eventoStaggingId })
+                                </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Url, new PagerHtmlRenderer(
+                                                currentPageNumber: Model.CurrentPageNumber,
+                                                pageSize: Model.PageSize,
+                                                totalNumberOfItems: Model.totalNumberOfEventos,
+                                                actionName: "Index",
+                                                controllerName: "Apolices",
+                                                routeValues: Url.GetRouteValueDictionaryForList(Model),
+                                                pageRouteValueName: "page"))
+            }
+            else
+            { 
+                <br /><br />
+                <p>Não existem registos de erro.</p>
+            }
+        </div>
+    </div>
+    <div class="tab-pane" id="processamentoTab">
+        <div class="well fuelux">
+            @Html.ActionLink("Exportar para CSV", "exportProcessadosToCsv", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                    Model),
+                                    new Dictionary<string, object> { { "class", "btn" } })
+            @if (Model.eventosProcessados.Count() > 0)
+            { 
+                <table class="table table-striped table-hover table-mega-condensed">
+                    <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().entidade)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Entidade",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Entidade",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().estadoEvento)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Estado",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Estado",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().codigoOperacao)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Operacao",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Operacao",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().nrApolice)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Apolice",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Apolice",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().dataInicioCobertura)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataInicio",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataInicio",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().dataFimCobertura)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DatFim",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_DataFim",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().matricula)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Matricula",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Matricula",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.eventosStagging.First().nomeTomadorSeguro)
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Tomador",
+                                        direction: "asc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                            @Html.ActionLink(" ", "Index", "Apolices",
+                                    Url.GetRouteValueDictionaryForList(
+                                        Model,
+                                        sortColumn: "Eventos_Tomador",
+                                        direction: "desc"),
+                                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var eventoProcessamento in Model.eventosProcessados)
+                    {                        
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.entidade.nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.estadoEvento.descricao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.codigoOperacao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.nrApolice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.dataInicioCobertura)
+                                @Html.DisplayFor(modelItem => eventoProcessamento.horaInicioCobertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.dataFimCobertura)
+                                @Html.DisplayFor(modelItem => eventoProcessamento.horaFimCobertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.matricula)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => eventoProcessamento.nomeTomadorSeguro)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Detalhes", "DetailsStagging", new { id = eventoProcessamento.eventoStaggingId })
+                            </td>
+                        </tr>
+                        
+                    }
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Url, new PagerHtmlRenderer(
+                                                currentPageNumber: Model.CurrentPageNumber,
+                                                pageSize: Model.PageSize,
+                                                totalNumberOfItems: Model.totalNumberOfEventos,
+                                                actionName: "Index",
+                                                controllerName: "Apolices",
+                                                routeValues: Url.GetRouteValueDictionaryForList(Model),
+                                                pageRouteValueName: "page"))
+            }
+            else
+            { 
+                <br /><br />
+                <p>Não existe registo de ocorrências.</p>
+            }
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Index", "Apolices", FormMethod.Post, new { @id = "tabsForm" }))
+    {
+        @Html.HiddenFor(model => model.apolice)
+        @Html.HiddenFor(model => model.entidade)
+        @Html.HiddenFor(model => model.matricula)
+        @Html.HiddenFor(model => model.avisos)
+        @Html.HiddenFor(model => model.arquivados)
+        @Html.HiddenFor(model => model.dataInicio)
+        @Html.HiddenFor(model => model.dataFim)
+        <input type="hidden" id="tabNr" value="" name="tabNr"/>
+    }
+</div>

@@ -1,0 +1,246 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.RelatorioIncumprimentoViewModel
+@using ISP.GestaoMatriculas.Code.Util
+@{
+    ViewBag.Title = "RelatorioIncumprimento";
+}
+
+<h2>Relatorio de incumprimento de SLAs</h2>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <div class="well fuelux">
+    <fieldset>
+    <table>
+        <tr>
+        <div class="editor-label">
+            <td>@Html.LabelFor(model => model.entidadeId)</td>
+            <td>@Html.LabelFor(model => model.operacao)</td>
+            <td>@Html.LabelFor(model => model.dataInicio)</td>
+            <td>@Html.LabelFor(model => model.dataFim)</td>
+            <td></td>
+        </div>
+        </tr>
+        <tr>
+            <div class="editor-field">
+            @if (((SelectList)ViewData["entidadeId"]).SelectedValue == null)
+            { 
+                <td>
+                    @Html.DropDownList("entidadeId", string.Empty)
+                </td>
+            }
+            else { 
+                <td>
+                    @Html.DropDownList("entidadeId", (SelectList)ViewData["entidadeId"])
+                </td>
+            }
+
+            @if (((SelectList)ViewData["operacao"]).SelectedValue == null)
+            { 
+                <td>
+                    @Html.DropDownList("operacao", string.Empty)
+                </td>
+            }
+            else
+            {   
+                <td>
+                    @Html.DropDownList("operacao", (SelectList)ViewData["operacao"])
+                </td>
+            }
+            <td>@Html.EditorFor(model => model.dataInicio)</td>
+            <td>@Html.EditorFor(model => model.dataFim)</td>
+            </div>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Pesquisar" />
+            </td>
+        </tr>
+    </table>
+    <div>@Html.ValidationMessageFor(model => model.entidadeId)</div>
+    <div>@Html.ValidationMessageFor(model => model.operacao)</div>
+    <div>@Html.ValidationMessageFor(model => model.dataInicio)</div>
+    <div>@Html.ValidationMessageFor(model => model.dataFim)</div>
+    </fieldset>
+   
+    </div>
+}
+
+
+@if (Model.resultado.Count() > 0)
+{
+<div class="fuelux well">
+@Html.ActionLink("Exportar para CSV", "exportIncumprimentosToCsv", "Relatorios",
+                                    Url.GetRouteValueDictionaryForList(
+                                    Model),
+                                    new Dictionary<string, object> { { "class", "btn" } })
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().operacao)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Operacao",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Operacao",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().numeroApolice)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Apolice",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Apolice",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().seguradora)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Seguradora",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Seguradora",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().matricula)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Matricula",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Matricula",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().dataInicio)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataInicio",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataInicio",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().dataFim)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataFim",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataFim",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultado.First().SLA)
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "SLA",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "RelatorioIncumprimento", "Relatorios",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "SLA",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.resultado)
+{    
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.operacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroApolice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.seguradora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataFim)
+        </td>
+        <td>
+            <span>@Html.DisplayFor(modelItem => item.SLA.Days)</span>D
+            <span>@Html.DisplayFor(modelItem => item.SLA.Hours)</span>h
+            <span>@Html.DisplayFor(modelItem => item.SLA.Minutes)</span>m
+        </td>
+        
+
+        @if (item.tipo == ISP.GestaoMatriculas.ViewModels.RegistoIncumprimentoView.TipoApolice.Ativo)
+        { 
+        <td>
+            @Html.ActionLink("Detalhes", "Details", "Apolices", new { id = item.registoId }, null)
+        </td>
+        }
+        else
+        {
+        <td>
+            @Html.ActionLink("Detalhes", "DetalhesHistorico", "Apolices", new { id = item.registoId }, null)
+        </td>}
+    </tr>
+    
+}
+</tbody>
+</table>
+@Html.PagedListPager(Url, new PagerHtmlRenderer(
+                                                currentPageNumber: Model.CurrentPageNumber,
+                                                pageSize: Model.PageSize,
+                                                totalNumberOfItems: Model.totalNumberOfRecords,
+                                                actionName: "RelatorioIncumprimento",
+                                                controllerName: "Relatorios",
+                                                routeValues: Url.GetRouteValueDictionaryForList(Model),
+                                                pageRouteValueName: "page"))
+</div>
+}
+else
+{
+
+    if (Request.HttpMethod == "POST")
+    { 
+        <div class="fuelux well">Não foram encontrados resultados.</div>
+    }
+}

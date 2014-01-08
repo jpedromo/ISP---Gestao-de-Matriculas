@@ -1,0 +1,196 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceCreationViewModel
+
+@{
+    ViewBag.Title = "Novo período seguro";
+}
+
+@section css{
+    @Styles.Render("~/Content/myWizardFuelux/css")
+}
+
+@section scripts{
+            
+        @Scripts.Render("~/bundles/myWizardFuelux");
+
+        <script type='text/javascript'>
+
+            $(document).ready(function () {
+                $('#rootwizard').bootstrapWizard({
+                    tabClass: 'steps',
+                    onTabShow: function (tab, navigation, index) {
+                        var $total = navigation.find('li').length;
+		                var $current = index+1;
+		
+		                // If it's the last tab then hide the last button and show the finish instead
+		                if($current >= $total) {
+			                $('#rootwizard').find('.wizard-buttons .next').hide();
+			                $('#rootwizard').find('.wizard-buttons .finish').show();
+			                $('#rootwizard').find('.wizard-buttons .finish').removeClass('disabled');
+		                } else {
+			                $('#rootwizard').find('.wizard-buttons .next').show();
+			                $('#rootwizard').find('.wizard-buttons .finish').hide();
+		                }
+			        } 
+			    });
+
+			    $('#rootwizard .finish').click(function () {
+			        $('#ApoliceForm').submit();
+			    });
+            });         
+        
+        </script>
+}
+
+<h2>Novo período seguro</h2>
+
+@using (Html.BeginForm("Create", "Apolices", FormMethod.Post, new {@id = "ApoliceForm"}))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+
+    <div id="rootwizard" class ="well fuelux">
+	  <div class="wizard">
+	<ul class="steps">
+	  	<a href="#periodo" data-toggle="tab"><li class="active"><span class="badge badge-info">1</span> Período Seguro <span class="chevron"> </span></li></a>
+		<a href="#veiculo" data-toggle="tab"><li><span class="badge">2</span> Veículo <span class="chevron"> </span></li></a>
+		<a href="#tomador" data-toggle="tab"><li class="last"><span class="badge">3</span> Tomador de Seguro<span class="chevron"> </span></li></a>
+	</ul>
+	</div>
+
+    	<div class="tab-content">
+	    <div class="tab-pane" id="periodo">
+            <legend>Período Seguro</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.apolice.numeroApolice)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.apolice.numeroApolice)
+                @Html.ValidationMessageFor(model => model.apolice.numeroApolice)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.apolice.dataInicio)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.apolice.dataInicio)
+                @Html.ValidationMessageFor(model => model.apolice.dataInicio)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.apolice.dataFim)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.apolice.dataFim)
+                @Html.ValidationMessageFor(model => model.apolice.dataFim)
+            </div> 
+            <div class="editor-label">
+                @Html.LabelFor(model => model.apolice.numeroCertificadoProvisorio)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.apolice.numeroCertificadoProvisorio)
+                @Html.ValidationMessageFor(model => model.apolice.numeroCertificadoProvisorio)
+            </div>
+        </div>
+
+        <div class="tab-pane" id="veiculo">
+            <legend>Veículo</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.veiculo.categoriaId, "Categoria")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("categoriaId", String.Empty)
+                @Html.ValidationMessageFor(model => model.veiculo.categoriaId)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.veiculo.numeroMatricula)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.veiculo.numeroMatricula)
+                @Html.ValidationMessageFor(model => model.veiculo.numeroMatricula)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.veiculo.anoConstrucao)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.veiculo.anoConstrucao)
+                @Html.ValidationMessageFor(model => model.veiculo.anoConstrucao)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.veiculo.marcaVeiculo)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.veiculo.marcaVeiculo)
+                @Html.ValidationMessageFor(model => model.veiculo.marcaVeiculo)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.veiculo.modeloVeiculo)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.veiculo.modeloVeiculo)
+                @Html.ValidationMessageFor(model => model.veiculo.modeloVeiculo)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.apolice.concelhoCirculacaoId, "Concelho")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("concelhoId", String.Empty)
+                @Html.ValidationMessageFor(model => model.apolice.concelhoCirculacaoId)
+            </div>
+        </div>
+        <div class="tab-pane" id="tomador">
+            <legend>Tomador do Seguro</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.tomador.nome)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.tomador.nome)
+                @Html.ValidationMessageFor(model => model.tomador.nome)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.tomador.numeroIdentificacao)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.tomador.numeroIdentificacao)
+                @Html.ValidationMessageFor(model => model.tomador.numeroIdentificacao)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.tomador.nif)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.tomador.nif)
+                @Html.ValidationMessageFor(model => model.tomador.nif)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.tomador.morada)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.tomador.morada)
+                @Html.ValidationMessageFor(model => model.tomador.morada)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.tomador.codigoPostal)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.tomador.codigoPostal)
+                @Html.ValidationMessageFor(model => model.tomador.codigoPostal)
+            </div>
+        </div>
+        <div class="wizard-buttons">
+			        @*<li class="previous first" style="display:none;"><a href="#">Primeiro</a></li>*@
+			        <li class="previous"><a href="#">Anterior</a></li>
+			        @*<li class="next last" style="display:none;"><a href="#">Último</a></li>*@
+		  	        <li class="next"><a href="#">Próximo</a></li>
+                    <li class="next finish" style="display:none;"><a href="javascript:;">Guardar</a></li>
+		</div>
+    </div>
+        
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</div>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ISP.GestaoMatriculas.ViewModels.TipoIndicadoresViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Indicadores</h2>
+<div class="well fuelux">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.tipo)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nome)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+    
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.idTipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nome)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { tipoIndicadorId = item.idTipo, tipoIndicador = item.tipo })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

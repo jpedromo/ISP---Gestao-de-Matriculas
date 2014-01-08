@@ -1,0 +1,205 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.IsentosListViewModel
+@using ISP.GestaoMatriculas.Code.Util
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Períodos Isentos de Seguro</h2>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Index", "Isentos", FormMethod.Post, new { @id = "ListingForm" }))
+{
+<table>
+		<div class="editor-label">
+        <tr>
+
+            <td>
+                @Html.LabelFor(model => model.entidadeResponsavel)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.matricula)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.arquivados)
+            </td>
+        </tr>
+        </div>
+        <div class="editor-field">
+        <tr>
+
+        <td>
+            @Html.EditorFor(model => model.entidadeResponsavel)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.matricula)
+        </td>
+        <td>
+            @Html.EditorFor(m => m.arquivados)
+        </td>
+        <td>
+            <input type="submit" class="btn" id="FiltrarBtn" value="Filtrar"/>
+        </td>
+        </tr>
+        </div>
+</table>
+}
+</div>
+
+
+<div class="well fuelux">
+<div class ="container">
+<input type="button" class="btn btn-primary" id="novoPeriodoBtn" value="Criar Novo" onclick="window.location.href='@Url.Content("~/Isentos/Create")'"/>
+@Html.ActionLink("Exportar para CSV", "exportIsentosToCsv", "Isentos",
+                                    Url.GetRouteValueDictionaryForList(
+                                    Model),
+                                    new Dictionary<string, object> { { "class", "btn" } })
+</div>
+
+@if (Model.apolicesIsentos.Count() > 0)
+{ 
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesIsentos.First().entidadeResponsavel)
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Entidade",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Entidade",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesIsentos.First().matricula)
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Matricula",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Matricula",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesIsentos.First().dataInicio)
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataInicio",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataInicio",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesIsentos.First().dataFim)
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataFim",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataFim",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesIsentos.First().confidencial)
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Confidencial",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "Confidencial",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolicesIsentos.First().dataModificacao)
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataModificacao",
+                        direction: "asc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+            @Html.ActionLink(" ", "Index", "Isentos",
+                    Url.GetRouteValueDictionaryForList(
+                        Model,
+                        sortColumn: "DataModificacao",
+                        direction: "desc"),
+                        new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+
+@foreach (var item in Model.apolicesIsentos)
+{
+    <tbody>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.entidadeResponsavel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.confidencial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataModificacao)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.apoliceIsentoId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.apoliceIsentoId })
+            @if (item.arquivo == false)
+            {
+                <span>|</span>
+                @Html.ActionLink("Arquivar", "Arquivar", new { id = item.apoliceIsentoId })
+            }
+        </td>
+    </tr>
+    </tbody>
+}
+</table>
+@Html.PagedListPager(Url, new PagerHtmlRenderer(
+                                                currentPageNumber: Model.CurrentPageNumber,
+                                                pageSize: Model.PageSize,
+                                                totalNumberOfItems: Model.totalNumberOfIsentos,
+                                                actionName: "Index",
+                                                controllerName: "Isentos",
+                                                routeValues: Url.GetRouteValueDictionaryForList(Model),
+                                                pageRouteValueName: "page"))
+}
+else { 
+    <br />
+    <p>Não existem Isentos.</p>
+}
+</div>

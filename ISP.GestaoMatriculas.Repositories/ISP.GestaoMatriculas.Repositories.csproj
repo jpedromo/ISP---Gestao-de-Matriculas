@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F7F9C1CE-6B15-4DD6-B8B1-EB2745020D5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ISP.GestaoMatriculas.Repositories</RootNamespace>
+    <AssemblyName>ISP.GestaoMatriculas.Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client">
+      <HintPath>..\..\..\..\Program Files\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core">
+      <HintPath>..\..\..\..\Program Files\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApoliceRepository.cs" />
+    <Compile Include="CacheUtil.cs" />
+    <Compile Include="CategoriaRepository.cs" />
+    <Compile Include="ConcelhoRepository.cs" />
+    <Compile Include="ApoliceHistoricoRepository.cs" />
+    <Compile Include="AvisoRepository.cs" />
+    <Compile Include="ApoliceIsentoRepository.cs" />
+    <Compile Include="Migrations\201401071022257_inicial.cs" />
+    <Compile Include="Migrations\201401071022257_inicial.Designer.cs">
+      <DependentUpon>201401071022257_inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ValorSistemaRepository.cs" />
+    <Compile Include="FicheiroIsentosRepository.cs" />
+    <Compile Include="ErroEventoStaggingRepository.cs" />
+    <Compile Include="EventoHistoricoRepository.cs" />
+    <Compile Include="IndicadorRepository.cs" />
+    <Compile Include="EventoStaggingRepository.cs" />
+    <Compile Include="DbPopulate\DbExample1.cs" />
+    <Compile Include="RoleRepository.cs" />
+    <Compile Include="DomainModels.cs" />
+    <Compile Include="FicheiroRepository.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="VeiculoRepository.cs" />
+    <Compile Include="EntidadeRepository.cs" />
+    <Compile Include="NotificacaoRepository.cs" />
+    <Compile Include="UserProfileRepository.cs" />
+    <Compile Include="PessoaRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ISP.GestaoMatriculas.Contracts\ISP.GestaoMatriculas.Contracts.csproj">
+      <Project>{4110CC2D-301C-4D62-8582-ACDDA2352011}</Project>
+      <Name>ISP.GestaoMatriculas.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ISP.GestaoMatriculas.Model\ISP.GestaoMatriculas.Model.csproj">
+      <Project>{51FBCB19-8F56-43A5-A4C3-3B0C0D5D550A}</Project>
+      <Name>ISP.GestaoMatriculas.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201401071022257_inicial.resx">
+      <DependentUpon>201401071022257_inicial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

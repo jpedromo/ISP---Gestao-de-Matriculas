@@ -1,0 +1,338 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/myWizardFuelux")
+    @Scripts.Render("~/bundles/flot")
+    @Scripts.Render("~/bundles/flot")
+    @Scripts.Render("~/bundles/raphael")
+
+    <script>
+        $(document).ready(function () {
+            $('#rootwizard').bootstrapWizard({
+                tabClass: 'steps'
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        @*new Morris.Line({
+            // ID of the element in which to draw the chart.
+            element: 'chart-area',
+            xLabelFormat: function (x) { return x.Year.toString() + "-" + x.Month.toString(); },
+            // Chart data records -- each entry in this array corresponds to a point on
+            // the chart.
+            data: [
+                    { year: @Model.listaDatas[0], erros: @Model.listaErros[0], avisos: @Model.listaAvisos[0] },
+                    { year: @Model.listaDatas[1], erros: @Model.listaErros[1], avisos: @Model.listaAvisos[1] },
+                    { year: @Model.listaDatas[2], erros: @Model.listaErros[2], avisos: @Model.listaAvisos[2] },
+                    { year: @Model.listaDatas[3], erros: @Model.listaErros[3], avisos: @Model.listaAvisos[3] },
+                    { year: @Model.listaDatas[4], erros: @Model.listaErros[4], avisos: @Model.listaAvisos[4] },
+                    { year: @Model.listaDatas[5], erros: @Model.listaErros[5], avisos: @Model.listaAvisos[5] }
+                ],
+            // The name of the data record attribute that contains x-values.
+            xkey: 'year',
+            // A list of names of data record attributes that contain y-values.
+            ykeys: ['erros', 'avisos'],
+            // Labels for the ykeys -- will be displayed when you hover over the
+            // chart.
+            labels: ['Erros', 'Avisos']
+
+        });*@
+
+
+            $(function() {
+
+                var datasets = {
+                    "erros": {
+                        label: "Erros",
+                        data:   [[ 1, @Model.listaErros[0]], 
+                                [2, @Model.listaErros[1]], 
+                                [3, @Model.listaErros[2]], 
+                                [4, @Model.listaErros[3]], 
+                                [5, @Model.listaErros[4]],
+                                [6, @Model.listaErros[5]]]
+                    },        
+                    "avisos": {
+                        label: "Avisos",
+                        data:   [[ 1, @Model.listaAvisos[0]], 
+                                [2, @Model.listaAvisos[1]], 
+                                [3, @Model.listaAvisos[2]], 
+                                [4, @Model.listaAvisos[3]], 
+                                [5, @Model.listaAvisos[4]],
+                                [6, @Model.listaAvisos[5]]]
+                    },
+                    "eventos": {
+                        label: "Eventos",
+                        data: [[1, @Model.listaEventos[0]],
+                                [2, @Model.listaEventos[1]],
+                                [3, @Model.listaEventos[2]],
+                                [4, @Model.listaEventos[3]],
+                                [5, @Model.listaEventos[4]],
+                                [6, @Model.listaEventos[5]]]
+                    },
+                    "SLA": {
+                        label: "Fora SLA",
+                        data: [[1, @Model.listaForaSLA[0]],
+                                [2, @Model.listaForaSLA[1]],
+                                [3, @Model.listaForaSLA[2]],
+                                [4, @Model.listaForaSLA[3]],
+                                [5, @Model.listaForaSLA[4]],
+                                [6, @Model.listaForaSLA[5]]]
+                    },
+                };
+
+                // hard-code color indices to prevent them from shifting as
+                // countries are turned on/off
+
+                var i = 0;
+                $.each(datasets, function(key, val) {
+                    val.color = i;
+                    ++i;
+                });
+
+                // insert checkboxes 
+                var choiceContainer = $("#choices");
+                $.each(datasets, function(key, val) {
+                    choiceContainer.append("<br/><input type='checkbox' name='" + key +
+                        "' checked='checked' id='id" + key + "'></input>" +
+                        "<label for='id" + key + "'>"
+                        + val.label + "</label>");
+                });
+
+                choiceContainer.find("input").click(plotAccordingToChoices);
+
+                function plotAccordingToChoices() {
+
+                    var data = [];
+
+                    choiceContainer.find("input:checked").each(function () {
+                        var key = $(this).attr("name");
+                        if (key && datasets[key]) {
+                            data.push(datasets[key]);
+                        }
+                    });
+
+                    if (data.length > 0) {
+                        
+                        var plot = $.plot("#placeholder", data, {
+                                        series: {
+                                            lines: {
+                                                show: true
+                                            },
+                                            points: {
+                                                show: true
+                                            }
+                                        },
+                                        grid: {
+                                            hoverable: true,
+                                            clickable: true
+                                        },
+                                        yaxis: {
+                                            min: 0
+                                        },
+                                        xaxis: {
+                                            ticks: [
+                                                [ 1, '@Model.listaDatas[0]' ], [ 2, '@Model.listaDatas[1]' ], [ 3, '@Model.listaDatas[2]' ], [ 4, '@Model.listaDatas[3]' ], [ 5, '@Model.listaDatas[4]' ], [ 6, '@Model.listaDatas[5]' ]
+                                            ]
+                                        }
+                                    });
+
+                        $("<div id='tooltip'></div>").css({
+                            position: "absolute",
+                            display: "none",
+                            border: "1px solid #fdd",
+                            padding: "2px",
+                            "background-color": "#fee",
+                            opacity: 0.80
+                        }).appendTo("body");
+
+                        $("#placeholder").bind("plothover", function (event, pos, item) {
+
+                            //if ($("#enablePosition:checked").length > 0) {
+                            //    var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
+                            //    $("#hoverdata").text(str);
+                            //}
+
+                            //if ($("#enableTooltip:checked").length > 0) {
+                                if (item) {
+                                    var x = item.datapoint[0].toFixed(2),
+                                        y = item.datapoint[1].toFixed(2);
+                                        
+                                    //$("#tooltip").html(item.series.label + " de " + x + " = " + y)
+                                    $("#tooltip").html(item.series.label + " = " + y)
+                                        .css({top: item.pageY+5, left: item.pageX+5})
+                                        .fadeIn(200);
+                                } else {
+                                    $("#tooltip").hide();
+                                }
+                            //}
+                        });
+
+                        $("#placeholder").bind("plotclick", function (event, pos, item) {
+                            if (item) {
+                                //$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
+                                plot.highlight(item.series, item.datapoint);
+                            }
+                        });
+                    }
+                }
+
+                plotAccordingToChoices();
+            });
+    </script>
+}
+@section featured {
+}
+@section css{
+    @Styles.Render("~/Content/myWizardFuelux/css")
+    @Styles.Render("~/Content/morris/css")
+}
+@if (Request.IsAuthenticated)
+{
+    <h3>
+        @ViewBag.entidade</h3>
+    <h3>
+        @ViewBag.numIndicadores Indicadores</h3>     
+    <h3>
+        @ViewData["Indicador.Descricao"]</h3>
+    <h3>
+        @ViewData["Indicador.Valor"]</h3>
+}
+<div id="rootHome" class="well fuelux" style="padding-left:30px;">
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">
+                                @Html.DisplayFor(modelItem => modelItem.nrApolices)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <p class="announcement-text">
+                                Períodos Seguros 
+                                <br />(Total)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Content("~/Apolices/Index")">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                Consultar períodos seguros
+                            </div>
+                            <div class="col-xs-4 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-check fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">
+                                @Html.DisplayFor(modelItem => modelItem.nrNovasApolices)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <p class="announcement-text">
+                                Novos Períodos Seguros!
+                                <br />(@Html.DisplayFor(modelItem => modelItem.listaDatas[5]))
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Content("~/Apolices/Index")">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                Consultar períodos seguros
+                            </div>
+                            <div class="col-xs-4 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">
+                                @Html.DisplayFor(modelItem => modelItem.nrErros)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <p class="announcement-text">
+                                Erros Pendentes 
+                                <br /><br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Content("~/Apolices/Index?tabNr=2")">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                Consultar erros
+                            </div>
+                            <div class="col-xs-4 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Evolução erros/avisos últimos 6 meses</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="chart-area"></div>
+                    <div id="placeholder" class="demo-placeholder" style="float: left; width: 90%; height: 400px"></div>
+                    <p id="choices" style="/*float: right; width: 100px;*/"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+
+

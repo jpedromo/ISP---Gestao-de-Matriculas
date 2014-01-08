@@ -1,0 +1,20 @@
+﻿@using Everis.Web.Mvc
+
+
+@{foreach (var item in AlertType.ALL)
+  {
+      if (TempData.ContainsKey(item))
+      { 
+    <div class="alert alert-@item.ToLowerInvariant() alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <ul>
+        @foreach(String message in ((String)TempData[item]).Split('\n')){
+            if (message != String.Empty) {
+                <li>@message</li>
+            }
+        }
+        </ul>
+    </div>
+      }
+  }
+}

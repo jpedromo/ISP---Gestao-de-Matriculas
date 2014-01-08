@@ -1,0 +1,120 @@
+﻿@model ISP.GestaoMatriculas.Models.EditUserModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+@section scripts{
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("input#newPassword").keyup(function (e) {
+            if ($('input#newPassword').val() != '') {
+                $('input#utilizadorAD').prop('disabled', true);
+                $('input#utilizadorAD').val('');
+            }
+            else {
+                $('input#utilizadorAD').prop('disabled', false);
+            }
+        });
+        $("input#ConfirmNewPassword").keyup(function (e) {
+            if ($('input#ConfirmNewPassword').val() != '') {
+                $('input#utilizadorAD').prop('disabled', true);
+                $('input#utilizadorAD').val('');
+            }
+            else {
+                $('input#utilizadorAD').prop('disabled', false);
+            }
+        });
+        $("input#utilizadorAD").keyup(function (e) {
+            if ($('input#utilizadorAD').val() != '') {
+                $('input#newPassword').prop('disabled', true);
+                $('input#newPassword').val('');
+                $('input#ConfirmNewPassword').prop('disabled', true);
+                $('input#ConfirmNewPassword').val('');
+            }
+            else {
+                $('input#newPassword').prop('disabled', false);
+                $('input#ConfirmNewPassword').prop('disabled', false);
+            }
+        });
+    });
+</script>
+}
+<h2>Editar Utilizador</h2>
+<div class="well fuelux">
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>@ViewBag.UserName</legend>
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.UserId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nome)
+            @Html.ValidationMessageFor(model => model.nome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telefone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telefone)
+            @Html.ValidationMessageFor(model => model.telefone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+       <div class="editor-label">
+            @Html.LabelFor(model => model.entidadeId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("entidadeId", (SelectList)ViewData["Entidades"])
+            @Html.ValidationMessageFor(model => model.entidadeId)
+        </div>
+        <br />
+        <legend>Alterar Acesso</legend>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.utilizadorAD)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.utilizadorAD)
+            @Html.ValidationMessageFor(model => model.utilizadorAD)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.newPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.newPassword)
+            @Html.ValidationMessageFor(model => model.newPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmNewPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmNewPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmNewPassword)
+        </div>
+
+    </fieldset>
+}
+<input type="button" class="btn btn-primary" id="editBtn" value="Guardar" onclick="javascript:document.getElementById('AccountForm').submit()"/>
+</div>
+<div>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</div>

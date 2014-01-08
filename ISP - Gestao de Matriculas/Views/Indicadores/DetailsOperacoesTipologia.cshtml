@@ -1,0 +1,106 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.IndicadorListViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <h2>@Html.DisplayFor(model => model.DescricaoTipoIndicador)</h2>
+
+    <div class="well fuelux">
+        @using (Html.BeginForm("Details", "Indicadores", FormMethod.Post, new { @id = "ListingForm" }))
+        {
+            <table>
+                <div class="editor-field">
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(model => model.tipoIndicadorId)
+                            @Html.HiddenFor(model => model.tipoIndicador)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Label("Data:") 
+                        </td>
+                        <td> @Html.EditorFor(model => model.dataInicio)</td>
+                        <td> @Html.Label(" a: ")</td>
+                        <td> @Html.EditorFor(model => model.dataFim)</td>
+                        <td>
+                            <input type="submit" class="btn" id="PesquisarBtn" value="Pesquisar" />
+                        </td>
+                    </tr>
+                </div>
+            </table>
+        }
+    </div>
+@if (Model.indicadores.Count() == 0)
+{
+    <h2>@Html.Display("Não existem indicadores para a data seleccionada")</h2>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.indicadores.First().Entidade)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header1)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header2)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header3)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header4)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header5)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header6)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.indicadores.First().Header7)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.indicadores)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor4)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor5)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor6)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor7)
+                </td>
+            </tr>
+        }
+            </tbody>    
+    </table>
+}
+<p>
+    @Html.ActionLink("Voltar aos indicadores", "Index")
+</p>

@@ -1,0 +1,48 @@
+﻿@model ISP.GestaoMatriculas.Model.Notificacao
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Criar Notificação</h2>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Create", "Notificacoes", FormMethod.Post, new {@id = "NotificacoesForm"})) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Notificacao</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.entidade)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("entidadeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.entidadeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.tipologia)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("tipologiaId", String.Empty)
+            @Html.ValidationMessageFor(model => model.tipologiaId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.mensagem)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.mensagem)*@
+            @Html.TextAreaFor(model => model.mensagem, new { rows = 5, cols = 400})
+            @Html.ValidationMessageFor(model => model.mensagem)
+        </div>
+    </fieldset>
+}
+<input type="button" class="btn btn-primary" id="novaNotificacaoBtn" value="Guardar" onclick="javascript:document.getElementById('NotificacoesForm').submit()"/>
+</div>
+
+<div>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</div>
+

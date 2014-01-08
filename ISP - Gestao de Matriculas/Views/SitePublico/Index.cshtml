@@ -1,0 +1,103 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.PesquisaPublicaViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pesquisa Pública</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <div class="well fuelux">
+    <fieldset>
+    <table>
+        <tr>
+        <div class="editor-label">
+            <td>@Html.LabelFor(model => model.matricula)</td>
+            <td>@Html.LabelFor(model => model.dataPesquisa)</td>
+            <td></td>
+        </div>
+        </tr>
+        <tr>
+            <div class="editor-field">
+                <td>
+                @Html.EditorFor(model => model.matricula)
+                </td>
+                <td>
+                @Html.EditorFor(model => model.dataPesquisa)
+                </td>
+            </div>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Pesquisar" />
+            </td>
+        </tr>
+    </table>
+    <div>@Html.ValidationMessageFor(model => model.matricula)</div>
+    <div>@Html.ValidationMessageFor(model => model.dataPesquisa)</div>
+    </fieldset>
+   
+    </div>
+}
+
+@if (Model.resultado.Count() > 0)
+{
+<div class="fuelux well">
+    <table class="table table-striped table-hover">  
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.resultado.First().numeroApolice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resultado.First().seguradora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resultado.First().dataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resultado.First().dataFim)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resultado.First().marcaVeiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resultado.First().modeloVeiculo)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (var item in Model.resultado)
+        {
+            <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numeroApolice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.seguradora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dataInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dataFim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marcaVeiculo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modeloVeiculo)
+                </td>
+            </tr>
+            </tbody>
+        }
+    </table>
+    </div>
+    }
+else { 
+    if (Request.HttpMethod=="POST") { 
+        <div class="fuelux well">Não foram encontrados resultados.</div>
+    }
+}
+
+

@@ -1,0 +1,51 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.EntityProfileViewModel
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Perfil de Entidade</h2>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Manage", "Entidades", FormMethod.Post, new {@id = "EntidadesForm"})) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken();
+
+    <fieldset>
+        <legend>Entidade @ViewBag.NomeEntidade</legend>
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.entityId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nomeResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nomeResponsavel)
+            @Html.ValidationMessageFor(model => model.nomeResponsavel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.emailResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.emailResponsavel)
+            @Html.ValidationMessageFor(model => model.emailResponsavel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telefoneResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telefoneResponsavel)
+            @Html.ValidationMessageFor(model => model.telefoneResponsavel)
+        </div>
+    </fieldset>
+}
+<input type="button" class="btn btn-primary" id="editBtn" value="Guardar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
+</div>
+
+

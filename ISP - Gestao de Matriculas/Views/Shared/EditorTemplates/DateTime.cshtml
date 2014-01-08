@@ -1,0 +1,43 @@
+﻿@inherits System.Web.Mvc.WebViewPage<DateTime>
+
+    <script type="text/javascript" language="javascript" >
+        jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+
+        $(function () {
+            $(".datepicker").datetimepicker({
+                dateFormat: 'dd-mm-yy',
+                timeFormat: 'HH:mm:ss',
+                closeText: 'Fechar',
+                buttonText: 'Escolher',
+                currentText: 'Agora',
+                nextText: 'Próximo',
+                prevText: 'Anterior',
+                dayNames: [ "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado" ],
+                dayNamesShort: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+                dayNamesMin: ["Do", "Se", "Te", "Qa", "Qi", "Se", "Sa"],
+                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minutos',
+                secondText: 'Segundos',
+                beforeShow:
+                     function () {
+                         setTimeout(function () {
+                             $('.ui-datepicker').css('z-index', 999999999);
+                         }
+                     , 0);
+                     }
+            });
+        });  
+    </script>
+
+@Html.TextBoxFor(p => p, new { @class = "datepicker" })

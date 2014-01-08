@@ -1,0 +1,80 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+@section scripts {
+}
+
+<h2>Perfil de Utilizador</h2>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Manage", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Utilizador @ViewBag.UserName - @ViewBag.AssociatedEntity</legend>
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.userId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nome)
+            @Html.ValidationMessageFor(model => model.nome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telefone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telefone)
+            @Html.ValidationMessageFor(model => model.telefone)
+        </div>
+        <br />
+        @if (Model.utilizadorAD == string.Empty || Model.utilizadorAD == null)
+        {
+        <legend>Alterar Password (Opcional)</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.oldPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.oldPassword)
+            @Html.ValidationMessageFor(model => model.oldPassword)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.newPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.newPassword)
+            @Html.ValidationMessageFor(model => model.newPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmNewPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmNewPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmNewPassword)
+        </div>
+        }
+    </fieldset>
+}
+<input type="button" class="btn btn-primary" id="manageBtn" value="Guardar" onclick="javascript:document.getElementById('AccountForm').submit()"/>
+</div>
+
+

@@ -1,0 +1,251 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.FilesUploadListViewModel
+@using ISP.GestaoMatriculas.Code.Util
+@{
+    ViewBag.Title = "Index";
+}
+@section css{
+    @Styles.Render("~/Content/dropzone/css/")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/dropzone/");
+    <script type='text/javascript'>
+
+        $(document).ready(function () {
+            $('#tabs a.active').tab('show')
+
+            $('#uploadNavTab').click(function () {
+                $('#tabNr').val("1");
+                $('#tabsForm').submit();
+            });
+
+            $('#ficheirosNavTab').click(function () {
+                $('#tabNr').val("2");
+                $('#tabsForm').submit();
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        // "uploadDemo" is the camelized version of the HTML form's ID
+        Dropzone.options.uploadForm = {
+
+            paramName: "file", // Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+            maxFilesize: 50 //10 MB
+            //        accept: function(file, done) {
+            //            if (file.name == "justinbieber.jpg") {
+            //              done("Naha, you don't.");
+            //            }
+            //            else { done(); }
+            //            }
+            , init: function () {
+                this.on("success", function (file) { $('#ficheirosMarcador').html('!'); });
+            }
+
+
+        };
+
+    </script>
+}
+<h2>Ficheiros FNMPAS</h2>
+@using (Html.BeginForm("Index", "FilesUpload", FormMethod.Post, new { @id = "tabsForm" }))
+{
+    @Html.HiddenFor(model => model.entidadeId);
+    <input type="hidden" id="tabNr" value="" name="tabNr"/>
+}
+
+<ul id="tabs" class="nav nav-tabs">
+@if (!User.IsInRole("ISP-Leitura"))
+{
+    if (Model.TabNumber == 1)
+    {
+        <li><a href="#uploadTab" data-toggle="tab" class="active" id="uploadNavTab">Upload</a></li>
+        <li><a href="#ficheirosTab" data-toggle="tab" class="listagem" id="ficheirosNavTab">
+            Ficheiros <span id="ficheirosMarcador" class='badge badge-important'>@if (Model.ficheiros.Where(f => f.estado.valor == "SUBMETIDO").Count() > 0)
+                                                                                 {
+                    <span>!</span>
+                                                                                 }</span></a></li>
+    }
+    else
+    {
+        <li><a href="#uploadTab" data-toggle="tab" id="uploadNavTab">Upload</a></li>
+        <li><a href="#ficheirosTab" data-toggle="tab" class="active listagem" id="ficheirosNavTab">
+            Ficheiros <span id="ficheirosMarcador" class='badge badge-important'>@if (Model.ficheiros.Where(f => f.estado.valor == "SUBMETIDO").Count() > 0)
+                                                                                 {
+                    <span>!</span>
+                                                                                 }</span></a></li>
+    }
+}
+else
+{ 
+    <li><a href="#ficheirosTab" data-toggle="tab" class="active listagem" id="ficheirosNavTab">
+     Ficheiros <span id="ficheirosMarcador" class='badge badge-important'>@if (Model.ficheiros.Where(f => f.estado.valor == "SUBMETIDO").Count() > 0)
+                                                                          {
+                    <span>!</span>
+                                                                          }</span></a></li>
+}
+</ul>
+<div class="tab-content fuelux">
+    <div class="tab-pane active" id="uploadTab">
+        <div>
+            @using (Html.BeginForm("Upload", "FilesUpload", new { tabNr = Model.TabNumber }, FormMethod.Post, new
+            {
+                enctype = "multipart/form-data",
+                id = "uploadForm",
+                @class = "dropzone dz-clickable"
+            }))
+            {
+                if (!User.IsInRole("Seguradora"))
+                {
+                @Html.DropDownList("entidadeId", (SelectList)ViewData["Entidades"])
+                @Html.ValidationMessageFor(model => model.entidadeId)   
+                <br />
+                }
+                <div class="fallback">
+                    <input name="file" type="file" />
+                    <input type="submit" value="Upload" />
+                </div>
+            }
+        </div>
+        
+    </div>
+    <div class="tab-pane" id="ficheirosTab">
+        @using (Html.BeginForm("Index", "FilesUpload", new { tabNr = Model.TabNumber }, FormMethod.Post, new { @id = "FilesListForm" }))
+        {
+            <br />
+            @Html.HiddenFor(model => model.TabNumber);
+                                                  if (!User.IsInRole("Seguradora"))
+                                                  {   
+            @Html.DropDownList("entidadeId", (SelectList)ViewData["Entidades"])
+            @Html.ValidationMessageFor(model => model.entidadeId)   
+            <input type="submit" class="btn btn-primary" id="FiltrarBtn" value="Pesquisar" />
+                                                  }
+        }
+        @Html.ActionLink("Exportar para CSV", "exportFicheirosToCsv", "FilesUpload",
+                                    Url.GetRouteValueDictionaryForList(
+                                    Model),
+                                    new Dictionary<string, object> { { "class", "btn" } })
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().nomeFicheiro)
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "NomeFicheiro",
+                                direction: "asc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "NomeFicheiro",
+                                direction: "desc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().estado)
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "Estado",
+                                direction: "asc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "Estado",
+                                direction: "desc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().dataUpload)
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "DataUpload",
+                                direction: "asc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "DataUpload",
+                                direction: "desc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().dataAlteracao)
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "DataAlteracao",
+                                direction: "asc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "DataAlteracao",
+                                direction: "desc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ficheiros.First().userName)
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "UserName",
+                                direction: "asc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-up" } })
+                    @Html.ActionLink(" ", "Index", "FilesUpload",
+                            Url.GetRouteValueDictionaryForList(
+                                Model,
+                                sortColumn: "UserName",
+                                direction: "desc"),
+                                new Dictionary<string, object> { { "class", "fa fa-chevron-down" } })
+                </th>
+                <th>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.ficheiros)
+            {                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nomeFicheiro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado.descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dataUpload)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dataAlteracao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userName)
+                    </td>
+                    <td>
+                        @Html.Hidden("upload", (bool)false)
+                        @if (item.estado.valor == "SUBMETIDO" && !User.IsInRole("ISP-Leitura"))
+                        {
+                            <span>
+                                @Html.ActionLink("Para Processamento", "Processar", new { id = item.ficheiroId }) |
+                                @Html.ActionLink("Cancelar", "Cancelar", new { id = item.ficheiroId })
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        @Html.PagedListPager(Url, new PagerHtmlRenderer(
+                                                currentPageNumber: Model.CurrentPageNumber,
+                                                pageSize: Model.PageSize,
+                                                totalNumberOfItems: Model.totalNumberOfFicheiros,
+                                                actionName: "Index",
+                                                controllerName: "FilesUpload",
+                                                routeValues: Url.GetRouteValueDictionaryForList(Model),
+                                                pageRouteValueName: "page"))
+    </div>
+</div>

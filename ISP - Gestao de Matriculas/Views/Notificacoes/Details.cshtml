@@ -1,0 +1,50 @@
+﻿@model ISP.GestaoMatriculas.Model.Notificacao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes de notificação</h2>
+
+<div class="well fuelux">
+<fieldset>
+    <legend>Notificacao</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.entidade)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.entidade.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tipologia)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tipologia.descricao)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dataCriacao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dataCriacao)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.mensagem)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.mensagem)
+    </div>
+    
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lida)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lida)
+    </div>
+</fieldset>
+</div>
+
+<p>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</p>

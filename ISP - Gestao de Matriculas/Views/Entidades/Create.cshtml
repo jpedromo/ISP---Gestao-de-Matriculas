@@ -1,0 +1,76 @@
+﻿@model ISP.GestaoMatriculas.Model.Entidade
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<h2>Criar Entidade</h2>
+<div class="well fuelux">
+@using (Html.BeginForm("Create", "Entidades", FormMethod.Post, new {@id = "EntidadesForm"})) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nome)
+            @Html.ValidationMessageFor(model => model.nome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nomeResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nomeResponsavel)
+            @Html.ValidationMessageFor(model => model.nomeResponsavel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.emailResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.emailResponsavel)
+            @Html.ValidationMessageFor(model => model.emailResponsavel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telefoneResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telefoneResponsavel)
+            @Html.ValidationMessageFor(model => model.telefoneResponsavel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.scope)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("scope", String.Empty)
+            @Html.ValidationMessageFor(model => model.scope)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.role)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("roleId", String.Empty)
+            @Html.ValidationMessageFor(model => model.roleId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ativo)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("ativo", (bool)ViewBag.ativo)
+            @Html.ValidationMessageFor(model => model.ativo)
+        </div>
+
+    </fieldset>
+}
+<input type="button" class="btn btn-primary" id="novaEntidadeBtn" value="Guardar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
+</div>
+<div>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</div>

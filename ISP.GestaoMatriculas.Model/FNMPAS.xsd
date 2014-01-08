@@ -1,0 +1,140 @@
+<xs:schema xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isp.pt/if_XX_2013/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+	<xs:element name="ReporteOcorrenciasMatricula">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CredenciaisAcesso">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="UserName" type="tString30"/>
+							<xs:element name="Password" type="tString30"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Cabecalho">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="IDReporte" type="tString20"/>
+							<xs:element name="CodigoEstatistico" type="tCodEstatistico"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element name="Ocorrencia">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IDOcorrencia" type="tString20"/>
+								<xs:element name="CodigoOperacao">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:enumeration value="C"/>
+											<xs:enumeration value="M"/>
+											<xs:enumeration value="A"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="NumeroApolice" type="tString30" minOccurs="0"/>
+								<xs:element name="NumeroCertificadoProvisorio" type="tString30" minOccurs="0"/>
+								<xs:element name="NumeroMatricula" type="tString30"/>
+								<xs:element name="DataInicio" type="tData"/>
+								<xs:element name="HoraInicio" type="tHora"/>
+								<xs:element name="DataFim" type="tData" minOccurs="0"/>
+								<xs:element name="HoraFim" type="tHora" minOccurs="0"/>
+								<xs:element name="AnoConstrucao" type="tAno" minOccurs="0"/>
+								<xs:element name="CodigoCategoriaVeiculo" type="tCodCategoriaVeiculo" minOccurs="0"/>
+								<xs:element name="MarcaVeiculo" type="tString30" minOccurs="0"/>
+								<xs:element name="ModeloVeiculo" type="tString30" minOccurs="0"/>
+								<xs:element name="CodigoConcelhoCirculacao" type="tCodConcelho" minOccurs="0"/>
+								<xs:element name="NomeTomadorSeguro" type="tString250" minOccurs="0"/>
+								<xs:element name="NumeroIdentificacaoTomadorSeguro" type="tString20" minOccurs="0"/>
+								<xs:element name="NIFTomadorSeguro" type="tString20" minOccurs="0"/>
+								<xs:element name="MoradaTomadorSeguro" type="tString250" minOccurs="0"/>
+								<xs:element name="CodigoPostalTomadorSeguro" type="tCodPostal7" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:sequence>
+			<xs:attribute name="Versao" use="required" fixed="1"/>
+			<xs:attribute name="DataVersao" use="required" fixed="2014-01-01"/>
+		</xs:complexType>
+		<xs:key name="ChaveOcorrencias">
+			<xs:selector xpath="Ocorrencia"/>
+			<xs:field xpath="IDOcorrencia"/>
+		</xs:key>
+	</xs:element>
+	<xs:element name="ReporteOcorrenciasMatriculaResposta">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ID" type="tString20"/>
+				<xs:element name="CodigoEstatistico" type="tCodEstatistico"/>
+				<xs:element name="IndicadorSucessoReporte" type="xs:boolean"/>
+				<xs:element name="DescricaoComplementarErro" type="tString250" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Versao" use="required" fixed="1"/>
+			<xs:attribute name="DataVersao" use="required" fixed="2014-01-01"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="tString20">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tString30">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tString250">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCodEstatistico">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:totalDigits value="4"/>
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="9999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAno">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1000"/>
+			<xs:maxInclusive value="2999"/>
+			<xs:totalDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCodCategoriaVeiculo">
+		<xs:restriction base="xs:positiveInteger">
+			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCodConcelho">
+		<xs:restriction base="xs:string">
+			<xs:length value="4"/>
+			<xs:pattern value="[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCodPostal7">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:totalDigits value="7"/>
+			<xs:minInclusive value="1000000"/>
+			<xs:maxInclusive value="9999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tData">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:totalDigits value="8"/>
+			<xs:pattern value="([1-2][0-9]{3})(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tHora">
+		<xs:restriction base="xs:string">
+			<xs:length value="4"/>
+			<xs:pattern value="([0-1][0-9]|[2][0-3])[0-5][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

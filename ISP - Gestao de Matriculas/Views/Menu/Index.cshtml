@@ -1,0 +1,198 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="navbar-header">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="@Url.Content("~/")"><img src="@Url.Content("~/Images/Logo_ISP.png")" height="60px" /></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        @if (Request.IsAuthenticated && !(HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Account" &&
+                HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString() == "Login"))
+        {
+          <ul class="nav navbar-nav side-nav">
+            @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Apolices")
+            {<li class="active"><a href="@Url.Content("~/Apolices/Index")"><i class="fa fa-desktop"></i> Consulta de Matrículas</a></li> }
+            else
+            { <li><a href="@Url.Content("~/Apolices/Index")"><i class="fa fa-desktop"></i> Consulta de Matrículas</a></li> }
+
+            @if (!User.IsInRole("Seguradora"))
+            {
+                if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Isentos")
+                {<li class="active"><a href="@Url.Content("~/Isentos/Index")"><i class="fa fa-desktop"></i> Consulta de Isentos</a></li> }
+                else
+                { <li><a href="@Url.Content("~/Isentos/Index")"><i class="fa fa-desktop"></i> Consulta de Isentos</a></li> }
+            }
+                                                                                                                       
+            @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "FilesUpload")
+            {
+            <li class ="active"><a href="@Url.Content("~/FilesUpload/Index")"><i class="fa fa-file"></i> Upload de Ficheiros</a></li>
+            }
+            else
+            { <li><a href="@Url.Content("~/FilesUpload/Index")"><i class="fa fa-file"></i> Upload de Ficheiros</a></li> }
+            @if (!User.IsInRole("Seguradora"))
+            { 
+                if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "UploadIsentos")
+                {
+                <li class="active"><a href="@Url.Content("~/UploadIsentos/Index")"><i class="fa fa-file"></i> Upload de Ficheiros de Isentos</a></li>
+                }
+                else
+                { <li><a href="@Url.Content("~/UploadIsentos/Index")"><i class="fa fa-file"></i> Upload de Ficheiros de Isentos</a></li> }
+            }
+            
+            @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Indicadores")
+            {
+                <li class="active"><a href="@Url.Content("~/Indicadores/Index")"><i class="fa fa-bar-chart-o"></i> Indicadores de Qualidade</a></li>
+            }
+            else
+            { <li><a href="@Url.Content("~/Indicadores/Index")"><i class="fa fa-bar-chart-o"></i> Indicadores de Qualidade</a></li> }
+            
+            @if (!User.IsInRole("Seguradora"))
+            {
+                if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Relatorios")
+                {
+                <li class="dropdown active">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-font"></i> Relatórios <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href ="@Url.Content("~/Relatorios/RelatorioIncumprimento")"><i class="fa fa-warning"></i> Incumprimento</a></li>
+                        <li><a href ="@Url.Content("~/Relatorios/RelatorioInatividade")"><i class="fa fa-moon-o"></i> Inatividade</a></li>
+                    </ul>
+                </li>
+                }
+                else
+                {
+                <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-font"></i> Relatórios <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href ="@Url.Content("~/Relatorios/RelatorioIncumprimento")"><i class="fa fa-warning"></i> Incumprimento</a></li>
+                        <li><a href ="@Url.Content("~/Relatorios/RelatorioInatividade")"><i class="fa fa-moon-o"></i> Inatividade</a></li>
+                    </ul>
+                </li>
+                }
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                if ((HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Account" &&
+                HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString() != "Manage") ||
+                    (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Entidades" &&
+                    HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString() != "Manage"))
+                { 
+                <li class="dropdown active">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-wrench"></i> Back Office <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href ="@Url.Content("~/Account/Index")"><i class="fa fa-user"></i> Gerir Utilizadores</a></li>
+                        <li><a href ="@Url.Content("~/Entidades/Index")"><i class="fa fa-group"></i> Gerir Entidades</a></li>
+                    </ul>
+                </li>
+                }
+                else
+                { 
+                    <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-wrench"></i> Back Office <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href ="@Url.Content("~/Account/Index")"><i class="fa fa-user"></i> Gerir Utilizadores</a></li>
+                        <li><a href ="@Url.Content("~/Entidades/Index")"><i class="fa fa-group"></i> Gerir Entidades</a></li>
+                    </ul>
+                </li>
+                }
+            }
+            
+            @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "SitePublico")
+            {
+            <li class="active"><a href="@Url.Content("~/SitePublico/Index")"><i class="fa fa-search"></i> Pesquisa Pública</a></li>
+            }
+            else
+            {
+            <li><a href="@Url.Content("~/SitePublico/Index")"><i class="fa fa-search"></i> Pesquisa Pública</a></li>
+            }
+          </ul>
+        }
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+          
+          
+          @if (ViewData["NumNotificacoes"] != null)
+          { 
+            <li class="dropdown messages-dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-envelope"></i> Notificações <span class="badge">@ViewData["NumNovasNotificacoes"]</span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">@ViewData["NumNotificacoes"] Notificações em Total</li>
+                
+                @for (int i = 0; i < (int)ViewData["MessagesToPreview"]; i++)
+                {
+                    
+                <li class="message-preview">
+                  <a href="@Url.Content("~/Notificacoes/Details/" + ViewData["Notificacao" + (i) + ".ID"])">
+                    <span class="avatar"><img src="@Url.Content((String)ViewData["Notificacao" + (i) + ".ImageUrl"])" width = 20 height = 20></span>
+                    <span class="name">@ViewData["Notificacao" + (i) + ".Tipo"]</span>
+                    <span class="message">@ViewData["Notificacao" + (i) + ".Mensagem"]</span>
+                    <span class="time"><i class="fa fa-clock-o"></i> @ViewData["Notificacao" + (i) + ".Data"]</span>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                    
+                }
+
+                <li><a href="@Url.Content("~/Notificacoes/Index")">View Inbox <span class="badge">@ViewData["NumNovasNotificacoes"]</span></a></li>
+              </ul>
+            </li>
+          }
+          @* @if (viewdata["numindicadores"] != null)
+           { 
+            <li class="dropdown alerts-dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-bell"></i> alerts <span class="badge">3</span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                @for (int i = 0; i < (int)viewdata["numindicadores"]; i++)
+                {
+                    <li><a href="#">@viewdata["indicador" + (i) + ".descricao"] <span class="label label-default">@viewdata["indicador" + (i) + ".valor"]</span></a></li>
+                }
+                <li><a href="#">default <span class="label label-default">default</span></a></li>
+                <li><a href="#">primary <span class="label label-primary">primary</span></a></li>
+                <li><a href="#">success <span class="label label-success">success</span></a></li>
+                <li><a href="#">info <span class="label label-info">info</span></a></li>
+                <li><a href="#">warning <span class="label label-warning">warning</span></a></li>
+                <li><a href="#">danger <span class="label label-danger">danger</span></a></li>
+                <li class="divider"></li>
+                <li><a href="#">view all</a></li>
+              </ul>
+            </li>
+           }*@
+           
+            <li class="dropdown user-dropdown">    
+            @if (Request.IsAuthenticated)
+            {
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-user"></i> @User.Identity.Name<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="@Url.Content("~/Account/Manage?title=Manage")"><i class="fa fa-user"></i> Perfil de Utilizador</a></li>
+                <li><a href="@Url.Content("~/Entidades/Manage?title=Manage")"><i class="fa fa-user"></i> Perfil de Entidade</a></li>
+                <li class="divider"></li>
+
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                }
+               <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Sair</a></li>
+              </ul>
+            }
+            else
+            {
+            <a class="dropdown-toggle" href="@Url.Content("~/Account/LogIn/loginLink")"><i class="fa fa-user"></i> Autenticar</a>
+            }            
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>       
+</div>

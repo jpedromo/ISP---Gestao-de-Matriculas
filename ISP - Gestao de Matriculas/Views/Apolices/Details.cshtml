@@ -1,0 +1,328 @@
+﻿@model ISP.GestaoMatriculas.ViewModels.ApoliceDetailsViewModel
+
+@{
+    ViewBag.Title = "Detalhes " + @Html.DisplayFor(model => model.apolice.numeroApolice) + " " + @Html.DisplayFor(model => model.apolice.veiculo.numeroMatricula);
+}
+
+@section css{
+        @Styles.Render("~/Content/myWizardFuelux/css")
+}
+
+@section scripts{    
+
+        @Scripts.Render("~/bundles/myWizardFuelux");
+
+        <script type='text/javascript'>
+
+            $(function () {
+                $('#tabs a:first').tab('show')
+            });
+
+            $(document).ready(function () {
+                $('#rootwizard').bootstrapWizard({
+                    tabClass: 'steps'
+                });
+            });
+
+        </script>
+}
+
+<h2>Detalhes @Html.DisplayFor(model => model.apolice.numeroApolice)</h2>
+<h4>(@Html.DisplayFor(model => model.apolice.veiculo.numeroMatricula), 
+@Html.DisplayFor(model => model.apolice.entidade.nome), @Html.DisplayFor(model => model.apolice.dataInicio))</h4>
+
+<ul id="tabs" class="nav nav-tabs">
+  <li><a href="#detalhesTab" data-toggle="tab">Detalhes</a></li>
+  <li><a href="#historicoTab" data-toggle="tab">Histórico 
+  @if (Model.historicoApolices.Count() > 0)
+  {
+      <span class="badge badge-info">@Model.historicoApolices.Count()</span>
+  }
+      </a></li>
+  <li><a href="#avisosTab" data-toggle="tab">Avisos 
+  @if (Model.apolice.avisosApolice.Count > 0)
+  {
+      <span class="badge badge-warning">@Model.apolice.avisosApolice.Count</span>
+  }</a></li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="detalhesTab">
+
+<fieldset>
+<div id="rootwizard" class ="well fuelux">
+	  <div class="wizard">
+	<ul class="steps">
+	  	<a href="#periodo" data-toggle="tab"><li class="complete active"><span class="badge badge-info">1</span> Período Seguro <span class="chevron"> </span></li></a>
+		<a href="#veiculo" data-toggle="tab"><li class="complete"><span class="badge badge-success">2</span> Veículo <span class="chevron"> </span></li></a>
+		<a href="#tomador" data-toggle="tab"><li class="complete"><span class="badge badge-success">3</span> Tomador de Seguro<span class="chevron"> </span></li></a>
+	</ul>
+	</div>
+
+    	<div class="tab-content">
+	    <div class="tab-pane" id="periodo">
+            <legend>Período Seguro</legend>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.numeroApolice)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.numeroApolice)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.dataInicio)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.dataInicio)
+            </div>
+
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.dataFim)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.dataFim)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.numeroCertificadoProvisorio)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.numeroCertificadoProvisorio)
+            </div>
+            <legend>Dados de Controlo</legend>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.eventoHistorico.codigoOperacao)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.eventoHistorico.codigoOperacao.descricao)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.dataReporte)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.dataReporte)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.utilizadorReporte)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.utilizadorReporte)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.dataFimPlaneada)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.dataFimPlaneada)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.SLA)
+            </div>
+            <div class="display-field">
+                <span>@Html.DisplayFor(model => model.apolice.SLA.Days)</span> Dias 
+                <span>@Html.DisplayFor(model => model.apolice.SLA.Hours)</span> Horas
+                <span>@Html.DisplayFor(model => model.apolice.SLA.Minutes)</span> Minutos
+                <span>@Html.DisplayFor(model => model.apolice.SLA.Seconds)</span> Segundos
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.dataRegisto)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.dataRegisto)
+            </div>
+        </div>
+        <div class="tab-pane" id="veiculo">
+            <legend>Veículo</legend>       
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.veiculo.numeroMatricula)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.veiculo.numeroMatricula)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.veiculo.categoria)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.veiculo.categoria.nome)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.veiculo.marcaVeiculo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.veiculo.marcaVeiculo)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.veiculo.modeloVeiculo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.veiculo.modeloVeiculo)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.veiculo.anoConstrucao)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.veiculo.anoConstrucao)
+            </div>
+
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.concelho)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.concelho.nomeConcelho)
+            </div>
+        </div>
+        <div class="tab-pane" id="tomador">
+            <legend>Tomador do Seguro</legend>
+
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.tomador.nome)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.tomador.nome)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.tomador.numeroIdentificacao)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.tomador.numeroIdentificacao)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.tomador.nif)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.tomador.nif)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.tomador.morada)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.tomador.morada)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.apolice.tomador.codigoPostal)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.apolice.tomador.codigoPostal)
+            </div>
+        </div>
+        <div class="wizard-buttons">
+			@*<li class="previous first" style="display:none;"><a href="#">Primeiro</a></li>*@
+			<li class="previous d"><a href="#">Anterior</a></li>
+			@*<li class="next last" style="display:none;"><a href="#">Último</a></li>*@
+		  	<li class="next d"><a href="#">Próximo</a></li>
+		</div>
+    </div>
+</fieldset>
+</div>
+<div class="tab-pane" id="historicoTab">
+    <div class="well">
+        @if (Model.historicoApolices.Count() != 0)
+        { 
+        <table class="table table-striped table-hover table-mega-condensed" >
+        <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().entidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().numeroApolice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().dataInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.historicoApolices.First().dataFim)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.historicoApolices.First().veiculo.numeroMatricula)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.historicoApolices.First().tomador.nome)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.historicoApolices.First().concelho)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.historicoApolices)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.entidade.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroApolice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.veiculo.numeroMatricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tomador.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.concelho.nomeConcelho)
+        </td>
+        <td>
+            @Html.ActionLink("Detalhes", "DetalhesHistorico", new { id = item.apoliceId })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+        }
+        else { 
+        <div>Não existe histórico.</div>
+        }
+    </div>
+</div>
+<div class="tab-pane" id="avisosTab">
+    <div class="well">
+        @if (Model.apolice.avisosApolice.Count() != 0)
+        { 
+        <table class="table table-striped table-hover table-mega-condensed" >
+        <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.apolice.avisosApolice.First().campo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apolice.avisosApolice.First().descricao)
+        </th>        
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.apolice.avisosApolice)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.campo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descricao)
+                </td>
+            </tr>
+        }
+        </tbody>
+        </table>
+        }
+        else { 
+            <div>Não existem avisos.</div>
+        }
+    </div>
+</div>
+</div>
+<p>
+    @Html.ActionLink("Voltar à listagem", "Index")
+    @if(!User.IsInRole("ISP-Leitura")){
+       <span> | 
+       @Html.ActionLink("Editar", "Edit", new { id = Model.apolice.apoliceId })
+       </span>
+    }
+</p>

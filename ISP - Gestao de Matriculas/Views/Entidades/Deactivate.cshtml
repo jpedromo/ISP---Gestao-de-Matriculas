@@ -1,0 +1,69 @@
+﻿@model ISP.GestaoMatriculas.Model.Entidade
+
+@{
+    ViewBag.Title = "Deactivate";
+}
+
+<h2>Desativar Entidade</h2>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Deactivate", "Entidades", FormMethod.Post, new {@id = "EntidadesForm"})) {
+<fieldset>
+    <legend>Deseja desativar @Html.DisplayFor(model => model.nome) ?</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nome)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nomeResponsavel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nomeResponsavel)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.emailResponsavel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.emailResponsavel)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.telefoneResponsavel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.telefoneResponsavel)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.role)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.role.RoleName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.scope)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.scope.descricao)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ativo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ativo)
+    </div>
+</fieldset>
+}
+<input type="button" class="btn btn-primary" id="deactivateBtn" value="Desativar" onclick="javascript:document.getElementById('EntidadesForm').submit()"/>
+</div>
+
+<p>
+        @Html.ActionLink("Voltar à listagem", "Index")
+    </p>

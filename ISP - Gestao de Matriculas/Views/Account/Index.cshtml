@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ISP.GestaoMatriculas.Model.UserProfile>
+
+@{
+    ViewBag.Title = "Utilizadores";
+}
+
+<h2>Utilizadores</h2>
+
+<div class="well fuelux">
+<input type="button" class="btn btn-primary" id="novoUtilizadoroBtn" value="Criar Utilizador" onclick="window.location.href='@Url.Content("~/Account/Create")'"/>
+<br />
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ativo)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.entidade.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.UserId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.UserId }) |
+            
+            @if (item.ativo)
+            {   
+                @Html.ActionLink("Desativar", "Deactivate", new { id = item.UserId })
+            }
+            else
+            {
+                @Html.ActionLink("Ativar", "Activate", new { id = item.UserId })
+            }
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+</div>

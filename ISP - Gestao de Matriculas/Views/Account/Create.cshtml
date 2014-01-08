@@ -1,0 +1,120 @@
+﻿@model ISP.GestaoMatriculas.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@section scripts{
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("input#Password").keyup(function (e) {
+            if ($('input#Password').val() != '') {
+                $('input#utilizadorAD').prop('disabled', true);
+            }
+            else {
+                $('input#utilizadorAD').prop('disabled', false);
+            }
+        });
+        $("input#utilizadorAD").keyup(function (e) {
+            if ($('input#utilizadorAD').val() != '') {
+                $('input#Password').prop('disabled', true);
+                $('input#ConfirmPassword').prop('disabled', true);
+            }
+            else {
+                $('input#Password').prop('disabled', false);
+                $('input#ConfirmPassword').prop('disabled', false);
+            }
+        });
+    });
+</script>
+}
+<h2>Create</h2>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Create", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+    <legend>Utilizador</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nome)
+            @Html.ValidationMessageFor(model => model.nome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telefone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telefone)
+            @Html.ValidationMessageFor(model => model.telefone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <legend>Tipo de acesso</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.utilizadorAD)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.utilizadorAD)
+            @Html.ValidationMessageFor(model => model.utilizadorAD)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.entidadeId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("entidadeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.entidadeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ativo)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("ativo", (bool)ViewBag.ativo)
+            @Html.ValidationMessageFor(model => model.ativo)
+        </div>
+
+    </fieldset>
+}
+<input type="button" class="btn btn-primary" id="createBtn" value="Guardar" onclick="javascript:document.getElementById('AccountForm').submit()"/>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

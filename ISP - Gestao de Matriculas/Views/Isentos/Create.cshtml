@@ -1,0 +1,76 @@
+﻿@model ISP.GestaoMatriculas.Model.ApoliceIsento
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Criar Período Isento</h2>
+
+<div class="fuelux well">
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Período Isento de Seguro</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.matricula)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.matricula)
+            @Html.ValidationMessageFor(model => model.matricula)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.entidadeResponsavel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.entidadeResponsavel)
+            @Html.ValidationMessageFor(model => model.entidadeResponsavel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.mensagem)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.mensagem)
+            @Html.ValidationMessageFor(model => model.mensagem)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dataInicio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dataInicio)
+            @Html.ValidationMessageFor(model => model.dataInicio)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dataFim)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dataFim)
+            @Html.ValidationMessageFor(model => model.dataFim)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.confidencial)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.confidencial)
+            @Html.ValidationMessageFor(model => model.confidencial)
+        </div>
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.arquivo)
+        </div>
+        <br />
+        <p>
+            <input type="submit" class="btn btn-primary" value="Guardar" />
+        </p>
+    </fieldset>
+}
+</div>
+
+<div>
+    @Html.ActionLink("Voltar à listagem", "Index")
+</div>

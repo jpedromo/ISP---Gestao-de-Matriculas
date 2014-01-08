@@ -1,0 +1,61 @@
+﻿@model ISP.GestaoMatriculas.Model.UserProfile
+
+@{
+    ViewBag.Title = "Deactivate";
+}
+
+<h2>Desativar utilizador</h2>
+
+<div class="well fuelux">
+@using (Html.BeginForm("Deactivate", "Account", FormMethod.Post, new {@id = "AccountForm"})) {
+    @Html.AntiForgeryToken()
+<fieldset>
+    <legend>Deseja desativar @Html.DisplayFor(model => model.UserName) ?</legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nome)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.telefone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.telefone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.entidade)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.entidade.nome)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.utilizadorAD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.utilizadorAD)
+    </div>
+</fieldset>
+}
+<input type="button" class="btn btn-primary" id="deactivateBtn" value="Desativar" onclick="javascript:document.getElementById('AccountForm').submit()"/>
+</div>
+    
+    <p>
+        @Html.ActionLink("Voltar à listagem", "Index")
+    </p>
